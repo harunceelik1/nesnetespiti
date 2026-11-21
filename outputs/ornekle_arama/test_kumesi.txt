@@ -1,0 +1,72 @@
+rpc-validation-00002-000308.jpg: kopya=3 aday=158 seçilen kutu IoU=0.72
+rpc-validation-00000-000264.jpg: kopya=3 aday=258 seçilen kutu IoU=0.93
+rpc-validation-00001-000482.jpg: kopya=3 aday=136 seçilen kutu IoU=0.95
+rpc-validation-00003-000178.jpg: kopya=3 aday=283 seçilen kutu IoU=0.85
+rpc-validation-00002-000331.jpg: kopya=3 aday=281 seçilen kutu IoU=0.91
+rpc-validation-00003-000153.jpg: kopya=3 aday=73 seçilen kutu IoU=0.91
+rpc-validation-00002-000375.jpg: kopya=3 aday=33 seçilen kutu IoU=0.68
+rpc-validation-00002-000464.jpg: kopya=3 aday=125 seçilen kutu IoU=0.95
+rpc-validation-00002-000131.jpg: kopya=3 aday=85 seçilen kutu IoU=0.93
+rpc-validation-00002-000363.jpg: kopya=3 aday=94 seçilen kutu IoU=0.94
+rpc-validation-00003-000335.jpg: kopya=3 aday=565 seçilen kutu IoU=0.73
+rpc-validation-00000-000348.jpg: kopya=2 aday=135 seçilen kutu IoU=0.86
+rpc-validation-00001-000279.jpg: kopya=3 aday=251 seçilen kutu IoU=0.90
+rpc-validation-00001-000136.jpg: kopya=2 aday=104 seçilen kutu IoU=0.96
+rpc-validation-00001-000288.jpg: kopya=3 aday=169 seçilen kutu IoU=0.82
+rpc-validation-00001-000333.jpg: kopya=3 aday=117 seçilen kutu IoU=0.96
+rpc-validation-00001-000313.jpg: kopya=3 aday=830 seçilen kutu IoU=0.71
+rpc-validation-00002-000034.jpg: kopya=3 aday=348 seçilen kutu IoU=0.56
+rpc-validation-00002-000358.jpg: kopya=3 aday=51 seçilen kutu IoU=0.70
+rpc-validation-00000-000432.jpg: kopya=2 aday=61 seçilen kutu IoU=0.96
+rpc-validation-00002-000072.jpg: kopya=3 aday=284 seçilen kutu IoU=0.88
+rpc-validation-00003-000047.jpg: kopya=3 aday=94 seçilen kutu IoU=0.88
+rpc-validation-00002-000227.jpg: kopya=3 aday=119 seçilen kutu IoU=0.70
+rpc-validation-00001-000259.jpg: kopya=2 aday=145 seçilen kutu IoU=0.97
+rpc-validation-00002-000442.jpg: kopya=3 aday=192 seçilen kutu IoU=0.91
+rpc-validation-00000-000182.jpg: kopya=3 aday=185 seçilen kutu IoU=0.94
+rpc-validation-00001-000203.jpg: kopya=3 aday=162 seçilen kutu IoU=0.72
+rpc-validation-00002-000416.jpg: kopya=3 aday=664 seçilen kutu IoU=0.72
+rpc-validation-00001-000229.jpg: kopya=3 aday=206 seçilen kutu IoU=0.62
+rpc-validation-00002-000043.jpg: kopya=3 aday=217 seçilen kutu IoU=0.96
+rpc-validation-00000-000407.jpg: kopya=3 aday=316 seçilen kutu IoU=0.79
+rpc-validation-00002-000028.jpg: kopya=3 aday=241 seçilen kutu IoU=0.95
+rpc-validation-00000-000091.jpg: kopya=3 aday=82 seçilen kutu IoU=0.93
+rpc-validation-00001-000494.jpg: kopya=3 aday=230 seçilen kutu IoU=0.67
+rpc-validation-00003-000298.jpg: kopya=3 aday=360 seçilen kutu IoU=0.79
+rpc-validation-00003-000020.jpg: kopya=2 aday=70 seçilen kutu IoU=0.86
+rpc-validation-00002-000022.jpg: kopya=3 aday=188 seçilen kutu IoU=0.95
+rpc-validation-00000-000491.jpg: kopya=2 aday=133 seçilen kutu IoU=0.93
+rpc-validation-00001-000134.jpg: kopya=2 aday=141 seçilen kutu IoU=0.91
+rpc-validation-00002-000302.jpg: kopya=3 aday=82 seçilen kutu IoU=0.96
+rpc-validation-00000-000367.jpg: kopya=2 aday=135 seçilen kutu IoU=0.89
+rpc-validation-00001-000490.jpg: kopya=3 aday=353 seçilen kutu IoU=0.86
+rpc-validation-00000-000172.jpg: kopya=2 aday=104 seçilen kutu IoU=0.93
+rpc-validation-00000-000042.jpg: kopya=3 aday=104 seçilen kutu IoU=0.91
+rpc-validation-00003-000124.jpg: kopya=3 aday=67 seçilen kutu IoU=0.76
+rpc-validation-00003-000434.jpg: kopya=3 aday=151 seçilen kutu IoU=0.89
+rpc-validation-00000-000469.jpg: kopya=3 aday=98 seçilen kutu IoU=0.89
+rpc-validation-00002-000251.jpg: kopya=3 aday=407 seçilen kutu IoU=0.92
+rpc-validation-00003-000083.jpg: kopya=2 aday=147 seçilen kutu IoU=0.93
+rpc-validation-00003-000296.jpg: kopya=3 aday=181 seçilen kutu IoU=0.95
+rpc-validation-00003-000095.jpg: kopya=3 aday=432 seçilen kutu IoU=0.96
+rpc-validation-00002-000027.jpg: kopya=3 aday=189 seçilen kutu IoU=0.78
+rpc-validation-00001-000444.jpg: kopya=3 aday=355 seçilen kutu IoU=0.51
+rpc-validation-00003-000186.jpg: kopya=3 aday=162 seçilen kutu IoU=0.82
+rpc-validation-00002-000458.jpg: kopya=3 aday=125 seçilen kutu IoU=0.92
+rpc-validation-00003-000155.jpg: kopya=3 aday=112 seçilen kutu IoU=0.92
+rpc-validation-00001-000029.jpg: kopya=3 aday=163 seçilen kutu IoU=0.81
+rpc-validation-00002-000039.jpg: kopya=3 aday=103 seçilen kutu IoU=0.67
+rpc-validation-00000-000137.jpg: kopya=3 aday=85 seçilen kutu IoU=0.98
+rpc-validation-00002-000236.jpg: kopya=3 aday=158 seçilen kutu IoU=0.94
+
+deneme=60  diğer kopya (örnek hariç)=110  üretim eşiği=0.88
+eşik   TP   FP (farklı ürün)  precision recall  F1   | sayı tam doğru
+0.80    91  200 (125)        0.31     0.83   0.45 | 3/60
+0.82    88  172 (104)        0.34     0.80   0.48 | 4/60
+0.84    85  126 ( 71)        0.40     0.77   0.53 | 9/60
+0.86    80   89 ( 53)        0.47     0.73   0.57 | 10/60
+0.88    73   62 ( 32)        0.54     0.66   0.60 | 11/60
+0.90    61   39 ( 17)        0.61     0.55   0.58 | 14/60
+0.92    53   17 (  8)        0.76     0.48   0.59 | 17/60
+0.94    42    5 (  1)        0.89     0.38   0.54 | 16/60
+0.96    29    1 (  0)        0.97     0.26   0.41 | 12/60

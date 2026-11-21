@@ -166,6 +166,34 @@ class AdaptiveThresholdSettings:
             raise ValueError("Zayıf skor çarpanı en az 1 olmalıdır.")
 
 
+@dataclass(frozen=True)
+class ExemplarSearchSettings:
+    """Örnekle arama (OWLv2): kullanıcının çizdiği kutuya benzeyenleri bulur.
+
+    Puan, OWL sınıf gömüleri arasındaki kosinüs benzerliğidir (metin sorgusundaki
+    sigmoid puanı değil; o ölçek görselden alınan örnekle 0.98+ doyuyordu).
+    evaluation/exemplar_eval.py ile 20 RPC kalibrasyon görselinde seçildi:
+    diğer kopyaların 28/35'i bulundu, 20 sahte kutu (10'u benzer farklı ürün).
+    """
+
+    similarity_threshold: float = 0.88
+    # OWLv2 objectness başlığı: parça/boşluk kutularını eler.
+    min_objectness: float = 0.10
+    nms_iou: float = 0.50
+    # Küçük kutu, büyüğün en az bu kadarı içindeyse aynı nesne sayılır (parça kutuları).
+    max_containment: float = 0.80
+    # Çizilen kutu en az bu kadar piksel olmalı (yanlış tıklama ile tek nokta seçilmesin).
+    min_box_side: float = 8.0
+
+    def __post_init__(self):
+        for value in (self.similarity_threshold, self.min_objectness, self.nms_iou, self.max_containment):
+            if not 0 <= value <= 1:
+                raise ValueError("Örnekle arama eşikleri [0, 1] aralığında olmalıdır.")
+
+
+EXEMPLAR_SEARCH = ExemplarSearchSettings()
+
+
 ADAPTIVE_THRESHOLDS = {
     # OWL-ViT v1 (ölçüm/karşılaştırma için); üretimde OWL yuvası OWLv2'dir.
     "owlvit": AdaptiveThresholdSettings(thresholds=(0.05, 0.03, 0.02, 0.01)),

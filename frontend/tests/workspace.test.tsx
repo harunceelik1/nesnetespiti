@@ -431,3 +431,46 @@ test("aranan İngilizce ifade gösterilir; düzeltilince english_query ile tekra
   assert.match(element(".query-interpretation").textContent!, /senin düzeltmen/);
   assert.equal(element<HTMLInputElement>("#object-query").value, "ilaç kutusu", "Türkçe sorgu korunur");
 });
+
+test("örnekle ara: çizilen kutu orijinal piksel koordinatlarıyla gönderilir", async () => {
+  const sent: Array<{ url: string; form: FormData }> = [];
+  globalThis.fetch = async (url, options) => {
+    sent.push({ url: String(url), form: options!.body as FormData });
+    return Response.json({
+      ...responseBody, query: "çikolata", original_query: "çikolata", detected_language: "example",
+      translated_query: null, translation_source: null, primary_query: "çikolata", processed_queries: [],
+      threshold_attempts: undefined, adaptive_threshold_used: 0.88, threshold_selection_reason: "example_similarity",
+      search_mode: "example", example_box: { xmin: 100, ymin: 100, xmax: 300, ymax: 200 },
+      inventory_summary: { "çikolata": 2 }, total_detected_objects: 2,
+      detections: responseBody.detections.map((d) => ({ ...d, label: "çikolata", canonical_query: "çikolata" })),
+    });
+  };
+  await upload();
+  await query("çikolata");
+  const start = [...document.querySelectorAll("button")].find((b) => b.textContent === "Örnekle ara")!;
+  assert.ok(start, "Örnekle ara düğmesi görünür");
+  await act(async () => { start.click(); });
+  const searchButton = () => [...document.querySelectorAll("button")].find((b) => b.textContent === "Benzerlerini bul")!;
+  assert.equal(searchButton().disabled, true, "kutu çizilmeden arama yapılamaz");
+
+  // Görsel 800x400; ekranda 400x200 gösteriliyor (ölçek 0.5).
+  const img = element<HTMLImageElement>(".viewer-pane img");
+  Object.defineProperties(img, { naturalWidth: { value: 800 }, naturalHeight: { value: 400 } });
+  img.getBoundingClientRect = () => ({ left: 0, top: 0, width: 400, height: 200, right: 400, bottom: 200, x: 0, y: 0, toJSON() {} });
+  const overlay = element<HTMLElement>("[data-testid='example-overlay']");
+  const pointer = (type: string, x: number, y: number) =>
+    overlay.dispatchEvent(new dom.window.MouseEvent(type, { bubbles: true, clientX: x, clientY: y }));
+  await act(async () => { pointer("pointerdown", 50, 50); });
+  await act(async () => { pointer("pointermove", 120, 80); });
+  await act(async () => { pointer("pointerup", 150, 100); });
+  assert.equal(searchButton().disabled, false);
+
+  await act(async () => { searchButton().click(); });
+  assert.equal(sent.length, 1);
+  assert.match(sent[0].url, /\/detect-by-example$/);
+  const fields = Object.fromEntries(["xmin", "ymin", "xmax", "ymax", "label", "model"].map((k) => [k, sent[0].form.get(k)]));
+  assert.deepEqual(fields, { xmin: "100", ymin: "100", xmax: "300", ymax: "200", label: "çikolata", model: "owlvit" });
+  assert.match(element(".result-summary").textContent!, /2 nesne bulundu/);
+  assert.match(element(".query-interpretation").textContent!, /Çizdiğin örneğe/);
+  assert.equal(document.querySelector("[data-testid='example-overlay']"), null, "arama bitince çizim katmanı kapanır");
+});

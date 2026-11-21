@@ -70,7 +70,12 @@ export interface DetectionDetails extends SceneBoxDiagnostics {
   total_detected_objects?: number;
   processed_query_items?: ProcessedQueryItem[];
   adaptive_thresholds_by_query?: Record<string, number>;
+  /** "example": metin yerine görselde çizilen örnek kutuyla arama (yalnızca OWLv2). */
+  search_mode?: "example";
+  example_box?: Box;
 }
+
+export type Box = Detection["box"];
 
 export interface ProcessedQueryItem {
   original_query: string;
@@ -109,7 +114,10 @@ async function postImage(path: string, image: File, query: string, signal: Abort
   if (englishQuery?.trim()) form.append("english_query", englishQuery.trim());
   // Confidence eşiğini backend model bazında seçer; frontend sayı göndermez.
   if (includeImage) form.append("include_image", "true");
+  return sendForm(path, form, signal);
+}
 
+async function sendForm(path: string, form: FormData, signal: AbortSignal): Promise<Response> {
   let response: Response;
   try {
     // Multipart boundary tarayıcı tarafından oluşturulur; Content-Type elle yazılmaz.
@@ -287,12 +295,7 @@ async function readDetectionDetails(response: Response, model: DetectorModel): P
   return details as DetectionDetails;
 }
 
-export async function getDetectionAnalysis(image: File, query: string, signal: AbortSignal, model: DetectorModel = "owlvit", englishQuery?: string): Promise<DetectionAnalysis> {
-  // Tek orchestration çalışması hem metadata hem annotate edilmiş JPEG üretir.
-  const response = await postImage("/detect", image, query, signal, model, true, englishQuery);
-  const data = await readDetectionDetails(response, model) as DetectionDetails & {
-    annotated_image?: { media_type?: unknown; data_base64?: unknown };
-  };
+function withAnnotatedImage(data: DetectionDetails & { annotated_image?: { media_type?: unknown; data_base64?: unknown } }): DetectionAnalysis {
   const { annotated_image: annotated, ...details } = data;
   if (!annotated || annotated.media_type !== "image/jpeg" || typeof annotated.data_base64 !== "string" || !annotated.data_base64) {
     throw new Error("Backend birleşik görsel yanıtını döndürmedi. Güncel backend sürümünü yeniden başlatın.");
@@ -305,4 +308,22 @@ export async function getDetectionAnalysis(image: File, query: string, signal: A
     throw new Error("Backend'in sonuç görüntüsü okunamadı.");
   }
   return { details, image: new Blob([bytes], { type: "image/jpeg" }) };
+}
+
+export async function getDetectionAnalysis(image: File, query: string, signal: AbortSignal, model: DetectorModel = "owlvit", englishQuery?: string): Promise<DetectionAnalysis> {
+  // Tek orchestration çalışması hem metadata hem annotate edilmiş JPEG üretir.
+  const response = await postImage("/detect", image, query, signal, model, true, englishQuery);
+  return withAnnotatedImage(await readDetectionDetails(response, model));
+}
+
+/** Görselde çizilen kutuya benzeyen nesneleri bulur; kutu orijinal piksel koordinatlarındadır. */
+export async function getExampleAnalysis(image: File, box: Box, label: string, signal: AbortSignal): Promise<DetectionAnalysis> {
+  const form = new FormData();
+  form.append("image", image);
+  for (const key of ["xmin", "ymin", "xmax", "ymax"] as const) form.append(key, String(Math.round(box[key])));
+  if (label.trim()) form.append("label", label.trim());
+  form.append("model", "owlvit");
+  form.append("include_image", "true");
+  const response = await sendForm("/detect-by-example", form, signal);
+  return withAnnotatedImage(await readDetectionDetails(response, "owlvit"));
 }

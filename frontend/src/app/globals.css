@@ -145,3 +145,11 @@ th { font-weight: 500; color: #737e8a; }
 .query-edit-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .query-edit-row input { flex: 1 1 200px; min-width: 0; height: 34px; padding: 0 10px; border: 1px solid var(--line); border-radius: 5px; font-family: var(--mono); }
 .query-edit-row .detect-button { height: 34px; padding: 0 14px; }
+/* Örnekle arama: görselin üstüne kutu çizme katmanı (img ile aynı konum). */
+.viewer-actions { display: inline-flex; align-items: center; gap: 16px; }
+.example-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); color: #4e5965; font-size: 12px; }
+.example-bar span { flex: 1 1 240px; }
+.example-bar .detect-button { width: auto; min-height: 32px; padding: 0 14px; }
+.example-overlay { position: absolute; inset: 20px; cursor: crosshair; touch-action: none; user-select: none; }
+.example-box { position: absolute; border: 2px solid var(--accent); background: rgba(54, 93, 124, 0.14); pointer-events: none; }
+@media (max-width: 760px) { .example-overlay { inset: 12px; } }

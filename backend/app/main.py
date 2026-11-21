@@ -9,6 +9,7 @@ from PIL import Image, UnidentifiedImageError
 
 from .models.base_detector import DetectorError
 from .models.detector_registry import DetectorRegistry
+from .services.exemplar_search import search_by_example
 from .services.inference_orchestrator import run_detection
 from .services.inventory_service import detect_raw_queries
 from .services.query_processor import process_query
@@ -117,6 +118,45 @@ def detect(
                     )).decode("ascii"),
                 }
 
+        return payload
+    finally:
+        image.file.close()
+
+
+@app.post("/detect-by-example")
+def detect_by_example(
+    request: Request,
+    image: UploadFile = File(...),
+    xmin: float = Form(...),
+    ymin: float = Form(...),
+    xmax: float = Form(...),
+    ymax: float = Form(...),
+    label: str | None = Form(None),
+    model: str = Form("owlvit"),
+    include_image: bool = Form(False),
+):
+    """Görselde kutuyla işaretlenen nesneye benzeyenleri bulur (metin/çeviri yok).
+
+    Kutu orijinal görselin piksel koordinatlarındadır; label yalnızca etikettir.
+    """
+    try:
+        registry = request.app.state.detector_registry
+        registry.validate_id(model)
+        try:
+            with Image.open(image.file) as source:
+                rgb_image = source.convert("RGB")
+        except (UnidentifiedImageError, OSError, Image.DecompressionBombError) as exc:
+            raise HTTPException(status_code=400, detail="Geçerli bir görsel dosyası yükleyin.") from exc
+
+        with rgb_image:
+            box = {"xmin": xmin, "ymin": ymin, "xmax": xmax, "ymax": ymax}
+            result = search_by_example(registry.get(model), rgb_image, box, label)
+            payload = dict(result)
+            if include_image:
+                payload["annotated_image"] = {
+                    "media_type": "image/jpeg",
+                    "data_base64": b64encode(render_detection_jpeg(rgb_image, result["detections"])).decode("ascii"),
+                }
         return payload
     finally:
         image.file.close()

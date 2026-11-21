@@ -115,6 +115,38 @@ curl.exe -s http://127.0.0.1:8000/models
 curl.exe -s -F "image=@images/test.jpg" -F "query=cüzdan" -F "model=yolo-world" http://127.0.0.1:8000/detect
 ~~~
 
+## Örnekle arama (OWLv2, görsel sorgu)
+
+Arayüzde **Örnekle ara** → görselde aranan nesnelerden birinin etrafına kutu çiz →
+**Benzerlerini bul**. Metin ve çeviri kullanılmaz; yazılan sorgu yalnızca etiket olur.
+Kelimeyle zor ayrılan ürünlerde (çikolata ↔ sakız) ve sözlükte olmayan nesnelerde işe yarar.
+Uç: `POST /detect-by-example` (`image`, `xmin/ymin/xmax/ymax` piksel, isteğe bağlı `label`).
+
+Nasıl çalışır (`OwlViTService.example_candidates`, `services/exemplar_search.py`):
+1. OWLv2 görseldeki her yama için bir kutu ve sınıf gömüsü üretir (tek forward).
+2. Çizilen kutuyla en iyi örtüşmenin %80'ine yakın kutular arasından görüntü
+   ortalamasına en az benzeyenin gömüsü sorgu olur (OWL makalesi / HF kuralı).
+3. Puan = sorgu gömüsüyle kosinüs benzerliği. Süzgeç: benzerlik ≥ 0.88,
+   objectness ≥ 0.10, NMS 0.5, kapsama 0.8 (`config.EXEMPLAR_SEARCH`).
+
+Neden hazır `post_process_image_guided_detection` değil: puanları en iyi kutuya göre
+ölçekler (en iyi kutu hep 1.0) ve sınıf başlığının sigmoid puanı görsel sorguda
+görüntünün her yerinde 0.98+ doyar; ikisi de "yoksa çizme" ilkesini bozar.
+
+Ölçüm (`evaluation/exemplar_eval.py`, RPC; görselde birden fazla kopyası olan ürünün
+ilk kopyası örnek; örneğin kendisi sayılmaz, "diğer kopyalar" ölçülür):
+
+| Küme | Görsel | Diğer kopya | Precision | Recall | F1 | Sayı tam doğru |
+|---|---|---|---|---|---|---|
+| Kalibrasyon (ayar seçimi) | 20 | 35 | 0.58 | 0.80 | 0.68 | 6/20 |
+| Test (hiç görülmemiş) | 60 | 110 | 0.54 | 0.66 | 0.60 | 11/60 |
+
+Eşik 0.88 test kümesinde de en iyi F1'i verdi (aşırı uydurma yok). Test kümesindeki
+62 sahte kutunun 32'si başka bir ürünün üstünde; bunların önemli kısmı aynı markanın
+başka çeşidi (ör. iki farklı aromalı Stride sakız, RPC'de ayrı ürün). Kalan sahteler
+yarım/kaymış kutulardır. Sınırlamalar: ürün ters/yan dönmüşse benzerlik düşer; ayrı bir
+örnek fotoğrafla (başka görselden) arama henüz yok; DINO ve YOLO-World görsel sorgu almaz.
+
 ## Konservatif scene-box sanity filtresi
 
 Production akışı: raw -> mevcut class-aware NMS -> scene-box kontrolü ->

@@ -3,7 +3,7 @@
 import InventorySummary from "./inventory-summary";
 
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
-import { getDetectionAnalysis, MODEL_NAMES, type DetectorModel, type ModelSelection } from "@/lib/detection-api";
+import { getDetectionAnalysis, getExampleAnalysis, MODEL_NAMES, type Box, type DetectorModel, type ModelSelection } from "@/lib/detection-api";
 import { DETECTOR_MODELS, emptyResults, type ModelResult, type ModelResults } from "@/lib/model-result";
 import ControlPanel from "./control-panel";
 import ImageViewer, { type ViewerMode } from "./image-viewer";
@@ -24,6 +24,9 @@ export default function DetectionWorkspace() {
   const [loading, setLoading] = useState(false);
   const [checkingFile, setCheckingFile] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Örnekle arama: kullanıcı orijinal görselde bir kutu çizer (yalnızca OWLv2).
+  const [selectingExample, setSelectingExample] = useState(false);
+  const [exampleBox, setExampleBox] = useState<Box | null>(null);
   const activeRequest = useRef<AbortController | null>(null);
   const fileSelection = useRef(0);
   const resultUrls = useRef<Partial<Record<DetectorModel, string>>>({});
@@ -64,6 +67,8 @@ export default function DetectionWorkspace() {
       await decoder.decode();
       if (id !== fileSelection.current) { URL.revokeObjectURL(url); return; }
       clearResult();
+      setSelectingExample(false);
+      setExampleBox(null);
       setImage(file);
       setPreviewUrl(url);
     } catch {
@@ -87,6 +92,7 @@ export default function DetectionWorkspace() {
   async function runDetection(englishQuery?: string) {
     if (!image || !query.split(",").some((part) => part.trim()) || busy) return;
     clearResult();
+    cancelExample();
     activeRequest.current?.abort();
     const controller = new AbortController();
     activeRequest.current = controller;
@@ -123,6 +129,51 @@ export default function DetectionWorkspace() {
     }
   }
 
+  function startExample() {
+    clearResult();
+    setSelection((current) => current === "owlvit" ? current : "owlvit");
+    setExampleBox(null);
+    setSelectingExample(true);
+  }
+
+  function cancelExample() {
+    setSelectingExample(false);
+    setExampleBox(null);
+  }
+
+  async function runExample() {
+    if (!image || !exampleBox || busy) return;
+    clearResult();
+    activeRequest.current?.abort();
+    const controller = new AbortController();
+    activeRequest.current = controller;
+    // Yazılan sorgu varsa yalnızca etiket olur; aramayı kutu belirler.
+    const label = query.trim() || "örnek nesne";
+    setResultQuery(label + " (örnekle)");
+    setLoading(true);
+    const startedAt = performance.now();
+    updateResult("owlvit", { phase: "image" });
+    try {
+      const analysis = await getExampleAnalysis(image, exampleBox, label, controller.signal);
+      if (controller.signal.aborted) return;
+      const url = URL.createObjectURL(analysis.image);
+      resultUrls.current.owlvit = url;
+      updateResult("owlvit", { imageUrl: url, details: analysis.details, phase: "done" });
+      setSelectingExample(false);
+      setView("result");
+    } catch (requestError) {
+      if (!controller.signal.aborted) updateResult("owlvit", {
+        phase: "error",
+        error: requestError instanceof Error ? requestError.message : "Örnekle arama sırasında bir hata oluştu.",
+      });
+    } finally {
+      if (!controller.signal.aborted) {
+        updateResult("owlvit", { elapsedMs: performance.now() - startedAt });
+        setLoading(false);
+      }
+    }
+  }
+
   const singleResult = results[selection === "compare" ? "owlvit" : selection];
   // Çeviri tüm modellerde ortaktır; ilk gelen sonucun planı gösterilir.
   const interpretedDetails = selection === "compare"
@@ -140,7 +191,7 @@ export default function DetectionWorkspace() {
         warning={selection === "compare" ? null : singleResult.warning}
         onChooseImage={chooseImage}
         onQueryChange={(value) => { setQuery(value); clearResult(); }}
-        onModelChange={(model) => { setSelection(model); clearResult(); }}
+        onModelChange={(model) => { setSelection(model); clearResult(); cancelExample(); }}
         onSubmit={submit}
       />
       <section className="analysis-area" aria-label="Görüntü analiz alanı">
@@ -156,6 +207,8 @@ export default function DetectionWorkspace() {
           <ImageViewer previewUrl={previewUrl} resultUrl={singleResult.imageUrl} filename={image?.name ?? null}
             resultQuery={resultQuery} view={view} compare={compare} loading={phase === "image"}
             onViewChange={setView} onCompareChange={setCompare}
+            example={{ selecting: selectingExample, box: exampleBox, busy,
+              onStart: startExample, onCancel: cancelExample, onBoxChange: setExampleBox, onSearch: () => { void runExample(); } }}
           />
           {interpretation}
           <ResultSummary details={singleResult.details} hasResult={!!singleResult.imageUrl} phase={phase} failed={!!singleResult.error} />

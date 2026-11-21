@@ -1,4 +1,6 @@
-import type { KeyboardEvent } from "react";
+import { useState, type KeyboardEvent } from "react";
+import type { Box } from "@/lib/detection-api";
+import ExampleSelector from "./example-selector";
 
 export type ViewerMode = "original" | "result";
 
@@ -12,10 +14,22 @@ interface Props {
   loading: boolean;
   onViewChange: (view: ViewerMode) => void;
   onCompareChange: (compare: boolean) => void;
+  /** Örnekle arama: açıkken orijinal görselin üstüne kutu çizilir. */
+  example?: {
+    selecting: boolean;
+    box: Box | null;
+    busy: boolean;
+    onStart: () => void;
+    onCancel: () => void;
+    onBoxChange: (box: Box | null) => void;
+    onSearch: () => void;
+  };
 }
 
 export default function ImageViewer(props: Props) {
-  const { previewUrl, resultUrl, filename, resultQuery, view, compare, loading } = props;
+  const { previewUrl, resultUrl, filename, resultQuery, view, compare, loading, example } = props;
+  const [originalImage, setOriginalImage] = useState<HTMLImageElement | null>(null);
+  const selecting = !!example?.selecting;
 
   function switchTab(event: KeyboardEvent<HTMLDivElement>) {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
@@ -32,8 +46,17 @@ export default function ImageViewer(props: Props) {
           <button id="tab-original" type="button" role="tab" aria-selected={view === "original"} aria-controls="image-viewer" tabIndex={view === "original" ? 0 : -1} onClick={() => props.onViewChange("original")}>Orijinal</button>
           <button id="tab-result" type="button" role="tab" aria-selected={view === "result"} aria-controls="image-viewer" tabIndex={view === "result" ? 0 : -1} onClick={() => props.onViewChange("result")}>Tespit Sonucu</button>
         </div>
-        <label className="compare-option"><input type="checkbox" checked={compare} disabled={!previewUrl || !resultUrl} onChange={(event) => props.onCompareChange(event.target.checked)} />Yan yana karşılaştır</label>
+        <div className="viewer-actions">
+          {example && !selecting && <button type="button" className="text-button" disabled={!previewUrl || example.busy}
+            onClick={example.onStart} title="Görselde bir nesnenin etrafına kutu çizin; benzerleri bulunur">Örnekle ara</button>}
+          <label className="compare-option"><input type="checkbox" checked={compare} disabled={!previewUrl || !resultUrl || selecting} onChange={(event) => props.onCompareChange(event.target.checked)} />Yan yana karşılaştır</label>
+        </div>
       </div>
+      {example && selecting && <div className="example-bar" role="status">
+        <span>{example.box ? "Örnek seçildi. Benzerlerini bulmak için aramayı başlatın." : "Aradığınız nesnelerden birinin etrafına sürükleyerek kutu çizin."}</span>
+        <button type="button" className="detect-button" disabled={!example.box || example.busy} onClick={example.onSearch}>Benzerlerini bul</button>
+        <button type="button" className="text-button" disabled={example.busy} onClick={example.onCancel}>İptal</button>
+      </div>}
       <div className="viewer-caption">
         <span title={filename ?? undefined}>{filename || "Görüntü çalışma alanı"}</span>
         <span>{resultQuery || (previewUrl ? "Analize hazır" : "—")}</span>
@@ -46,7 +69,11 @@ export default function ImageViewer(props: Props) {
               <figure key={mode} className={"viewer-pane" + (view === mode ? " is-active" : "")}>
                 <figcaption>{mode === "original" ? "Orijinal" : "Tespit Sonucu"}</figcaption>
                 {url
-                  ? <img src={url} alt={mode === "original" ? "Orijinal görüntü: " + filename : resultQuery + " sorgusunun işaretlenmiş sonucu"} />
+                  ? <>
+                    <img src={url} ref={mode === "original" ? setOriginalImage : undefined}
+                      alt={mode === "original" ? "Orijinal görüntü: " + filename : resultQuery + " sorgusunun işaretlenmiş sonucu"} />
+                    {mode === "original" && example && selecting && <ExampleSelector image={originalImage} box={example.box} onChange={example.onBoxChange} />}
+                  </>
                   : <div className="viewer-empty">
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true"><rect x="5" y="7" width="30" height="26" rx="2" /><circle cx="14" cy="15" r="3" /><path d="m6 29 9-9 6 6 5-5 9 9" /></svg>
                     <strong>{mode === "original" ? "İncelemek için bir görsel yükleyin" : loading ? "Tespit devam ediyor" : "Henüz bir tespit sonucu yok"}</strong>

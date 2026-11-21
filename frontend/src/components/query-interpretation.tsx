@@ -28,6 +28,15 @@ export default function QueryInterpretation({ details, busy, onRetry }: Props) {
   const [draft, setDraft] = useState(details?.primary_query ?? "");
 
   if (!details?.primary_query) return null;
+  if (details.search_mode === "example") return (
+    <section className="query-interpretation" aria-label="Aranan ifade">
+      <div className="query-line">
+        <span className="query-caption">Arama</span>
+        <span>Çizdiğin örneğe görsel olarak benzeyenler</span>
+        <span className="query-source">metin ve çeviri kullanılmadı</span>
+      </div>
+    </section>
+  );
   const multi = (details.processed_query_items?.length ?? 0) > 1;
   const fromModel = details.translation_source === "model" || details.translation_source === "mixed";
 
