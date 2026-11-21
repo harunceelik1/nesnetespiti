@@ -1,4 +1,4 @@
-export const MODEL_NAMES = { owlvit: "OWL-ViT", "grounding-dino": "Grounding DINO", "yolo-world": "YOLO-World" } as const;
+export const MODEL_NAMES = { owlvit: "OWLv2", "grounding-dino": "Grounding DINO", "yolo-world": "YOLO-World" } as const;
 export type DetectorModel = keyof typeof MODEL_NAMES;
 export type ModelSelection = DetectorModel | "compare";
 const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000").replace(/\/+$/, "");

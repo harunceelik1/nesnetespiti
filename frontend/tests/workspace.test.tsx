@@ -206,7 +206,7 @@ test("tek /detect akışı, adaptive detaylar, loading, sekmeler ve sonuç temiz
   });
   assert.deepEqual(requests, ["/detect"]);
   assert.match(element(".result-summary").textContent!, /2 nesne bulundu/);
-  assert.match(element(".result-summary").textContent!, /ms.*OWL-ViT/);
+  assert.match(element(".result-summary").textContent!, /ms.*OWLv2/);
   assert.equal(element("#tab-result").getAttribute("aria-selected"), "true");
   const compare = element<HTMLInputElement>(".compare-option input");
   await act(async () => { compare.click(); });

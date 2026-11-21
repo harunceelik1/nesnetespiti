@@ -23,6 +23,7 @@ class _SharedOwlPrimary(BaseDetector):
         self.detector, self.primaries, self.cache = detector, primaries, {}
         self.model_id, self.name = detector.model_id, detector.name
         self.response_model, self.device = detector.response_model, detector.device
+        self.policy_key = getattr(detector, "policy_key", None)
         self.use_contrastive_queries = detector.use_contrastive_queries
         # Tek forward: tüm primary'ler + ortak karşıt sınıflar. Primary'ler zaten
         # birbirinin karşıtıdır; karşıtlar primary'lerle ilişkiliyse çıkarılır.

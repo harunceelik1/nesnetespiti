@@ -82,7 +82,7 @@ class DetectorApiTests(unittest.TestCase):
         response = client.get("/models")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"models": [
-            {"id": "owlvit", "name": "OWL-ViT", "available": True},
+            {"id": "owlvit", "name": DetectorRegistry.NAMES["owlvit"], "available": True},
             {"id": "grounding-dino", "name": "Grounding DINO", "available": True},
             {"id": "yolo-world", "name": "YOLO-World", "available": True},
         ]})

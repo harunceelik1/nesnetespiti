@@ -130,7 +130,7 @@ def run_detection(
     Primary'nin geçerli veya kontrollü yedek sonucu fallback ile değiştirilmez.
     Aşırı/bozuk primary sonuçlar da synonym genişletmesiyle körlemesine aşılmaz.
     """
-    policy = policy if policy is not None else ADAPTIVE_THRESHOLDS[detector.model_id]
+    policy = policy if policy is not None else ADAPTIVE_THRESHOLDS[detector.policy_key or detector.model_id]
     from .inventory_service import add_inventory, run_inventory_detection
     if query.get("processed_query_items"):
         return attach_scene_box_diagnostics(run_inventory_detection(detector, image, query, policy, run_detection))

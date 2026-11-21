@@ -3,7 +3,9 @@ from collections.abc import Callable, Mapping
 
 from .base_detector import BaseDetector, DetectorError
 from .grounding_dino_service import GroundingDinoService
+from .owlv2_service import Owlv2Service
 from .owlvit_service import OwlViTService
+from .. import config
 from .yoloworld_service import YoloWorldService
 
 
@@ -11,14 +13,16 @@ logger = logging.getLogger(__name__)
 
 
 class DetectorRegistry:
-    NAMES = {"owlvit": "OWL-ViT", "grounding-dino": "Grounding DINO", "yolo-world": "YOLO-World"}
+    NAMES = {"owlvit": "OWLv2" if config.OWL_VERSION == "v2" else "OWL-ViT",
+             "grounding-dino": "Grounding DINO", "yolo-world": "YOLO-World"}
 
     def __init__(
         self,
         factories: Mapping[str, Callable[[], BaseDetector]] | None = None,
     ):
         factories = factories if factories is not None else {
-            "owlvit": OwlViTService, "grounding-dino": GroundingDinoService,
+            "owlvit": Owlv2Service if config.OWL_VERSION == "v2" else OwlViTService,
+            "grounding-dino": GroundingDinoService,
             "yolo-world": YoloWorldService,
         }
         self._detectors: dict[str, BaseDetector] = {}

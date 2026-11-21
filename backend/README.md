@@ -10,6 +10,26 @@ Dil tespitinde sözlükteki İngilizce sözcükler kesin İngilizce sayılır; d
 sözcükler, Lingua İngilizce güveni 0.60'ın altındaysa Türkçe kabul edilir.
 Yanıtta `translation_source` alanı `lexicon` veya `model` değerini taşır.
 
+## OWLv2 (OWL yuvasının varsayılan modeli)
+
+API/arayüz kimliği `owlvit` aynı kalır; arkasında `google/owlv2-base-patch16-ensemble`
+çalışır (`app/models/owlv2_service.py`, `config.OWL_VERSION = "v2"`; `"v1"` eski
+OWL-ViT'e döner). OWLv2 görüntüyü sağ/alttan dolgu ile kareye tamamladığından kutular
+uzun kenarla ölçeklenir. Ek bağımlılık: `scipy`. Ağırlıklar `.cache/owlv2/` (~593 MB).
+CPU'da görsel başına ~5.5 sn.
+
+Eşik `evaluation/calibrate_threshold.py` ile seçildi (12 RPC kalibrasyon görseli +
+16 olmayan nesne vakası): **0.13** → envanter "ürün" F1 0.78, sahte kutu 0.
+Karşılaştırma (aynı 12 görsel, sabit eşik): OWL-ViT v1 F1 0.06, OWLv2 0.79,
+Grounding DINO 0.84. Bu görseller eşik seçiminde kullanıldığı için sayılar iyimserdir;
+son ölçüm RPC test kümesinde yapılmalıdır.
+
+Bilinen hata türleri (masa fotoğrafı): nesneyi çevresiyle birlikte saran büyük
+bölge kutuları ("şarj aleti" 0.45 > gerçek şarj aleti 0.33), anlamca komşu
+nesneler (kablo → şarj aleti, gözlük kılıfı → fare), ambalaj üzerindeki
+resimler (erişte paketindeki figür → "köpek"). Geniş karşıt listesi denendi ve
+reddedildi: "snack/package" gibi genel kavramlar çikolataları kendine çekti (11 → 0).
+
 ## Sabit eşik ve "bulunamadı" (üretim varsayılanı)
 
 Bir sorgu ilk eşikte hiçbir şey bulamazsa sonuç **boş** döner; eşik düşürülmez ve eş

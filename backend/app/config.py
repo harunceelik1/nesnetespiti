@@ -17,6 +17,10 @@ class GroundingDinoSettings:
 GROUNDING_DINO = GroundingDinoSettings()
 
 
+# API'deki "owlvit" yuvasında hangi model çalışır: "v2" (OWLv2, varsayılan) veya "v1".
+OWL_VERSION = "v2"
+
+
 @dataclass(frozen=True)
 class YoloWorldSettings:
     """YOLO-World (Ultralytics) ayarları; skor ölçeği OWL-ViT/DINO ile kıyaslanmaz."""
@@ -163,7 +167,12 @@ class AdaptiveThresholdSettings:
 
 
 ADAPTIVE_THRESHOLDS = {
+    # OWL-ViT v1 (ölçüm/karşılaştırma için); üretimde OWL yuvası OWLv2'dir.
     "owlvit": AdaptiveThresholdSettings(thresholds=(0.05, 0.03, 0.02, 0.01)),
+    # OWLv2: evaluation/calibrate_threshold.py ile 12 RPC kalibrasyon görseli +
+    # 16 olmayan nesne vakasında seçildi. 0.13: envanter F1 0.78 (P 0.76, R 0.81),
+    # sahte kutu 0; < 0.08'de sahte kutu başlar, > 0.14'te recall hızla düşer.
+    "owlv2": AdaptiveThresholdSettings(thresholds=(0.13,)),
     # OWL-ViT skor ölçeği kullanılmaz. İlk deneme mevcut DINO ayarlarıdır;
     # yalnızca sonuç yoksa/şüpheliyse box eşiği düşer, text eşiği sabit kalır.
     "grounding-dino": AdaptiveThresholdSettings(

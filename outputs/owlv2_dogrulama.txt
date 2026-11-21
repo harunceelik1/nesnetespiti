@@ -1,0 +1,49 @@
+PRESENT two_people     kravat->tie              owlvit ✓ n=2 [0.73, 0.72]
+PRESENT two_people     kemer->belt             owlvit ✓ n=2 [0.8, 0.75]
+PRESENT two_people     ceket->jacket           owlvit ✓ n=3 [0.29, 0.23, 0.19]
+PRESENT two_people     el->hand             owlvit ✓ n=2 [0.22, 0.17]
+PRESENT two_people     yüz->face             owlvit ✓ n=2 [0.18, 0.16]
+PRESENT two_people     adam->man              owlvit ✓ n=2 [0.31, 0.21]
+PRESENT two_people     insan->person           owlvit ✗ n=0 []
+PRESENT test           güneş gözlüğü->sunglasses       owlvit ✓ n=1 [0.52]
+PRESENT test           ayakkabı->shoe             owlvit ✓ n=2 [0.23, 0.17]
+PRESENT test           tekerlek->wheel            owlvit ✓ n=2 [0.33, 0.31]
+PRESENT test           araba->car              owlvit ✓ n=1 [0.16]
+PRESENT test           insan->person           owlvit ✓ n=1 [0.2]
+PRESENT 2074754        insan->person           owlvit ✓ n=1 [0.21]
+PRESENT 00_ornek_masa  laptop->laptop           owlvit ✓ n=2 [0.7, 0.2]
+PRESENT 00_ornek_masa  fare->mouse            owlvit ✓ n=6 [0.48, 0.35, 0.34, 0.26, 0.18, 0.13]
+PRESENT 00_ornek_masa  ilaç kutusu->medicine box     owlvit ✓ n=1 [0.2]
+PRESENT 00_ornek_masa  gözlük kutusu->glasses case     owlvit ✗ n=0 []
+PRESENT 00_ornek_masa  şarj aleti->charger          owlvit ✓ n=9 [0.45, 0.34, 0.33, 0.25, 0.19, 0.16, 0.15, 0.15, 0.15]
+ABSENT  test           köpek->dog              owlvit ✓ n=0 []
+ABSENT  test           uçak->airplane         owlvit ✓ n=0 []
+ABSENT  test           çanta->bag              owlvit ✓ n=0 []
+ABSENT  test           şemsiye->umbrella         owlvit ✓ n=0 []
+ABSENT  test           şişe->bottle           owlvit ✓ n=0 []
+ABSENT  2074754        köpek->dog              owlvit ✓ n=0 []
+ABSENT  2074754        çanta->bag              owlvit ✓ n=0 []
+ABSENT  2074754        kedi->cat              owlvit ✓ n=0 []
+ABSENT  two_people     köpek->dog              owlvit ✓ n=0 []
+ABSENT  two_people     araba->car              owlvit ✓ n=0 []
+ABSENT  two_people     şişe->bottle           owlvit ✓ n=0 []
+ABSENT  two_people     fare->mouse            owlvit ✓ n=0 []
+ABSENT  two_people     bardak->cup              owlvit ✓ n=0 []
+ABSENT  00_ornek_masa  köpek->dog              owlvit ✓ n=0 []
+ABSENT  00_ornek_masa  şemsiye->umbrella         owlvit ✓ n=0 []
+ABSENT  00_ornek_masa  makas->scissors         owlvit ✓ n=0 []
+TOPLAM owlvit: var olan 16/18 bulundu, olmayan 16/16 doğru boş
+=== ENVANTER ===
+01 owlvit: ürün 5/5 TP=5 eşik=0.13 (first_valid_result) | köpek=0 şişe=0
+02 owlvit: ürün 4/5 TP=4 eşik=0.13 (first_valid_result) | köpek=0 şişe=0
+03 owlvit: ürün 8/7 TP=6 eşik=0.13 (first_valid_result) | köpek=0 şişe=4
+04 owlvit: ürün 9/7 TP=7 eşik=0.13 (first_valid_result) | köpek=0 şişe=2
+05 owlvit: ürün 8/7 TP=7 eşik=0.13 (first_valid_result) | köpek=0 şişe=0
+06 owlvit: ürün 9/9 TP=8 eşik=0.13 (first_valid_result) | köpek=0 şişe=0
+07 owlvit: ürün 10/10 TP=9 eşik=0.13 (first_valid_result) | köpek=0 şişe=0
+08 owlvit: ürün 10/10 TP=10 eşik=0.13 (first_valid_result) | köpek=0 şişe=0
+09 owlvit: ürün 17/12 TP=11 eşik=0.13 (first_valid_result) | köpek=0 şişe=8
+10 owlvit: ürün 18/12 TP=12 eşik=0.13 (first_valid_result) | köpek=0 şişe=1
+11 owlvit: ürün 29/16 TP=12 eşik=0.13 (first_valid_result) | köpek=0 şişe=4
+12 owlvit: ürün 30/20 TP=18 eşik=0.13 (first_valid_result) | köpek=3 şişe=6
+TOPLAM owlvit: precision=0.69 recall=0.91 F1=0.79 ort_sayım_hatası=3.25 sahte_köpek=3

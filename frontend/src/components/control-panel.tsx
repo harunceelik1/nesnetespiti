@@ -49,7 +49,7 @@ export default function ControlPanel(props: Props) {
         <div className="field-group">
           <label className="field-label" htmlFor="detector-model">Model</label>
           <select id="detector-model" value={props.model} disabled={busy} onChange={(event) => props.onModelChange(event.target.value as ModelSelection)}>
-            <option value="owlvit">OWL-ViT</option>
+            <option value="owlvit">OWLv2</option>
             <option value="grounding-dino">Grounding DINO</option>
             <option value="yolo-world">YOLO-World</option>
             <option value="compare">Compare</option>

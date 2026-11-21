@@ -68,6 +68,9 @@ class BaseDetector(ABC):
     # Gerçek servislerde True: sorguya karşıt sınıflar eklenir, yalnızca sorulan
     # etiketler tutulur (bkz. utils/contrastive.py). Test sahteleri etkilenmez.
     use_contrastive_queries: bool = False
+    # config.ADAPTIVE_THRESHOLDS anahtarı; None ise model_id kullanılır. Aynı API
+    # yuvasındaki farklı modeller (OWL-ViT v1 / OWLv2) ayrı skor ölçeği taşır.
+    policy_key: str | None = None
 
     def detect(self, image: Image.Image, query: ProcessedQuery, threshold: float) -> list[Detection]:
         detections, _ = self.detect_with_counts(image, query, threshold)
