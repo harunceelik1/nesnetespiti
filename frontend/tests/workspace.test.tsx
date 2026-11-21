@@ -214,7 +214,7 @@ test("tek /detect akışı, adaptive detaylar, loading, sekmeler ve sonuç temiz
   await act(async () => { element<HTMLButtonElement>("#tab-original").click(); });
   assert.equal(element("#tab-original").getAttribute("aria-selected"), "true");
   await act(async () => {
-    element(".segmented-control").dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }));
+    element(".viewer-toolbar .segmented-control").dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }));
   });
   assert.equal(element("#tab-result").getAttribute("aria-selected"), "true");
   assert.match(element(".technical-content").textContent!, /translated_query.*bag/);
@@ -473,4 +473,25 @@ test("örnekle ara: çizilen kutu orijinal piksel koordinatlarıyla gönderilir"
   assert.match(element(".result-summary").textContent!, /2 nesne bulundu/);
   assert.match(element(".query-interpretation").textContent!, /Çizdiğin örneğe/);
   assert.equal(document.querySelector("[data-testid='example-overlay']"), null, "arama bitince çizim katmanı kapanır");
+});
+
+test("hassasiyet: varsayılan gönderilmez; Geniş seçilince uyarı görünür ve loose gönderilir", async () => {
+  const sent: Array<FormDataEntryValue | null> = [];
+  globalThis.fetch = async (_url, options) => {
+    sent.push((options!.body as FormData).get("sensitivity"));
+    return Response.json(responseBody);
+  };
+  await upload();
+  await query("çanta");
+  const radio = (value: string) => element<HTMLInputElement>(`input[name='sensitivity'][value='${value}']`);
+  assert.equal(radio("balanced").checked, true, "varsayılan Dengeli");
+  await submit();
+  assert.equal(sent[0], null, "dengeli seviye backend'e gönderilmez");
+
+  await act(async () => { radio("loose").click(); });
+  assert.match(element("#sensitivity-helper").textContent!, /olmayan nesneye de kutu çizebilir/);
+  assert.ok(element("#sensitivity-helper").classList.contains("sensitivity-warning"));
+  assert.equal(document.querySelector(".result-summary strong"), null, "seviye değişince eski sonuç temizlenir");
+  await submit();
+  assert.equal(sent[1], "loose");
 });

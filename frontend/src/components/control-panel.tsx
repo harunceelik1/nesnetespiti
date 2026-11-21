@@ -1,5 +1,11 @@
 import type { ChangeEvent, FormEvent } from "react";
-import type { ModelSelection } from "@/lib/detection-api";
+import { SENSITIVITY_LABELS, type ModelSelection, type Sensitivity } from "@/lib/detection-api";
+
+const SENSITIVITY_HELP: Record<Sensitivity, string> = {
+  strict: "Yalnızca emin olunan kutular. Bazı gerçek nesneler kaçabilir.",
+  balanced: "Önerilen. Olmayan nesneye kutu çizmeyecek şekilde ayarlandı.",
+  loose: "Daha çok nesne bulur ama olmayan nesneye de kutu çizebilir.",
+};
 
 interface Props {
   image: File | null;
@@ -9,6 +15,8 @@ interface Props {
   checkingFile: boolean;
   model: ModelSelection;
   onModelChange: (model: ModelSelection) => void;
+  sensitivity: Sensitivity;
+  onSensitivityChange: (sensitivity: Sensitivity) => void;
   error: string | null;
   warning: string | null;
   onChooseImage: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -55,6 +63,17 @@ export default function ControlPanel(props: Props) {
             <option value="compare">Compare</option>
           </select>
         </div>
+        <fieldset className="field-group sensitivity-group" disabled={busy}>
+          <legend className="field-label">Hassasiyet</legend>
+          <div className="segmented-control sensitivity-control">
+            {(Object.keys(SENSITIVITY_LABELS) as Sensitivity[]).map((level) => <label key={level} className={props.sensitivity === level ? "is-selected" : undefined}>
+              <input type="radio" name="sensitivity" value={level} checked={props.sensitivity === level}
+                onChange={() => props.onSensitivityChange(level)} />
+              {SENSITIVITY_LABELS[level]}
+            </label>)}
+          </div>
+          <p className={"field-helper" + (props.sensitivity === "loose" ? " sensitivity-warning" : "")} id="sensitivity-helper">{SENSITIVITY_HELP[props.sensitivity]}</p>
+        </fieldset>
         <button type="submit" className="detect-button" disabled={!image || !query.split(",").some((part) => part.trim()) || busy}>{loading ? "Tespit ediliyor…" : "Tespit Et"}</button>
       </form>
       {error && <p className="panel-message" role="alert">{messageText(error)}</p>}

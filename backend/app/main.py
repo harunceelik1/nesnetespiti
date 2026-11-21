@@ -9,6 +9,7 @@ from PIL import Image, UnidentifiedImageError
 
 from .models.base_detector import DetectorError
 from .models.detector_registry import DetectorRegistry
+from .services import sensitivity as sensitivity_levels
 from .services.exemplar_search import search_by_example
 from .services.inference_orchestrator import run_detection
 from .services.inventory_service import detect_raw_queries
@@ -85,6 +86,7 @@ def detect(
     model: str = Form("owlvit"),
     english_query: str | None = Form(None),
     include_image: bool = Form(False),
+    sensitivity: str = Form("balanced"),
 ):
     # File ve Form parametreleri multipart/form-data olarak alınır.
     # Senkron endpoint, ağır model işlemini FastAPI'nin iş parçacığında çalıştırır.
@@ -94,6 +96,7 @@ def detect(
         if not query:
             raise HTTPException(status_code=422, detail="query boş olamaz.")
 
+        level = sensitivity_levels.validate(sensitivity)
         detector, plan = prepare_detection(request, original_query, model, english_query)
 
         try:
@@ -107,8 +110,9 @@ def detect(
         with rgb_image:
             # Eski threshold form alanı kabul edilir; normal akışta model bazlı
             # adaptive politika seçer. Sabit eşik raw debug endpoint'inde korunur.
-            detection_result = run_detection(detector, rgb_image, plan)
-            payload = {"query": query, **detection_result}
+            detection_result = run_detection(detector, rgb_image, plan,
+                                             sensitivity_levels.detection_policy(detector, level))
+            payload = {"query": query, "sensitivity": level, **detection_result}
             if include_image:
                 # Ek inference yok: metadata içindeki kutuların aynısı çizilir.
                 payload["annotated_image"] = {
@@ -134,6 +138,7 @@ def detect_by_example(
     label: str | None = Form(None),
     model: str = Form("owlvit"),
     include_image: bool = Form(False),
+    sensitivity: str = Form("balanced"),
 ):
     """Görselde kutuyla işaretlenen nesneye benzeyenleri bulur (metin/çeviri yok).
 
@@ -142,6 +147,7 @@ def detect_by_example(
     try:
         registry = request.app.state.detector_registry
         registry.validate_id(model)
+        level = sensitivity_levels.validate(sensitivity)
         try:
             with Image.open(image.file) as source:
                 rgb_image = source.convert("RGB")
@@ -150,8 +156,9 @@ def detect_by_example(
 
         with rgb_image:
             box = {"xmin": xmin, "ymin": ymin, "xmax": xmax, "ymax": ymax}
-            result = search_by_example(registry.get(model), rgb_image, box, label)
-            payload = dict(result)
+            result = search_by_example(registry.get(model), rgb_image, box, label,
+                                       sensitivity_levels.exemplar_settings(level))
+            payload = {"sensitivity": level, **result}
             if include_image:
                 payload["annotated_image"] = {
                     "media_type": "image/jpeg",
@@ -174,6 +181,7 @@ def detect_image(
     threshold: float = Form(0.2, ge=0.0, le=1.0),
     model: str = Form("owlvit"),
     english_query: str | None = Form(None),
+    sensitivity: str = Form("balanced"),
 ):
     # JSON endpoint'i ile aynı model servisi ve form parametreleri kullanılır.
     try:
@@ -181,6 +189,7 @@ def detect_image(
         if not query:
             raise HTTPException(status_code=422, detail="query boş olamaz.")
 
+        level = sensitivity_levels.validate(sensitivity)
         detector, plan = prepare_detection(request, query, model, english_query)
 
         try:
@@ -192,7 +201,8 @@ def detect_image(
             ) from exc
 
         with rgb_image:
-            detection_result = run_detection(detector, rgb_image, plan)
+            detection_result = run_detection(detector, rgb_image, plan,
+                                             sensitivity_levels.detection_policy(detector, level))
             jpeg_bytes = render_detection_jpeg(rgb_image, detection_result["detections"])
 
         return Response(

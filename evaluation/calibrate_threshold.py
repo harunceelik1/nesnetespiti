@@ -4,7 +4,9 @@ Düşük bir eşikte (--floor) üretim akışı (çeviri → karşıt sorgu) bir
 bulunan her kutunun puanı kaydedilir:
 - Envanter (ornek_envanter, RPC kalibrasyon kümesi) "ürün": GT ile IoU >= 0.5 → TP, değilse FP.
 - Olmayan nesne vakaları (evaluation/sanity_cases.py ABSENT): her kutu FP.
-Sonra her aday eşik için envanter F1'i ve olmayan nesnelerdeki sahte tespit sayısı yazılır.
+- Var olan nesne vakaları (PRESENT): en iyi kutunun puanı; eşik altındaysa bulundu.
+Sonra her aday eşik için envanter F1'i, olmayan nesnelerdeki sahte tespit sayısı ve
+bulunan var-olan vaka sayısı yazılır (hassasiyet seviyeleri bu tablodan seçilir).
 
 Not: Bunlar kalibrasyon görselleridir. Rapordaki son ölçüm RPC test kümesinde
 ve ayrı görsellerde yapılmalıdır; aksi halde eşik test verisine uydurulmuş olur.
@@ -75,17 +77,22 @@ def main():
             inventory_scores.append((detection["confidence"], best_index is not None))
         print(f"envanter {number:02d}: {len(found)} kutu", flush=True)
 
-    images = {}
+    images, present_best = {}, []
     for kind, path, query in CASES:
-        if kind != "ABSENT" or not path.is_file():
+        if not path.is_file():
             continue
         image = images.setdefault(path, Image.open(path).convert("RGB"))
         found = run_detection(detector, image, process_query(query, translation), policy)["detections"]
-        absent_scores += [d["confidence"] for d in found]
-        print(f"yok {path.stem} {query}: {[round(d['confidence'], 3) for d in found]}", flush=True)
+        scores = [d["confidence"] for d in found]
+        if kind == "ABSENT":
+            absent_scores += scores
+        else:
+            # Var olan nesne: eşik en iyi kutunun puanının altındaysa "bulundu" sayılır.
+            present_best.append(max(scores, default=0.0))
+        print(f"{'yok' if kind == 'ABSENT' else 'var'} {path.stem} {query}: {[round(v, 3) for v in scores]}", flush=True)
 
     print(f"\nmodel={args.model} ({key}), GT ürün={gt_total}")
-    print("eşik   TP  FP  precision recall  F1    | olmayan nesnede sahte kutu")
+    print(f"eşik   TP  FP  precision recall  F1    | olmayan nesnede sahte kutu | var olan bulundu (/{len(present_best)})")
     candidates = sorted({round(args.floor + i * 0.01, 2) for i in range(0, 60)})
     for threshold in candidates:
         tp = sum(ok for score, ok in inventory_scores if score >= threshold)
@@ -94,7 +101,8 @@ def main():
         recall = tp / gt_total if gt_total else 0.0
         f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
         fake = sum(score >= threshold for score in absent_scores)
-        print(f"{threshold:.2f}  {tp:3d} {fp:3d}   {precision:.2f}     {recall:.2f}   {f1:.2f}  | {fake}")
+        present = sum(best >= threshold for best in present_best)
+        print(f"{threshold:.2f}  {tp:3d} {fp:3d}   {precision:.2f}     {recall:.2f}   {f1:.2f}  | {fake:3d}                        | {present}")
 
 
 if __name__ == "__main__":

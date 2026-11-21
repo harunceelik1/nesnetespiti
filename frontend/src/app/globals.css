@@ -153,3 +153,13 @@ th { font-weight: 500; color: #737e8a; }
 .example-overlay { position: absolute; inset: 20px; cursor: crosshair; touch-action: none; user-select: none; }
 .example-box { position: absolute; border: 2px solid var(--accent); background: rgba(54, 93, 124, 0.14); pointer-events: none; }
 @media (max-width: 760px) { .example-overlay { inset: 12px; } }
+/* Hassasiyet: üç seviyeli radyo grubu, mevcut segmented görünümle. */
+.sensitivity-group { border: 0; margin: 0; padding: 0; min-width: 0; }
+.sensitivity-group legend { padding: 0; }
+.sensitivity-control { display: flex; width: 100%; }
+.sensitivity-control label { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 29px; border: 1px solid transparent; border-radius: 4px; color: var(--muted); font-size: 12px; cursor: pointer; }
+.sensitivity-control label.is-selected { background: white; border-color: #dce1e7; color: var(--text); }
+.sensitivity-control label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 1px; }
+.sensitivity-control input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.sensitivity-group:disabled .sensitivity-control label { cursor: default; opacity: 0.6; }
+.sensitivity-warning { color: #8a6d2f; }

@@ -1,4 +1,4 @@
-import type { DetectionDetails } from "@/lib/detection-api";
+import { SENSITIVITY_LABELS, type DetectionDetails } from "@/lib/detection-api";
 
 interface Props { details: DetectionDetails | null; loading: boolean; warning: string | null; elapsedMs: number | null; modelName?: string }
 
@@ -15,6 +15,7 @@ export default function TechnicalDetails({ details, loading, warning, elapsedMs,
               <div><dt>Seçilen eşik{details.model_id === "grounding-dino" ? " (box)" : ""}</dt><dd>{details.adaptive_thresholds_by_query
                 ? Object.entries(details.adaptive_thresholds_by_query).map(([query, threshold]) => `${query}: ${threshold.toFixed(2)}`).join(" · ")
                 : details.adaptive_threshold_used?.toFixed(2) ?? "Backend bildirmedi"}</dd></div>
+              <div><dt>Hassasiyet</dt><dd>{SENSITIVITY_LABELS[details.sensitivity ?? "balanced"]}</dd></div>
               <div><dt>Seçim nedeni</dt><dd>{details.threshold_selection_reason ?? "Backend bildirmedi"}</dd></div>
               <div className="wide"><dt>Eşik denemeleri{details.model_id === "grounding-dino" ? " (box / text)" : ""}</dt>
                 <dd>{details.threshold_attempts?.length ? <div className="table-scroll"><table>

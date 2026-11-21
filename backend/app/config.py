@@ -194,6 +194,32 @@ class ExemplarSearchSettings:
 EXEMPLAR_SEARCH = ExemplarSearchSettings()
 
 
+# Hassasiyet: kullanıcı arayüzden üç seviyeden birini seçer. "balanced" her zaman
+# kalibre edilmiş varsayılandır (ADAPTIVE_THRESHOLDS / EXEMPLAR_SEARCH); diğerleri
+# aynı kalibrasyon tablolarından seçildi (bkz. outputs/hassasiyet/, README "Hassasiyet").
+# strict: daha az ama daha emin kutu. loose: daha çok kutu, olmayan nesne uydurması başlar.
+SENSITIVITY_LEVELS = ("strict", "balanced", "loose")
+#
+# Kalibrasyon (12 RPC görseli "ürün" + 16 olmayan + 18 var olan nesne vakası):
+#                 eşik  envanter P/R   sahte kutu  var olan
+#   OWLv2  sıkı   0.17  0.84 / 0.68    0           15/18
+#          denge  0.13  0.76 / 0.81    0           16/18
+#          geniş  0.10  0.65 / 0.85    0           17/18   (≤ 0.07'de 3 sahte)
+#   DINO   sıkı   0.40  0.97 / 0.63    0           12/18
+#          denge  0.35  0.97 / 0.75    0           13/18
+#          geniş  0.28  0.95 / 0.88    0           15/18   (≤ 0.26'da 1 sahte)
+#   YOLO   sıkı   0.25  —              0           12/18   (envanter "ürün"ü anlamıyor)
+#          denge  0.10  —              0           13/18
+#          geniş  0.05  —              0           14/18   (≤ 0.04'te 1 sahte)
+SENSITIVITY_THRESHOLDS = {
+    "owlv2": {"strict": 0.17, "loose": 0.10},
+    "grounding-dino": {"strict": 0.40, "loose": 0.28},
+    "yolo-world": {"strict": 0.25, "loose": 0.05},
+}
+# Örnekle arama, RPC test kümesi (60 görsel): sıkı P 0.76 / R 0.48, denge 0.54 / 0.66, geniş 0.40 / 0.77.
+EXEMPLAR_SENSITIVITY = {"strict": 0.92, "loose": 0.84}
+
+
 ADAPTIVE_THRESHOLDS = {
     # OWL-ViT v1 (ölçüm/karşılaştırma için); üretimde OWL yuvası OWLv2'dir.
     "owlvit": AdaptiveThresholdSettings(thresholds=(0.05, 0.03, 0.02, 0.01)),

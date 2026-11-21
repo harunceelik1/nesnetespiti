@@ -3,7 +3,7 @@
 import InventorySummary from "./inventory-summary";
 
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
-import { getDetectionAnalysis, getExampleAnalysis, MODEL_NAMES, type Box, type DetectorModel, type ModelSelection } from "@/lib/detection-api";
+import { getDetectionAnalysis, getExampleAnalysis, MODEL_NAMES, type Box, type DetectorModel, type ModelSelection, type Sensitivity } from "@/lib/detection-api";
 import { DETECTOR_MODELS, emptyResults, type ModelResult, type ModelResults } from "@/lib/model-result";
 import ControlPanel from "./control-panel";
 import ImageViewer, { type ViewerMode } from "./image-viewer";
@@ -14,6 +14,7 @@ import TechnicalDetails from "./technical-details";
 
 export default function DetectionWorkspace() {
   const [selection, setSelection] = useState<ModelSelection>("owlvit");
+  const [sensitivity, setSensitivity] = useState<Sensitivity>("balanced");
   const [results, setResults] = useState<ModelResults>(emptyResults);
   const [view, setView] = useState<ViewerMode>("original");
   const [compare, setCompare] = useState(false);
@@ -105,7 +106,7 @@ export default function DetectionWorkspace() {
       const startedAt = performance.now();
       updateResult(model, { phase: "image" });
       try {
-        const analysis = await getDetectionAnalysis(image!, submittedQuery, controller.signal, model, englishQuery);
+        const analysis = await getDetectionAnalysis(image!, submittedQuery, controller.signal, model, englishQuery, sensitivity);
         if (controller.signal.aborted) return;
         const url = URL.createObjectURL(analysis.image);
         resultUrls.current[model] = url;
@@ -154,7 +155,7 @@ export default function DetectionWorkspace() {
     const startedAt = performance.now();
     updateResult("owlvit", { phase: "image" });
     try {
-      const analysis = await getExampleAnalysis(image, exampleBox, label, controller.signal);
+      const analysis = await getExampleAnalysis(image, exampleBox, label, controller.signal, sensitivity);
       if (controller.signal.aborted) return;
       const url = URL.createObjectURL(analysis.image);
       resultUrls.current.owlvit = url;
@@ -192,6 +193,8 @@ export default function DetectionWorkspace() {
         onChooseImage={chooseImage}
         onQueryChange={(value) => { setQuery(value); clearResult(); }}
         onModelChange={(model) => { setSelection(model); clearResult(); cancelExample(); }}
+        sensitivity={sensitivity}
+        onSensitivityChange={(level) => { setSensitivity(level); clearResult(); }}
         onSubmit={submit}
       />
       <section className="analysis-area" aria-label="Görüntü analiz alanı">

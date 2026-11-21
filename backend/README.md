@@ -115,6 +115,29 @@ curl.exe -s http://127.0.0.1:8000/models
 curl.exe -s -F "image=@images/test.jpg" -F "query=cüzdan" -F "model=yolo-world" http://127.0.0.1:8000/detect
 ~~~
 
+## Hassasiyet (Sıkı / Dengeli / Geniş)
+
+Arayüzün sol panelinde üç seviye vardır; form alanı `sensitivity` (`strict`, `balanced`,
+`loose`; `/detect`, `/detect-image`, `/detect-by-example`). **Dengeli** varsayılandır ve
+bugüne kadar kullanılan kalibre edilmiş eşiktir; seçilmezse davranış değişmez. Diğer
+seviyeler aynı kalibrasyon tablolarından seçildi (`evaluation/calibrate_threshold.py`,
+çıktılar `outputs/hassasiyet/`). Her seviye tek sabit eşiktir; eşik düşürerek arama yoktur.
+
+| Model | Sıkı | Dengeli | Geniş | Geniş'te ne değişir |
+|---|---|---|---|---|
+| OWLv2 | 0.17 | 0.13 | 0.10 | envanter recall 0.81 → 0.85, precision 0.76 → 0.65 |
+| Grounding DINO | 0.40 | 0.35 | 0.28 | recall 0.75 → 0.88, precision 0.97 → 0.95 |
+| YOLO-World | 0.25 | 0.10 | 0.05 | var olan vakalar 13 → 14 / 18 |
+| Örnekle arama (benzerlik) | 0.92 | 0.88 | 0.84 | test kümesi recall 0.66 → 0.77, precision 0.54 → 0.40 |
+
+Kalibrasyon verisinde Geniş seviyede de olmayan nesnelerde sahte kutu çıkmadı, ama
+sınır yakındır (OWLv2 ≤ 0.07, DINO ≤ 0.26, YOLO ≤ 0.04'te sahte kutu başlar) ve 16 vaka
+azdır; arayüz Geniş seçilince bu yüzden uyarı gösterir. Sıkı seviye DINO'da precision'ı
+neredeyse artırmaz (0.97 zaten), yalnızca kutu sayısını azaltır.
+
+Bulgu: DINO tablosuna göre varsayılan 0.35 gereğinden sıkıdır; 0.28–0.30 aynı sıfır
+sahte kutuyla daha yüksek recall verir. Varsayılan değiştirilmedi (ayrı karar).
+
 ## Örnekle arama (OWLv2, görsel sorgu)
 
 Arayüzde **Örnekle ara** → görselde aranan nesnelerden birinin etrafına kutu çiz →
