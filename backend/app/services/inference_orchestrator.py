@@ -3,6 +3,7 @@
 from math import isfinite
 from time import perf_counter
 
+from .. import config
 from ..config import ADAPTIVE_THRESHOLDS, AdaptiveThresholdSettings
 from ..models.base_detector import BaseDetector, DetectorResult
 from ..utils.scene_box_filter import apply_scene_box_filter, attach_scene_box_diagnostics
@@ -72,7 +73,8 @@ def _run_thresholds(
     provisional = None
     selected = None
     reason = "no_detections"
-    for threshold in policy.thresholds:
+    thresholds = policy.thresholds if policy.allow_lowering else policy.thresholds[:1]
+    for threshold in thresholds:
         # Fallback listesi boş query planı otomatik erken fallback'i engeller.
         # DINO'nun ayrı box/text ayarları aynen korunur.
         options = {} if policy.text_threshold is None else {"text_threshold": policy.text_threshold}
@@ -136,7 +138,7 @@ def run_detection(
     primary_plan = {**query, "fallback_queries": []}
     result = _run_thresholds(detector, image, primary_plan, policy)
     primary_attempts = result["threshold_attempts"]
-    if query["fallback_queries"] and all(a["raw_detection_count"] == 0 for a in primary_attempts):
+    if config.SYNONYM_FALLBACK_ENABLED and query["fallback_queries"] and all(a["raw_detection_count"] == 0 for a in primary_attempts):
         result = _run_thresholds(detector, image, primary_plan, policy, query["fallback_queries"])
         result["threshold_attempts"] = primary_attempts + result["threshold_attempts"]
     return attach_scene_box_diagnostics(add_inventory({

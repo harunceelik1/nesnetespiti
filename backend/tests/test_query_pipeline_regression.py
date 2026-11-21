@@ -3,6 +3,7 @@ from io import BytesIO
 from threading import Lock
 import unittest
 from unittest.mock import MagicMock, patch
+from backend.tests import legacy_adaptive
 
 try:
     import torch
@@ -26,11 +27,13 @@ _contrastive_patch = patch("backend.app.config.CONTRASTIVE_QUERIES", Contrastive
 
 
 def setUpModule():
+    legacy_adaptive.start()
     _lexicon_patch.start()
     _contrastive_patch.start()
 
 
 def tearDownModule():
+    legacy_adaptive.stop()
     _lexicon_patch.stop()
     _contrastive_patch.stop()
 

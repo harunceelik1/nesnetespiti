@@ -15,6 +15,7 @@ from backend.app.models.detector_registry import DetectorRegistry
 from backend.app.services.inference_orchestrator import run_detection
 from backend.app.services.query_processor import process_query
 from backend.app.services.translation_service import TranslationService, TranslationServiceError
+from backend.tests import legacy_adaptive
 
 
 # Bu dosya Marian model çeviri yolunu sınar; Türkçe nesne sözlüğü devre dışı bırakılır.
@@ -22,10 +23,12 @@ _lexicon_patch = patch("backend.app.services.object_lexicon.lookup", return_valu
 
 
 def setUpModule():
+    legacy_adaptive.start()
     _lexicon_patch.start()
 
 
 def tearDownModule():
+    legacy_adaptive.stop()
     _lexicon_patch.stop()
 
 

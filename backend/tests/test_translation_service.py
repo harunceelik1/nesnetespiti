@@ -74,6 +74,16 @@ class TranslationServiceTests(unittest.TestCase):
                 self.assertEqual(result["translation_source"], "lexicon")
         self.assertEqual(self.service.model.generate.call_count, 1)
 
+    def test_compound_nouns_are_built_from_lexicon(self):
+        from backend.app.services.object_lexicon import lookup
+        examples = {"ilaç kutusu": "medicine box", "gözlük kutusu": "glasses case",
+                    "kırmızı ilaç kutusu": "red medicine box", "çay paketi": "tea package",
+                    "şampuan şişesi": "shampoo bottle", "gozluk kutusu": "glasses case",
+                    "kitap kutusu": "book box", "bilinmeyen kutusu": None, "kutusu": None}
+        for query, expected in examples.items():
+            with self.subTest(query=query):
+                self.assertEqual(lookup(query), expected)
+
     def test_uncertain_short_words_default_to_turkish(self):
         # Lingua "kravat" için EN 0.55 verir; 0.60 altı Türkçe sayılır.
         self.service.detector.compute_language_confidence.return_value = 0.55

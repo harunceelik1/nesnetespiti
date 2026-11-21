@@ -88,17 +88,32 @@ class ContrastiveQuerySettings:
     distractors: tuple[str, ...] = (
         "person", "car", "dog", "cat", "bird", "chair", "table", "bottle", "cup", "bag",
         "cell phone", "tree", "building",
+        # Masa sahneleri: kutu benzeri büyük nesneler "X box" sorgularını çekiyordu
+        # (laptop, "medicine box" için 0.55). Liste uzadıkça DINO skorları seyrelir;
+        # yalnızca ölçülerek eklenmeli.
+        "laptop", "keyboard", "computer mouse", "book", "tv",
     )
+    # Bu genel sorgular tüm ürünleri kapsar; karşıt sınıflar (bottle, cup...)
+    # ürün kutularını kendine çekip sonucu boşaltır. Bunlarda karşıt sorgu kapalıdır.
+    generic_queries: frozenset[str] = frozenset({
+        "product", "products", "item", "items", "object", "objects", "thing", "things",
+        "package", "packages", "packet", "goods", "merchandise", "grocery", "groceries",
+    })
     # Aynı gruptaki bir sorgu için gruptaki diğer sınıflar karşıt yapılmaz.
     related_groups: tuple[frozenset[str], ...] = (
         frozenset({"person", "man", "woman", "child", "boy", "girl", "baby", "people", "human",
                    "face", "head", "hand", "arm", "leg", "foot", "eye", "hair", "body"}),
-        frozenset({"bag", "handbag", "backpack", "tote bag", "laptop bag", "suitcase", "purse", "wallet"}),
-        frozenset({"cup", "mug", "coffee cup", "glass", "wine glass", "bottle", "water bottle", "can", "jar"}),
+        frozenset({"bag", "handbag", "backpack", "tote bag", "laptop bag", "suitcase", "purse", "wallet",
+                   "plastic bag", "pouch", "snack", "chips", "snack bag", "noodles", "instant noodles"}),
+        frozenset({"cup", "mug", "coffee cup", "glass", "wine glass", "bottle", "water bottle", "can", "jar",
+                   "carton", "milk carton", "juice box", "drink", "beverage", "soda", "milk", "tin can"}),
         frozenset({"car", "vehicle", "truck", "bus", "van", "taxi", "wheel", "tire"}),
         frozenset({"chair", "armchair", "couch", "sofa", "bench", "seat", "stool",
                    "table", "desk", "dining table", "furniture"}),
         frozenset({"cell phone", "phone", "smartphone", "mobile phone", "remote"}),
+        frozenset({"laptop", "computer", "notebook", "keyboard", "computer mouse", "mouse",
+                   "monitor", "screen", "tv", "television", "tablet"}),
+        frozenset({"book", "notebook", "magazine", "folder", "paper"}),
         frozenset({"dog", "cat", "animal", "pet", "puppy", "kitten"}),
         frozenset({"bird", "chicken", "duck", "pigeon", "airplane", "kite"}),
         frozenset({"tree", "plant", "potted plant", "flower", "bush"}),
@@ -107,6 +122,11 @@ class ContrastiveQuerySettings:
 
 
 CONTRASTIVE_QUERIES = ContrastiveQuerySettings()
+
+# Primary sorgu hiçbir şey bulamazsa eş anlamlıları (bag → handbag, backpack) dene.
+# Kapalı: bu faz tam olarak nesne yokken çalıştığı için uydurmayı artırıyordu
+# (adamın eli "handbag", uzaktaki adam "backpack").
+SYNONYM_FALLBACK_ENABLED = False
 
 
 @dataclass(frozen=True)
@@ -122,6 +142,10 @@ class AdaptiveThresholdSettings:
     max_duplicate_fraction: float = 0.90
     weak_score_multiplier: float = 1.20
     max_weak_fraction: float = 0.80
+    # False: yalnızca ilk eşik denenir; sonuç yoksa "bulunamadı" döner. Eşiği
+    # düşürerek aramak, olmayan nesnede en benzer şeyi (laptop → ilaç kutusu)
+    # kabul ettiriyordu. Ölçülen etki için bkz. README "Sabit eşik".
+    allow_lowering: bool = False
 
     def __post_init__(self):
         if not self.thresholds or any(not 0 < value <= 1 for value in self.thresholds):

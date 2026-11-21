@@ -23,6 +23,13 @@ class ContrastiveQueryTests(unittest.TestCase):
                 self.assertTrue(extra)
                 self.assertFalse(forbidden & set(extra), extra)
 
+    def test_generic_queries_get_no_distractors(self):
+        # "product" her ürünü kapsar; "bottle" karşıtı şişeleri ondan çalardı.
+        for query in ["product", "Package", "objects"]:
+            with self.subTest(query=query):
+                self.assertEqual(contrastive_queries([query]), [])
+        self.assertTrue(contrastive_queries(["bottle"]))
+
     def test_disabled_settings_add_nothing(self):
         self.assertEqual(contrastive_queries(["dog"], ContrastiveQuerySettings(enabled=False)), [])
 

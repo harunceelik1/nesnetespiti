@@ -2,6 +2,16 @@ from io import BytesIO
 from base64 import b64decode
 import unittest
 from unittest.mock import MagicMock, patch
+from backend.tests import legacy_adaptive
+
+
+def setUpModule():
+    # Eski eşik düşürme/yedek davranışı ayar olarak sınanır.
+    legacy_adaptive.start()
+
+
+def tearDownModule():
+    legacy_adaptive.stop()
 
 try:
     from fastapi.testclient import TestClient

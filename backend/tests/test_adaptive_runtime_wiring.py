@@ -24,14 +24,17 @@ from backend.app.services.translation_service import TranslationService
 
 # Bu dosya sorgu aktarımını birebir sınar; karşıt sorgular (test_contrastive.py) kapatılır.
 from backend.app.config import ContrastiveQuerySettings as _ContrastiveSettings
+from backend.tests import legacy_adaptive
 _contrastive_patch = patch("backend.app.config.CONTRASTIVE_QUERIES", _ContrastiveSettings(enabled=False))
 
 
 def setUpModule():
+    legacy_adaptive.start()
     _contrastive_patch.start()
 
 
 def tearDownModule():
+    legacy_adaptive.stop()
     _contrastive_patch.stop()
 
 

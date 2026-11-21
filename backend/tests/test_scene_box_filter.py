@@ -17,6 +17,16 @@ from backend.app.services.inference_orchestrator import run_detection
 from backend.app.services.query_processor import process_query
 from backend.app.utils.scene_box_filter import filter_scene_boxes, scene_box_rule
 from backend.tests.test_inventory_queries import translator
+from backend.tests import legacy_adaptive
+
+
+def setUpModule():
+    # Eski eşik düşürme/yedek davranışı ayar olarak sınanır.
+    legacy_adaptive.start()
+
+
+def tearDownModule():
+    legacy_adaptive.stop()
 
 
 def detection(coords, query="backpack", confidence=.9):

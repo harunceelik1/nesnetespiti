@@ -34,6 +34,10 @@ def contrastive_queries(queries: list[str], settings: ContrastiveQuerySettings |
     settings = settings if settings is not None else config.CONTRASTIVE_QUERIES
     if not settings.enabled or not queries:
         return []
+    # Genel sorgu ("product") her nesneyi kapsar: karşıt sınıf eklemek doğru
+    # kutuları yanlış sınıfa kaçırır.
+    if any(" ".join(query.casefold().split()) in settings.generic_queries for query in queries):
+        return []
     blocked = {_key(query) for query in queries}
     for query in queries:
         blocked |= {_key(item) for item in _related(query, settings)}

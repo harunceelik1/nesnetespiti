@@ -3,6 +3,16 @@
 import unittest
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
+from backend.tests import legacy_adaptive
+
+
+def setUpModule():
+    # Eski eşik düşürme/yedek davranışı ayar olarak sınanır.
+    legacy_adaptive.start()
+
+
+def tearDownModule():
+    legacy_adaptive.stop()
 
 try:
     import torch

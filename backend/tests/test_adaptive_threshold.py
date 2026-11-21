@@ -7,6 +7,16 @@ from unittest.mock import patch
 from backend.app.config import ADAPTIVE_THRESHOLDS, GROUNDING_DINO
 from backend.app.models.base_detector import BaseDetector
 from backend.app.services.inference_orchestrator import run_detection
+from backend.tests import legacy_adaptive
+
+
+def setUpModule():
+    # Eski eşik düşürme/yedek davranışı ayar olarak sınanır.
+    legacy_adaptive.start()
+
+
+def tearDownModule():
+    legacy_adaptive.stop()
 
 
 PLAN = {

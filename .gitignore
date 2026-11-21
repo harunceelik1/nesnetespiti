@@ -9,3 +9,4 @@ frontend/.next/
 frontend/*.tsbuildinfo
 frontend/.env.local
 evaluation/inventory/results/debug/
+outputs/sanity/

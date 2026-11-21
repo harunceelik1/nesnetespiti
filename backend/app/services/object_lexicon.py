@@ -46,6 +46,22 @@ OBJECTS = {
     "sandviç": "sandwich", "sosisli": "hot dog", "kek": "cake", "turta": "pie",
     "çörek": "donut", "kutu": "box", "karton kutu": "cardboard box", "konserve": "can",
     "teneke kutu": "can", "poşet": "plastic bag", "kavanoz": "jar",
+    # Kap/kılıf bildiren yaygın tamlamalar (dilsel karşılık; kural tabanlı tamlamadan önce gelir)
+    "ilaç": "medicine", "ilaç kutusu": "medicine box", "gözlük kutusu": "glasses case",
+    "gözlük kılıfı": "glasses case", "kalem kutusu": "pencil case", "kulaklık kutusu": "earbuds case",
+    "telefon kılıfı": "phone case", "makyaj çantası": "makeup bag", "baharat kavanozu": "spice jar",
+    "zımba": "stapler", "bant": "tape", "silgi": "eraser", "cetvel": "ruler", "ataş": "paper clip",
+    "hesap makinesi": "calculator", "uzatma kablosu": "power strip", "kesme tahtası": "cutting board",
+    "sünger": "sponge", "tarak": "comb", "çakmak": "lighter", "termos": "thermos",
+    # Market / envanter
+    "ürün": "product", "eşya": "object", "nesne": "object", "paket": "package",
+    "peçete": "tissue", "kağıt mendil": "tissue", "mendil": "tissue",
+    "atıştırmalık": "snack", "cips": "chips", "çikolata": "chocolate bar",
+    "sakız": "chewing gum", "erişte": "noodles", "hazır erişte": "instant noodles",
+    "süt": "milk", "süt kutusu": "milk carton", "karton": "carton", "meyve suyu": "juice box",
+    "içecek": "drink", "gazlı içecek": "soda", "teneke": "can", "şampuan": "shampoo bottle",
+    "sabun": "soap", "diş macunu": "toothpaste", "çay": "tea", "kahve": "coffee",
+    "makarna": "pasta", "deterjan": "detergent", "baharat": "spice",
     # Ev eşyası
     "sandalye": "chair", "koltuk": "armchair", "kanepe": "couch", "masa": "table",
     "yemek masası": "dining table", "çalışma masası": "desk", "yatak": "bed",
@@ -83,6 +99,14 @@ MODIFIERS = {
     "plastik": "plastic", "cam": "glass",
 }
 
+# Türkçe isim tamlamasının ikinci sözcüğü (iyelik ekli) → İngilizce baş isim.
+# "ilaç kutusu" sözlükte yoksa: lookup("ilaç") + "box" → "medicine box".
+POSSESSIVE_HEADS = {
+    "kutusu": "box", "kılıfı": "case", "şişesi": "bottle", "paketi": "package",
+    "poşeti": "bag", "kavanozu": "jar", "bardağı": "cup", "çantası": "bag", "kabı": "container",
+    "tüpü": "tube", "kapağı": "lid", "fırçası": "brush", "kablosu": "cable", "aleti": "device",
+}
+
 _ASCII_FOLD = str.maketrans("çğıöşü", "cgiosu")
 
 
@@ -116,6 +140,7 @@ ENGLISH_VOCABULARY = {
 _OBJECTS = _with_ascii_variants({normalize_key(k): v for k, v in OBJECTS.items()}, ENGLISH_VOCABULARY)
 _MODIFIERS = _with_ascii_variants({normalize_key(k): v for k, v in MODIFIERS.items()}, ENGLISH_VOCABULARY)
 _PLURAL_SUFFIXES = ("lar", "ler")
+_HEADS = _with_ascii_variants({normalize_key(k): v for k, v in POSSESSIVE_HEADS.items()}, ENGLISH_VOCABULARY)
 
 
 def _lookup_object(word: str) -> str | None:
@@ -143,6 +168,13 @@ def lookup(text: str) -> str | None:
         noun = _lookup_object(tail)
         if noun is not None and all(word in _MODIFIERS for word in head):
             return " ".join([*(_MODIFIERS[word] for word in head), noun])
+    # İsim tamlaması: "[sıfat] X kutusu" → "[adj] X box" (X sözlükte olmalı).
+    if len(words) >= 2 and words[-1] in _HEADS:
+        rest = lookup(" ".join(words[:-1]))
+        if rest is not None:
+            head = _HEADS[words[-1]]
+            # "şampuan şişesi": rest zaten "shampoo bottle" → tekrar ekleme.
+            return rest if rest.split()[-1] == head else f"{rest} {head}"
     return None
 
 

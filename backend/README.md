@@ -10,6 +10,22 @@ Dil tespitinde sözlükteki İngilizce sözcükler kesin İngilizce sayılır; d
 sözcükler, Lingua İngilizce güveni 0.60'ın altındaysa Türkçe kabul edilir.
 Yanıtta `translation_source` alanı `lexicon` veya `model` değerini taşır.
 
+## Sabit eşik ve "bulunamadı" (üretim varsayılanı)
+
+Bir sorgu ilk eşikte hiçbir şey bulamazsa sonuç **boş** döner; eşik düşürülmez ve eş
+anlamlı yedek (bag → handbag, backpack) denenmez. Nedeni ölçüldü: nesne görselde
+yokken eşiği düşürmek modelin en benzer bölgeyi kabul etmesine yol açıyordu (masa
+fotoğrafında "ilaç kutusu" → laptop, "fare" → kulaklık kutusu; "çanta" → adamın eli).
+Mekanizmalar ayar olarak durur: `AdaptiveThresholdSettings.allow_lowering` ve
+`config.SYNONYM_FALLBACK_ENABLED` (ikisi de False). Eski davranışı sınayan testler
+`tests/legacy_adaptive.py` ile bunları açar. Bedeli: eşik altında kalan zayıf ama
+gerçek tespitler (ör. DINO'da ceket 0.27) artık döndürülmez.
+
+Türkçe isim tamlamaları sözlükten kurulur: "ilaç kutusu" → medicine box,
+"gözlük kutusu" → glasses case, "kırmızı ilaç kutusu" → red medicine box
+(`object_lexicon.POSSESSIVE_HEADS`). Marian bunları "pharmaceutical box",
+"glass box" diye çeviriyordu.
+
 ## Karşıt sorgular (olmayan nesne uydurmasını önleme)
 
 Açık sözlük dedektörler tek sorguda en benzer bölgeyi her zaman bulur: köpek
