@@ -7,6 +7,7 @@ import torch
 from PIL import Image
 from transformers import AutoModelForZeroShotObjectDetection, AutoProcessor
 
+from .. import config
 from ..config import GROUNDING_DINO, GroundingDinoSettings
 from ..utils.contrastive import contrastive_queries, keep_requested
 from ..utils.nms import class_aware_nms
@@ -33,7 +34,7 @@ class GroundingDinoService(BaseDetector):
         self.model.to(self.device)
         self.model.eval()
 
-    def _predict_queries(self, image: Image.Image, queries: str | list[str], *, box_threshold: float | None = None, text_threshold: float | None = None, phrase_argmax: bool = False) -> list[Detection]:
+    def _predict_queries(self, image: Image.Image, queries: str | list[str], *, box_threshold: float | None = None, text_threshold: float | None = None, phrase_argmax: bool = False, requested_count: int | None = None, min_margin: float = 0.0) -> list[Detection]:
         if isinstance(queries, str):
             queries = [queries]
         queries = list(dict.fromkeys(query.strip() for query in queries if query.strip()))
@@ -53,6 +54,7 @@ class GroundingDinoService(BaseDetector):
                     detections = self._phrase_argmax(
                         outputs, inputs["input_ids"][0], queries, image,
                         self.config.box_threshold if box_threshold is None else box_threshold,
+                        requested_count=requested_count, min_margin=min_margin,
                     )
                     if self.device == "cuda":
                         torch.cuda.synchronize()
@@ -100,19 +102,27 @@ class GroundingDinoService(BaseDetector):
             raise DetectorError("Grounding DINO prompt'u sorgu ifadelerine ayrılamadı.")
         return spans
 
-    def _phrase_argmax(self, outputs, input_ids, queries: list[str], image: Image.Image, box_threshold: float) -> list[Detection]:
+    def _phrase_argmax(self, outputs, input_ids, queries: list[str], image: Image.Image, box_threshold: float, *, requested_count: int | None = None, min_margin: float = 0.0) -> list[Detection]:
         """Her kutu: ifade skoru = ifade tokenlarının en yüksek olasılığı; en iyi ifade seçilir.
 
         Text threshold bu yolda kullanılmaz: etiket eşikle değil, ifadeler arası
-        yarışla belirlenir. Kutu skoru seçilen ifadenin skorudur.
+        yarışla belirlenir. Kutu skoru seçilen ifadenin skorudur. İlk
+        ``requested_count`` ifade sorulanlardır, kalanı karşıt; sorulan bir ifade
+        kazansa bile en iyi karşıttan ``min_margin`` kadar önde değilse kutu atılır
+        (belirsiz eşleşme: ör. ayakkabı → umbrella 0.31, chair 0.24).
         """
         spans = self._phrase_spans(input_ids, len(queries))
         probs = outputs.logits[0].sigmoid()
         phrase_scores = torch.stack([probs[:, span].max(dim=1).values for span in spans], dim=1)
         scores, best = phrase_scores.max(dim=1)
+        keep = scores > box_threshold
+        requested_count = len(queries) if requested_count is None else requested_count
+        if min_margin > 0 and requested_count < len(queries):
+            distractor_best = phrase_scores[:, requested_count:].max(dim=1).values
+            keep &= (best < requested_count) & (scores - distractor_best >= min_margin)
         boxes = outputs.pred_boxes[0]
         detections = []
-        for index in torch.nonzero(scores > box_threshold).flatten().tolist():
+        for index in torch.nonzero(keep).flatten().tolist():
             cx, cy, w, h = boxes[index].tolist()
             label = queries[best[index].item()]
             detections.append({
@@ -131,7 +141,10 @@ class GroundingDinoService(BaseDetector):
             return super()._infer_requested(image, queries, threshold, text_threshold)
         # Raw debug akışı (text_threshold=None) HTTP eşiği yerine config box eşiğini kullanır.
         box_threshold = threshold if text_threshold is not None else None
-        detections = self._predict_queries(image, [*queries, *extra], box_threshold=box_threshold, phrase_argmax=True)
+        detections = self._predict_queries(
+            image, [*queries, *extra], box_threshold=box_threshold, phrase_argmax=True,
+            requested_count=len(queries), min_margin=config.CONTRASTIVE_QUERIES.min_margin,
+        )
         return keep_requested(detections, queries)
 
     def _infer_raw(self, image: Image.Image, queries: list[str], threshold: float) -> list[Detection]:

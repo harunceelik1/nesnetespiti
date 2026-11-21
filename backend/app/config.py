@@ -80,6 +80,10 @@ class ContrastiveQuerySettings:
     """Olmayan nesne uydurmasını önleyen karşıt sorgular (bkz. utils/contrastive.py)."""
 
     enabled: bool = True
+    # Grounding DINO: kutu, sorulan sınıfa en iyi karşıt sınıftan en az bu kadar
+    # daha iyi uymalı. Gözlenen: sahte "umbrella" (ayakkabı) farkı 0.07, gerçek
+    # jacket/hand farkı >= 0.16. 3 görselden seçildi; daha geniş veriyle ayarlanmalı.
+    min_margin: float = 0.10
     # Gündelik görüntülerde en sık görülen, birbirinden ayrık COCO sınıfları.
     distractors: tuple[str, ...] = (
         "person", "car", "dog", "cat", "bird", "chair", "table", "bottle", "cup", "bag",

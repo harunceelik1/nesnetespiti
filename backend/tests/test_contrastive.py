@@ -77,6 +77,25 @@ class GroundingDinoPhraseArgmaxTests(unittest.TestCase):
         for key, expected in {"xmin": 40.0, "ymin": 20.0, "xmax": 60.0, "ymax": 30.0}.items():
             self.assertAlmostEqual(result[0]["box"][key], expected, places=4)
 
+    def test_ambiguous_match_is_dropped_by_margin(self):
+        from types import SimpleNamespace
+        import torch
+        from PIL import Image
+        from backend.app.models.grounding_dino_service import GroundingDinoService
+        service = GroundingDinoService.__new__(GroundingDinoService)
+        # [CLS] umbrella . handbag . chair . [SEP]  -> ilk ikisi sorulan, chair karşıt
+        ids = torch.tensor([101, 12977, 1012, 2192, 1012, 3242, 1012, 102])
+        prob = lambda p: torch.logit(torch.tensor(p)).item()
+        logits = torch.full((3, 256), -10.0)
+        logits[0, 1], logits[0, 5] = prob(0.31), prob(0.24)   # ayakkabı: fark 0.07 → atılır
+        logits[1, 1], logits[1, 5] = prob(0.40), prob(0.10)   # net eşleşme → kalır
+        logits[2, 1], logits[2, 3] = prob(0.36), prob(0.35)   # iki sorulan yarışır → kalır
+        outputs = SimpleNamespace(logits=logits[None], pred_boxes=torch.tensor([[[0.5, 0.5, 0.2, 0.2]] * 3]))
+        with Image.new("RGB", (100, 50)) as image:
+            result = service._phrase_argmax(outputs, ids, ["umbrella", "handbag", "chair"], image, 0.25,
+                                            requested_count=2, min_margin=0.10)
+        self.assertEqual([round(d["confidence"], 2) for d in result], [0.40, 0.36])
+
 
 if __name__ == "__main__":
     unittest.main()
