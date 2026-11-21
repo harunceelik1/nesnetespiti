@@ -10,6 +10,27 @@ Dil tespitinde sözlükteki İngilizce sözcükler kesin İngilizce sayılır; d
 sözcükler, Lingua İngilizce güveni 0.60'ın altındaysa Türkçe kabul edilir.
 Yanıtta `translation_source` alanı `lexicon` veya `model` değerini taşır.
 
+## Üç model karşılaştırması (sabit, kalibre edilmiş eşikler)
+
+| Model | Eşik | Var olan (18) | Olmayan boş (16) | Envanter "ürün" F1 | CPU süre/görsel |
+|---|---|---|---|---|---|
+| OWLv2 | 0.13 | 16 | 16 | 0.79 | ~5.5 sn |
+| Grounding DINO (tiny) | 0.35 | 13 | 16 | 0.84 | ~6–15 sn |
+| YOLO-World (s, v2) | 0.10 | 13 | 16 | ~0 ("product"u anlamıyor) | ~0.7 sn |
+
+"Var olan" yalnızca kutu çizilip çizilmediğini sayar, kutunun yerini doğrulamaz;
+envanter F1 ise IoU >= 0.5 ile doğru kutulara göre hesaplanır. Sayılar eşiğin
+seçildiği kalibrasyon verisinden geldiği için iyimserdir.
+
+YOLO-World: görülmüş (COCO) sınıflarda en güçlü ve en hızlı model (araba 0.94,
+insan 0.93), görülmemiş nesnelerde (ilaç kutusu, gözlük kılıfı, şarj aleti) hiçbir
+şey bulmaz; "product/snack/item" gibi genel kavramları tanımaz (12 envanter
+görselinde "product" 0, "bottle" 34/120 doğru). Eşik bu yüzden RPC ile değil, var/yok
+vakalarıyla seçildi. Kurulum: `pip install "ultralytics>=8.3,<9"` ve
+`pip install git+https://github.com/ultralytics/CLIP.git`; ilk açılışta
+`yolov8s-worldv2.pt` (25 MB, `.cache/yolo-world/`) ve CLIP ViT-B/32 (338 MB,
+Ultralytics ayarındaki `weights/` klasörü) iner. `ultralytics` AGPL-3.0 lisanslıdır.
+
 ## OWLv2 (OWL yuvasının varsayılan modeli)
 
 API/arayüz kimliği `owlvit` aynı kalır; arkasında `google/owlv2-base-patch16-ensemble`

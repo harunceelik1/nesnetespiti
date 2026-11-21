@@ -179,7 +179,8 @@ ADAPTIVE_THRESHOLDS = {
         thresholds=(GROUNDING_DINO.box_threshold, 0.30, 0.25),
         text_threshold=GROUNDING_DINO.text_threshold,
     ),
-    # YOLO-World'ün kendi confidence ölçeği; Ultralytics varsayılanı 0.25'ten başlar,
-    # sonuç yoksa/şüpheliyse açık sözlük sorguları için kademeli olarak düşer.
-    "yolo-world": AdaptiveThresholdSettings(thresholds=(0.25, 0.15, 0.10, 0.05)),
+    # YOLO-World: 36 var/yok vakasıyla seçildi (envanter "ürün" sorgusunu anlamadığı
+    # için RPC kalibrasyonu kullanılamadı). 0.10: var olan 13/18, olmayan 16/16 boş;
+    # olmayan nesnede en yüksek sahte puan 0.046.
+    "yolo-world": AdaptiveThresholdSettings(thresholds=(0.10,)),
 }
