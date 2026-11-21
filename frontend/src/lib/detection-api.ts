@@ -54,6 +54,8 @@ export interface DetectionDetails extends SceneBoxDiagnostics {
   original_query: string;
   detected_language: string;
   translated_query: string | null;
+  /** lexicon / model / user / mixed; null: İngilizce sorgu, çevrilmedi. */
+  translation_source?: string | null;
   primary_query: string;
   processed_queries: string[];
   fallback_triggered: boolean;
@@ -98,11 +100,13 @@ export interface DetectionAnalysis {
   image: Blob;
 }
 
-async function postImage(path: string, image: File, query: string, signal: AbortSignal, model: DetectorModel, includeImage = false): Promise<Response> {
+async function postImage(path: string, image: File, query: string, signal: AbortSignal, model: DetectorModel, includeImage = false, englishQuery?: string): Promise<Response> {
   const form = new FormData();
   form.append("image", image);
   form.append("query", query);
   form.append("model", model);
+  // Kullanıcının düzelttiği İngilizce ifade: backend çeviriyi atlar, etiket Türkçe kalır.
+  if (englishQuery?.trim()) form.append("english_query", englishQuery.trim());
   // Confidence eşiğini backend model bazında seçer; frontend sayı göndermez.
   if (includeImage) form.append("include_image", "true");
 
@@ -130,7 +134,7 @@ async function postImage(path: string, image: File, query: string, signal: Abort
       throw new Error("Backend görüntüyü işleyemedi. Biraz sonra tekrar deneyin; hata sürerse backend terminalini kontrol edin.");
     }
     if (response.status === 422) {
-      throw new Error("Görsel ve nesne sorgusunu kontrol ederek tekrar deneyin.");
+      throw new Error(typeof detail === "string" ? detail : "Görsel ve nesne sorgusunu kontrol ederek tekrar deneyin.");
     }
     throw new Error(typeof detail === "string" ? detail : "Görsel işlenemedi. Geçerli bir JPG/PNG dosyası seçin.");
   }
@@ -283,9 +287,9 @@ async function readDetectionDetails(response: Response, model: DetectorModel): P
   return details as DetectionDetails;
 }
 
-export async function getDetectionAnalysis(image: File, query: string, signal: AbortSignal, model: DetectorModel = "owlvit"): Promise<DetectionAnalysis> {
+export async function getDetectionAnalysis(image: File, query: string, signal: AbortSignal, model: DetectorModel = "owlvit", englishQuery?: string): Promise<DetectionAnalysis> {
   // Tek orchestration çalışması hem metadata hem annotate edilmiş JPEG üretir.
-  const response = await postImage("/detect", image, query, signal, model, true);
+  const response = await postImage("/detect", image, query, signal, model, true, englishQuery);
   const data = await readDetectionDetails(response, model) as DetectionDetails & {
     annotated_image?: { media_type?: unknown; data_base64?: unknown };
   };

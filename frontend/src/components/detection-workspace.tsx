@@ -9,6 +9,7 @@ import ControlPanel from "./control-panel";
 import ImageViewer, { type ViewerMode } from "./image-viewer";
 import ModelComparison from "./model-comparison";
 import ResultSummary from "./result-summary";
+import QueryInterpretation from "./query-interpretation";
 import TechnicalDetails from "./technical-details";
 
 export default function DetectionWorkspace() {
@@ -79,6 +80,11 @@ export default function DetectionWorkspace() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    await runDetection();
+  }
+
+  // englishQuery: "Aranan ifade" düzeltmesi; verilmezse backend sorguyu kendisi çevirir.
+  async function runDetection(englishQuery?: string) {
     if (!image || !query.split(",").some((part) => part.trim()) || busy) return;
     clearResult();
     activeRequest.current?.abort();
@@ -93,7 +99,7 @@ export default function DetectionWorkspace() {
       const startedAt = performance.now();
       updateResult(model, { phase: "image" });
       try {
-        const analysis = await getDetectionAnalysis(image!, submittedQuery, controller.signal, model);
+        const analysis = await getDetectionAnalysis(image!, submittedQuery, controller.signal, model, englishQuery);
         if (controller.signal.aborted) return;
         const url = URL.createObjectURL(analysis.image);
         resultUrls.current[model] = url;
@@ -118,6 +124,11 @@ export default function DetectionWorkspace() {
   }
 
   const singleResult = results[selection === "compare" ? "owlvit" : selection];
+  // Çeviri tüm modellerde ortaktır; ilk gelen sonucun planı gösterilir.
+  const interpretedDetails = selection === "compare"
+    ? DETECTOR_MODELS.map((model) => results[model].details).find(Boolean) ?? null
+    : singleResult.details;
+  const interpretation = <QueryInterpretation key={interpretedDetails?.primary_query ?? "none"} details={interpretedDetails} busy={busy} onRetry={(value) => { void runDetection(value); }} />;
   const phase = singleResult.phase === "image" || singleResult.phase === "details" ? singleResult.phase : "idle";
 
   return (
@@ -134,6 +145,7 @@ export default function DetectionWorkspace() {
       />
       <section className="analysis-area" aria-label="Görüntü analiz alanı">
         {selection === "compare" ? <>
+          {interpretation}
           <ModelComparison results={results} previewUrl={previewUrl} query={resultQuery} loading={loading} />
           {DETECTOR_MODELS.map((model) => <TechnicalDetails key={model}
             modelName={MODEL_NAMES[model]} details={results[model].details}
@@ -145,6 +157,7 @@ export default function DetectionWorkspace() {
             resultQuery={resultQuery} view={view} compare={compare} loading={phase === "image"}
             onViewChange={setView} onCompareChange={setCompare}
           />
+          {interpretation}
           <ResultSummary details={singleResult.details} hasResult={!!singleResult.imageUrl} phase={phase} failed={!!singleResult.error} />
           <InventorySummary details={singleResult.details} />
           <TechnicalDetails details={singleResult.details} loading={loading}

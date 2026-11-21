@@ -391,3 +391,43 @@ test("Compare içinde bir model hata verirse başarılı modelin sonucu korunur"
     assert.equal(element<HTMLButtonElement>("button[type='submit']").disabled, false);
   }
 });
+
+test("aranan İngilizce ifade gösterilir; düzeltilince english_query ile tekrar aranır", async () => {
+  const sent: Array<{ query: FormDataEntryValue | null; english: FormDataEntryValue | null }> = [];
+  globalThis.fetch = async (_url, options) => {
+    const form = options!.body as FormData;
+    const english = form.get("english_query");
+    sent.push({ query: form.get("query"), english });
+    return Response.json({
+      ...responseBody, query: "ilaç kutusu", original_query: "ilaç kutusu",
+      translated_query: english ?? "Pharmaceutical box",
+      translation_source: english ? "user" : "model",
+      primary_query: english ? String(english) : "pharmaceutical box",
+    });
+  };
+  await upload();
+  await query("ilaç kutusu");
+  await submit();
+  const section = element<HTMLElement>(".query-interpretation");
+  assert.equal(element(".query-value").textContent, "pharmaceutical box");
+  assert.match(section.textContent!, /çeviri modeli/);
+  assert.ok(section.classList.contains("uncertain"), "çeviri modeli kaynağı uyarı ile işaretlenir");
+  assert.equal(sent[0].english, null);
+
+  const editButton = [...section.querySelectorAll("button")].find((b) => b.textContent === "Düzenle")!;
+  await act(async () => { editButton.click(); });
+  const input = element<HTMLInputElement>("#english-query");
+  assert.equal(input.value, "pharmaceutical box");
+  const setter = Object.getOwnPropertyDescriptor(dom.window.HTMLInputElement.prototype, "value")!.set!;
+  await act(async () => {
+    setter.call(input, "pill box");
+    input.dispatchEvent(new dom.window.Event("input", { bubbles: true }));
+  });
+  await act(async () => {
+    element<HTMLFormElement>(".query-edit").dispatchEvent(new dom.window.Event("submit", { bubbles: true, cancelable: true }));
+  });
+  assert.deepEqual(sent[1], { query: "ilaç kutusu", english: "pill box" });
+  assert.equal(element(".query-value").textContent, "pill box");
+  assert.match(element(".query-interpretation").textContent!, /senin düzeltmen/);
+  assert.equal(element<HTMLInputElement>("#object-query").value, "ilaç kutusu", "Türkçe sorgu korunur");
+});

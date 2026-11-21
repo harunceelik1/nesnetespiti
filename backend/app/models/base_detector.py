@@ -36,6 +36,7 @@ class DetectorResult(TypedDict):
     original_query: NotRequired[str]
     detected_language: NotRequired[str]
     translated_query: NotRequired[str | None]
+    translation_source: NotRequired[str | None]
     primary_query: NotRequired[str]
     processed_queries: NotRequired[list[str]]
     fallback_queries_used: NotRequired[list[str]]
@@ -126,6 +127,8 @@ class BaseDetector(ABC):
             "original_query": plan["original_query"],
             "detected_language": plan["detected_language"],
             "translated_query": plan["translated_query"],
+            # lexicon / model / user / None (İngilizce sorgu): arayüz "Aranan ifade" için kullanır.
+            "translation_source": plan.get("translation_source"),
             "primary_query": plan["primary_query"],
             "processed_queries": processed_queries,
             "fallback_queries_used": fallback_queries_used,

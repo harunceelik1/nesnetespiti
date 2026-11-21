@@ -58,43 +58,85 @@ def _combined_source(items: list[dict]) -> str | None:
     return next(iter(sources)) if len(sources) == 1 else ("mixed" if sources else None)
 
 
-def process_query(original_query: str, translation_service: TranslationService) -> ProcessedQuery:
-    """Model tabanlı çeviri sonucuna bağımsız bir fallback planı ekler."""
+def _fallback_plan(primary_key: str) -> list[str]:
+    # Fallback mekanizması çeviriden ve primary normalizasyonundan bağımsızdır.
+    candidates = FALLBACK_QUERIES.get(primary_key, [])
+    fallback_queries = list(dict.fromkeys(_normalize_lookup(candidate) for candidate in candidates))
+    return [candidate for candidate in fallback_queries if candidate != primary_key]
+
+
+def _combine(original_query: str, items: list[dict]) -> ProcessedQuery:
+    """Virgüllü sorgunun parçalarını tek plana birleştirir; aynı primary bir kez sayılır."""
+    unique, seen_primary = [], set()
+    for item in items:
+        if item["primary_query"] and item["primary_query"] not in seen_primary:
+            seen_primary.add(item["primary_query"])
+            unique.append(item)
+    if not unique:
+        raise TranslationServiceError("En az bir nesne sorgusu girin.", 422)
+    languages = {item["detected_language"] for item in unique}
+    return {
+        "original_query": original_query,
+        "detected_language": next(iter(languages)) if len(languages) == 1 else "mixed",
+        "translated_query": ", ".join(item["translated_query"] or item["primary_query"] for item in unique)
+        if any(item["translated_query"] is not None for item in unique) else None,
+        # Her parçanın kaynağı processed_query_items içinde ayrıca bulunur.
+        "translation_source": _combined_source(unique),
+        "primary_query": ", ".join(item["primary_query"] for item in unique),
+        "fallback_queries": [], "processed_query_items": unique,
+    }
+
+
+def _split_parts(text: str) -> list[str]:
+    parts, seen = [], set()
+    for part in text.split(","):
+        part = " ".join(part.split())
+        lookup = _normalize_lookup(part)
+        if lookup and lookup not in seen:
+            seen.add(lookup)
+            parts.append(part)
+    return parts
+
+
+def _override_item(original_part: str, english_part: str) -> dict:
+    """Kullanıcının elle yazdığı İngilizce ifade: çeviri atlanır, etiket Türkçe kalır."""
+    primary_key = normalize_primary_query(english_part)
+    if not primary_key:
+        raise TranslationServiceError("Geçerli bir İngilizce nesne ifadesi girin.", 422)
+    return {
+        "original_query": original_part,
+        "detected_language": "user",
+        "translated_query": english_part,
+        "translation_source": "user",
+        "primary_query": primary_key,
+        "fallback_queries": _fallback_plan(primary_key),
+    }
+
+
+def process_query(original_query: str, translation_service: TranslationService, english_query: str | None = None) -> ProcessedQuery:
+    """Sorguyu modele gidecek İngilizce plana çevirir.
+
+    english_query verilirse (arayüzdeki "Aranan ifade" düzeltmesi) çeviri yapılmaz;
+    virgüllü sorguda parça sayıları eşleşmelidir.
+    """
+    if english_query is not None and english_query.strip():
+        originals, englishes = _split_parts(original_query), _split_parts(english_query)
+        if len(englishes) == 1 and len(originals) <= 1:
+            label = originals[0] if originals else englishes[0]
+            return _override_item(label, englishes[0])
+        if len(originals) != len(englishes):
+            raise TranslationServiceError(
+                f"İngilizce ifade sayısı ({len(englishes)}) sorgu sayısıyla ({len(originals)}) aynı olmalı; virgülle ayırın.", 422)
+        return _combine(original_query, [_override_item(o, e) for o, e in zip(originals, englishes)])
     if "," in original_query:
-        items, seen_parts, seen_primary = [], set(), set()
-        for part in original_query.split(","):
-            part = " ".join(part.split())
-            lookup = _normalize_lookup(part)
-            if not lookup or lookup in seen_parts:
-                continue
-            seen_parts.add(lookup)
-            item = process_query(part, translation_service)
-            if item["primary_query"] and item["primary_query"] not in seen_primary:
-                seen_primary.add(item["primary_query"])
-                items.append(item)
-        if not items:
-            raise TranslationServiceError("En az bir nesne sorgusu girin.", 422)
-        languages = {item["detected_language"] for item in items}
-        return {
-            "original_query": original_query,
-            "detected_language": next(iter(languages)) if len(languages) == 1 else "mixed",
-            "translated_query": ", ".join(item["translated_query"] or item["primary_query"] for item in items)
-            if any(item["translated_query"] is not None for item in items) else None,
-            # Her parçanın kaynağı processed_query_items içinde ayrıca bulunur.
-            "translation_source": _combined_source(items),
-            "primary_query": ", ".join(item["primary_query"] for item in items),
-            "fallback_queries": [], "processed_query_items": items,
-        }
+        return _combine(original_query, [process_query(part, translation_service) for part in _split_parts(original_query)])
     result = translation_service.prepare_query(original_query)
     primary_key = normalize_primary_query(result["primary_query"])
     if not primary_key:
         raise TranslationServiceError("Geçerli bir nesne sorgusu girin.", 422)
-    candidates = FALLBACK_QUERIES.get(primary_key, [])
-    # Fallback mekanizması çeviriden ve primary normalizasyonundan bağımsızdır.
-    fallback_queries = list(dict.fromkeys(_normalize_lookup(candidate) for candidate in candidates))
     return {
         **result,
         # translated_query modelin gerçek çıktısı olarak debug için korunur.
         "primary_query": primary_key,
-        "fallback_queries": [candidate for candidate in fallback_queries if candidate != primary_key],
+        "fallback_queries": _fallback_plan(primary_key),
     }

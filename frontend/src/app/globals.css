@@ -133,3 +133,15 @@ th { font-weight: 500; color: #737e8a; }
 .inventory-summary dl > div { display: flex; justify-content: space-between; gap: 16px; padding: 4px 0; }
 .inventory-summary dd { margin: 0; font-variant-numeric: tabular-nums; }
 .inventory-summary .inventory-total { margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--line); font-weight: 600; }
+
+.query-interpretation { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
+.query-interpretation.uncertain { border-left: 2px solid #aa966e; padding-left: 12px; }
+.query-line { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.query-caption { color: var(--muted); }
+.query-value { font-family: var(--mono); font-size: 13px; color: var(--text); background: var(--canvas); padding: 2px 8px; border-radius: 4px; overflow-wrap: anywhere; }
+.query-source { color: var(--muted); font-size: 11px; }
+.text-button { border: 0; background: none; padding: 2px 4px; color: var(--accent); font-size: 12px; text-decoration: underline; text-underline-offset: 2px; }
+.query-edit { display: grid; gap: 6px; }
+.query-edit-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.query-edit-row input { flex: 1 1 200px; min-width: 0; height: 34px; padding: 0 10px; border: 1px solid var(--line); border-radius: 5px; font-family: var(--mono); }
+.query-edit-row .detect-button { height: 34px; padding: 0 14px; }

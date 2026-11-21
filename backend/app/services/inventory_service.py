@@ -68,6 +68,7 @@ def run_inventory_detection(detector, image, query, policy, run_single):
         "model": detector.response_model, "model_id": detector.model_id, "device": detector.device,
         "original_query": query["original_query"], "detected_language": query["detected_language"],
         "translated_query": query["translated_query"], "primary_query": query["primary_query"],
+        "translation_source": query.get("translation_source"),
         "processed_queries": list(dict.fromkeys(q for result in results for q in result["processed_queries"])),
         "processed_query_items": processed_items,
         "fallback_triggered": any(r["fallback_triggered"] for r in results),

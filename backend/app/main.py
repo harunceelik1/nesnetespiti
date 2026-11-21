@@ -59,11 +59,12 @@ def health():
     return {"status": "ok"}
 
 
-def prepare_detection(request: Request, original_query: str, model: str):
+def prepare_detection(request: Request, original_query: str, model: str, english_query: str | None = None):
     # Geçersiz form değerini pahalı çeviriden önce reddet; henüz model seçilmez.
     request.app.state.detector_registry.validate_id(model)
     # Çeviri/query işleme detector seçilmeden önce tek ortak noktada yapılır.
-    plan = process_query(original_query, request.app.state.translation_service)
+    # english_query: arayüzde kullanıcının düzelttiği İngilizce ifade (çeviriyi atlar).
+    plan = process_query(original_query, request.app.state.translation_service, english_query)
     return request.app.state.detector_registry.get(model), plan
 
 
@@ -81,6 +82,7 @@ def detect(
     query: str = Form(...),
     threshold: float = Form(0.2, ge=0.0, le=1.0),
     model: str = Form("owlvit"),
+    english_query: str | None = Form(None),
     include_image: bool = Form(False),
 ):
     # File ve Form parametreleri multipart/form-data olarak alınır.
@@ -91,7 +93,7 @@ def detect(
         if not query:
             raise HTTPException(status_code=422, detail="query boş olamaz.")
 
-        detector, plan = prepare_detection(request, original_query, model)
+        detector, plan = prepare_detection(request, original_query, model, english_query)
 
         try:
             with Image.open(image.file) as source:
@@ -131,6 +133,7 @@ def detect_image(
     query: str = Form(...),
     threshold: float = Form(0.2, ge=0.0, le=1.0),
     model: str = Form("owlvit"),
+    english_query: str | None = Form(None),
 ):
     # JSON endpoint'i ile aynı model servisi ve form parametreleri kullanılır.
     try:
@@ -138,7 +141,7 @@ def detect_image(
         if not query:
             raise HTTPException(status_code=422, detail="query boş olamaz.")
 
-        detector, plan = prepare_detection(request, query, model)
+        detector, plan = prepare_detection(request, query, model, english_query)
 
         try:
             with Image.open(image.file) as source:
@@ -177,13 +180,14 @@ def detect_raw_image(
     query: str = Form(...),
     threshold: float = Form(0.2, ge=0.0, le=1.0),
     model: str = Form("owlvit"),
+    english_query: str | None = Form(None),
 ):
     try:
         query = query.strip()
         if not query:
             raise HTTPException(status_code=422, detail="query boş olamaz.")
 
-        detector, plan = prepare_detection(request, query, model)
+        detector, plan = prepare_detection(request, query, model, english_query)
         try:
             with Image.open(image.file) as source:
                 rgb_image = source.convert("RGB")
