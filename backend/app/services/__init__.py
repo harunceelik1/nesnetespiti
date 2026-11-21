@@ -1,0 +1,1 @@
+"""Modelden bağımsız uygulama servisleri."""

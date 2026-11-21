@@ -1,0 +1,1269 @@
+{
+  "status": "prepared",
+  "dataset": "finedet/rpc",
+  "split": "validation",
+  "revision": "d60ce8389c5108c0f59bb01fcb470419c69ccee8",
+  "random_seed": 42,
+  "source_files": [
+    "data/validation-00000-of-00004.parquet",
+    "data/validation-00001-of-00004.parquet",
+    "data/validation-00002-of-00004.parquet",
+    "data/validation-00003-of-00004.parquet"
+  ],
+  "source_file_bytes": 1320436929,
+  "scanned_rows": 2000,
+  "scanned_rows_per_shard": {
+    "data/validation-00000-of-00004.parquet": 500,
+    "data/validation-00001-of-00004.parquet": 500,
+    "data/validation-00002-of-00004.parquet": 500,
+    "data/validation-00003-of-00004.parquet": 500
+  },
+  "image_stream_rows_per_shard": {
+    "data/validation-00000-of-00004.parquet": 492,
+    "data/validation-00001-of-00004.parquet": 495,
+    "data/validation-00002-of-00004.parquet": 500,
+    "data/validation-00003-of-00004.parquet": 492
+  },
+  "stream_rows_read_total": 3979,
+  "selected_images_per_shard": {
+    "data/validation-00000-of-00004.parquet": 63,
+    "data/validation-00001-of-00004.parquet": 63,
+    "data/validation-00002-of-00004.parquet": 62,
+    "data/validation-00003-of-00004.parquet": 62
+  },
+  "per_split_shard_counts": {
+    "calibration": {
+      "data/validation-00000-of-00004.parquet": 13,
+      "data/validation-00001-of-00004.parquet": 13,
+      "data/validation-00002-of-00004.parquet": 12,
+      "data/validation-00003-of-00004.parquet": 12
+    },
+    "test": {
+      "data/validation-00000-of-00004.parquet": 50,
+      "data/validation-00001-of-00004.parquet": 50,
+      "data/validation-00002-of-00004.parquet": 50,
+      "data/validation-00003-of-00004.parquet": 50
+    }
+  },
+  "candidate_images": 1989,
+  "total_images": 250,
+  "calibration_images": 50,
+  "test_images": 200,
+  "category_image_counts": {
+    "puffed food": 74,
+    "dried fruit": 73,
+    "dried food": 71,
+    "instant drink": 71,
+    "instant noodles": 72,
+    "dessert": 95,
+    "drink": 99,
+    "milk": 73,
+    "canned food": 72,
+    "chocolate": 71,
+    "personal hygiene": 71,
+    "tissue": 120,
+    "stationery": 70
+  },
+  "category_object_counts": {
+    "puffed food": 160,
+    "dried fruit": 151,
+    "dried food": 152,
+    "instant drink": 155,
+    "instant noodles": 170,
+    "dessert": 247,
+    "drink": 237,
+    "milk": 142,
+    "canned food": 153,
+    "chocolate": 148,
+    "personal hygiene": 151,
+    "tissue": 297,
+    "stationery": 133
+  },
+  "per_split_counts": {
+    "calibration": {
+      "images": {
+        "puffed food": 14,
+        "dried fruit": 14,
+        "dried food": 13,
+        "instant drink": 13,
+        "instant noodles": 16,
+        "dessert": 18,
+        "drink": 18,
+        "milk": 17,
+        "canned food": 15,
+        "chocolate": 13,
+        "personal hygiene": 15,
+        "tissue": 23,
+        "stationery": 14
+      },
+      "objects": {
+        "puffed food": 32,
+        "dried fruit": 27,
+        "dried food": 37,
+        "instant drink": 31,
+        "instant noodles": 36,
+        "dessert": 46,
+        "drink": 41,
+        "milk": 34,
+        "canned food": 34,
+        "chocolate": 24,
+        "personal hygiene": 28,
+        "tissue": 55,
+        "stationery": 29
+      }
+    },
+    "test": {
+      "images": {
+        "puffed food": 60,
+        "dried fruit": 59,
+        "dried food": 58,
+        "instant drink": 58,
+        "instant noodles": 56,
+        "dessert": 77,
+        "drink": 81,
+        "milk": 56,
+        "canned food": 57,
+        "chocolate": 58,
+        "personal hygiene": 56,
+        "tissue": 97,
+        "stationery": 56
+      },
+      "objects": {
+        "puffed food": 128,
+        "dried fruit": 124,
+        "dried food": 115,
+        "instant drink": 124,
+        "instant noodles": 134,
+        "dessert": 201,
+        "drink": 196,
+        "milk": 108,
+        "canned food": 119,
+        "chocolate": 124,
+        "personal hygiene": 123,
+        "tissue": 242,
+        "stationery": 104
+      }
+    }
+  },
+  "saved_image_bytes": 53195736,
+  "config": {
+    "dataset": "finedet/rpc",
+    "split": "validation",
+    "revision": "d60ce8389c5108c0f59bb01fcb470419c69ccee8",
+    "source_files": [
+      "data/validation-00000-of-00004.parquet",
+      "data/validation-00001-of-00004.parquet",
+      "data/validation-00002-of-00004.parquet",
+      "data/validation-00003-of-00004.parquet"
+    ],
+    "source_file_bytes": 1320436929,
+    "source_file_sizes": {
+      "data/validation-00000-of-00004.parquet": 230833570,
+      "data/validation-00001-of-00004.parquet": 339481527,
+      "data/validation-00002-of-00004.parquet": 411169510,
+      "data/validation-00003-of-00004.parquet": 338952322
+    },
+    "streaming": true,
+    "seed": 42,
+    "target_images": 250,
+    "calibration_images": 50,
+    "test_images": 200,
+    "max_scan_rows": 2000,
+    "max_saved_bytes": 268435456,
+    "max_scan_rows_per_shard": {
+      "data/validation-00000-of-00004.parquet": 500,
+      "data/validation-00001-of-00004.parquet": 500,
+      "data/validation-00002-of-00004.parquet": 500,
+      "data/validation-00003-of-00004.parquet": 500
+    },
+    "max_stream_rows_both_passes": 4000,
+    "target_images_per_shard": {
+      "data/validation-00000-of-00004.parquet": 63,
+      "data/validation-00001-of-00004.parquet": 63,
+      "data/validation-00002-of-00004.parquet": 62,
+      "data/validation-00003-of-00004.parquet": 62
+    },
+    "categories": [
+      "puffed food",
+      "dried fruit",
+      "dried food",
+      "instant drink",
+      "instant noodles",
+      "dessert",
+      "drink",
+      "milk",
+      "canned food",
+      "chocolate",
+      "personal hygiene",
+      "tissue",
+      "stationery"
+    ],
+    "output": "C:\\Users\\Harun\\Desktop\\nesnetespiti\\evaluation\\inventory\\data",
+    "passes": [
+      "bounded annotation-only scan",
+      "bounded image stream; save selected rows only"
+    ],
+    "network_note": "Dört validation shard toplamı yaklaşık 1.23 GiB. Her shard bounded streaming ile okunur. Row-group/read-ahead/retry nedeniyle ağ aktarımı JPEG toplamından büyük olabilir; bu bir HTTP byte kotası değildir.",
+    "dry_run_note": "Dry-run ağ erişimi kurmaz, dosya yazmaz ve görüntü indirmez."
+  },
+  "coverage_missing_categories": [],
+  "selection_note": "Near-equal shard quotas and greedy family coverage within bounded pools from all four validation shards; not uniform sampling of all rows.",
+  "category_mapping": {
+    "0": {
+      "original_name": "1_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "1": {
+      "original_name": "2_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "2": {
+      "original_name": "3_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "3": {
+      "original_name": "4_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "4": {
+      "original_name": "5_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "5": {
+      "original_name": "6_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "6": {
+      "original_name": "7_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "7": {
+      "original_name": "8_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "8": {
+      "original_name": "9_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "9": {
+      "original_name": "10_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "10": {
+      "original_name": "11_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "11": {
+      "original_name": "12_puffed_food",
+      "evaluation_category": "puffed food"
+    },
+    "12": {
+      "original_name": "13_dried_fruit",
+      "evaluation_category": "dried fruit"
+    },
+    "13": {
+      "original_name": "14_dried_fruit",
+      "evaluation_category": "dried fruit"
+    },
+    "14": {
+      "original_name": "15_dried_fruit",
+      "evaluation_category": "dried fruit"
+    },
+    "15": {
+      "original_name": "16_dried_fruit",
+      "evaluation_category": "dried fruit"
+    },
+    "16": {
+      "original_name": "17_dried_fruit",
+      "evaluation_category": "dried fruit"
+    },
+    "17": {
+      "original_name": "18_dried_fruit",
+      "evaluation_category": "dried fruit"
+    },
+    "18": {
+      "original_name": "19_dried_fruit",
+      "evaluation_category": "dried fruit"
+    },
+    "19": {
+      "original_name": "20_dried_fruit",
+      "evaluation_category": "dried fruit"
+    },
+    "20": {
+      "original_name": "21_dried_fruit",
+      "evaluation_category": "dried fruit"
+    },
+    "21": {
+      "original_name": "22_dried_food",
+      "evaluation_category": "dried food"
+    },
+    "22": {
+      "original_name": "23_dried_food",
+      "evaluation_category": "dried food"
+    },
+    "23": {
+      "original_name": "24_dried_food",
+      "evaluation_category": "dried food"
+    },
+    "24": {
+      "original_name": "25_dried_food",
+      "evaluation_category": "dried food"
+    },
+    "25": {
+      "original_name": "26_dried_food",
+      "evaluation_category": "dried food"
+    },
+    "26": {
+      "original_name": "27_dried_food",
+      "evaluation_category": "dried food"
+    },
+    "27": {
+      "original_name": "28_dried_food",
+      "evaluation_category": "dried food"
+    },
+    "28": {
+      "original_name": "29_dried_food",
+      "evaluation_category": "dried food"
+    },
+    "29": {
+      "original_name": "30_dried_food",
+      "evaluation_category": "dried food"
+    },
+    "30": {
+      "original_name": "31_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "31": {
+      "original_name": "32_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "32": {
+      "original_name": "33_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "33": {
+      "original_name": "34_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "34": {
+      "original_name": "35_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "35": {
+      "original_name": "36_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "36": {
+      "original_name": "37_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "37": {
+      "original_name": "38_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "38": {
+      "original_name": "39_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "39": {
+      "original_name": "40_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "40": {
+      "original_name": "41_instant_drink",
+      "evaluation_category": "instant drink"
+    },
+    "41": {
+      "original_name": "42_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "42": {
+      "original_name": "43_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "43": {
+      "original_name": "44_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "44": {
+      "original_name": "45_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "45": {
+      "original_name": "46_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "46": {
+      "original_name": "47_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "47": {
+      "original_name": "48_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "48": {
+      "original_name": "49_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "49": {
+      "original_name": "50_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "50": {
+      "original_name": "51_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "51": {
+      "original_name": "52_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "52": {
+      "original_name": "53_instant_noodles",
+      "evaluation_category": "instant noodles"
+    },
+    "53": {
+      "original_name": "54_dessert",
+      "evaluation_category": "dessert"
+    },
+    "54": {
+      "original_name": "55_dessert",
+      "evaluation_category": "dessert"
+    },
+    "55": {
+      "original_name": "56_dessert",
+      "evaluation_category": "dessert"
+    },
+    "56": {
+      "original_name": "57_dessert",
+      "evaluation_category": "dessert"
+    },
+    "57": {
+      "original_name": "58_dessert",
+      "evaluation_category": "dessert"
+    },
+    "58": {
+      "original_name": "59_dessert",
+      "evaluation_category": "dessert"
+    },
+    "59": {
+      "original_name": "60_dessert",
+      "evaluation_category": "dessert"
+    },
+    "60": {
+      "original_name": "61_dessert",
+      "evaluation_category": "dessert"
+    },
+    "61": {
+      "original_name": "62_dessert",
+      "evaluation_category": "dessert"
+    },
+    "62": {
+      "original_name": "63_dessert",
+      "evaluation_category": "dessert"
+    },
+    "63": {
+      "original_name": "64_dessert",
+      "evaluation_category": "dessert"
+    },
+    "64": {
+      "original_name": "65_dessert",
+      "evaluation_category": "dessert"
+    },
+    "65": {
+      "original_name": "66_dessert",
+      "evaluation_category": "dessert"
+    },
+    "66": {
+      "original_name": "67_dessert",
+      "evaluation_category": "dessert"
+    },
+    "67": {
+      "original_name": "68_dessert",
+      "evaluation_category": "dessert"
+    },
+    "68": {
+      "original_name": "69_dessert",
+      "evaluation_category": "dessert"
+    },
+    "69": {
+      "original_name": "70_dessert",
+      "evaluation_category": "dessert"
+    },
+    "70": {
+      "original_name": "71_drink",
+      "evaluation_category": "drink"
+    },
+    "71": {
+      "original_name": "72_drink",
+      "evaluation_category": "drink"
+    },
+    "72": {
+      "original_name": "73_drink",
+      "evaluation_category": "drink"
+    },
+    "73": {
+      "original_name": "74_drink",
+      "evaluation_category": "drink"
+    },
+    "74": {
+      "original_name": "75_drink",
+      "evaluation_category": "drink"
+    },
+    "75": {
+      "original_name": "76_drink",
+      "evaluation_category": "drink"
+    },
+    "76": {
+      "original_name": "77_drink",
+      "evaluation_category": "drink"
+    },
+    "77": {
+      "original_name": "78_drink",
+      "evaluation_category": "drink"
+    },
+    "78": {
+      "original_name": "79_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "79": {
+      "original_name": "80_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "80": {
+      "original_name": "81_drink",
+      "evaluation_category": "drink"
+    },
+    "81": {
+      "original_name": "82_drink",
+      "evaluation_category": "drink"
+    },
+    "82": {
+      "original_name": "83_drink",
+      "evaluation_category": "drink"
+    },
+    "83": {
+      "original_name": "84_drink",
+      "evaluation_category": "drink"
+    },
+    "84": {
+      "original_name": "85_drink",
+      "evaluation_category": "drink"
+    },
+    "85": {
+      "original_name": "86_drink",
+      "evaluation_category": "drink"
+    },
+    "86": {
+      "original_name": "87_drink",
+      "evaluation_category": "drink"
+    },
+    "87": {
+      "original_name": "88_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "88": {
+      "original_name": "89_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "89": {
+      "original_name": "90_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "90": {
+      "original_name": "91_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "91": {
+      "original_name": "92_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "92": {
+      "original_name": "93_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "93": {
+      "original_name": "94_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "94": {
+      "original_name": "95_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "95": {
+      "original_name": "96_alcohol",
+      "evaluation_category": "alcohol"
+    },
+    "96": {
+      "original_name": "97_milk",
+      "evaluation_category": "milk"
+    },
+    "97": {
+      "original_name": "98_milk",
+      "evaluation_category": "milk"
+    },
+    "98": {
+      "original_name": "99_milk",
+      "evaluation_category": "milk"
+    },
+    "99": {
+      "original_name": "100_milk",
+      "evaluation_category": "milk"
+    },
+    "100": {
+      "original_name": "101_milk",
+      "evaluation_category": "milk"
+    },
+    "101": {
+      "original_name": "102_milk",
+      "evaluation_category": "milk"
+    },
+    "102": {
+      "original_name": "103_milk",
+      "evaluation_category": "milk"
+    },
+    "103": {
+      "original_name": "104_milk",
+      "evaluation_category": "milk"
+    },
+    "104": {
+      "original_name": "105_milk",
+      "evaluation_category": "milk"
+    },
+    "105": {
+      "original_name": "106_milk",
+      "evaluation_category": "milk"
+    },
+    "106": {
+      "original_name": "107_milk",
+      "evaluation_category": "milk"
+    },
+    "107": {
+      "original_name": "108_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "108": {
+      "original_name": "109_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "109": {
+      "original_name": "110_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "110": {
+      "original_name": "111_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "111": {
+      "original_name": "112_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "112": {
+      "original_name": "113_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "113": {
+      "original_name": "114_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "114": {
+      "original_name": "115_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "115": {
+      "original_name": "116_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "116": {
+      "original_name": "117_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "117": {
+      "original_name": "118_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "118": {
+      "original_name": "119_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "119": {
+      "original_name": "120_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "120": {
+      "original_name": "121_canned_food",
+      "evaluation_category": "canned food"
+    },
+    "121": {
+      "original_name": "122_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "122": {
+      "original_name": "123_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "123": {
+      "original_name": "124_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "124": {
+      "original_name": "125_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "125": {
+      "original_name": "126_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "126": {
+      "original_name": "127_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "127": {
+      "original_name": "128_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "128": {
+      "original_name": "129_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "129": {
+      "original_name": "130_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "130": {
+      "original_name": "131_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "131": {
+      "original_name": "132_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "132": {
+      "original_name": "133_chocolate",
+      "evaluation_category": "chocolate"
+    },
+    "133": {
+      "original_name": "134_gum",
+      "evaluation_category": "gum"
+    },
+    "134": {
+      "original_name": "135_gum",
+      "evaluation_category": "gum"
+    },
+    "135": {
+      "original_name": "136_gum",
+      "evaluation_category": "gum"
+    },
+    "136": {
+      "original_name": "137_gum",
+      "evaluation_category": "gum"
+    },
+    "137": {
+      "original_name": "138_gum",
+      "evaluation_category": "gum"
+    },
+    "138": {
+      "original_name": "139_gum",
+      "evaluation_category": "gum"
+    },
+    "139": {
+      "original_name": "140_gum",
+      "evaluation_category": "gum"
+    },
+    "140": {
+      "original_name": "141_gum",
+      "evaluation_category": "gum"
+    },
+    "141": {
+      "original_name": "142_candy",
+      "evaluation_category": "candy"
+    },
+    "142": {
+      "original_name": "143_candy",
+      "evaluation_category": "candy"
+    },
+    "143": {
+      "original_name": "144_candy",
+      "evaluation_category": "candy"
+    },
+    "144": {
+      "original_name": "145_candy",
+      "evaluation_category": "candy"
+    },
+    "145": {
+      "original_name": "146_candy",
+      "evaluation_category": "candy"
+    },
+    "146": {
+      "original_name": "147_candy",
+      "evaluation_category": "candy"
+    },
+    "147": {
+      "original_name": "148_candy",
+      "evaluation_category": "candy"
+    },
+    "148": {
+      "original_name": "149_candy",
+      "evaluation_category": "candy"
+    },
+    "149": {
+      "original_name": "150_candy",
+      "evaluation_category": "candy"
+    },
+    "150": {
+      "original_name": "151_candy",
+      "evaluation_category": "candy"
+    },
+    "151": {
+      "original_name": "152_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "152": {
+      "original_name": "153_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "153": {
+      "original_name": "154_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "154": {
+      "original_name": "155_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "155": {
+      "original_name": "156_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "156": {
+      "original_name": "157_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "157": {
+      "original_name": "158_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "158": {
+      "original_name": "159_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "159": {
+      "original_name": "160_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "160": {
+      "original_name": "161_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "161": {
+      "original_name": "162_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "162": {
+      "original_name": "163_seasoner",
+      "evaluation_category": "seasoner"
+    },
+    "163": {
+      "original_name": "164_personal_hygiene",
+      "evaluation_category": "personal hygiene"
+    },
+    "164": {
+      "original_name": "165_personal_hygiene",
+      "evaluation_category": "personal hygiene"
+    },
+    "165": {
+      "original_name": "166_personal_hygiene",
+      "evaluation_category": "personal hygiene"
+    },
+    "166": {
+      "original_name": "167_personal_hygiene",
+      "evaluation_category": "personal hygiene"
+    },
+    "167": {
+      "original_name": "168_personal_hygiene",
+      "evaluation_category": "personal hygiene"
+    },
+    "168": {
+      "original_name": "169_personal_hygiene",
+      "evaluation_category": "personal hygiene"
+    },
+    "169": {
+      "original_name": "170_personal_hygiene",
+      "evaluation_category": "personal hygiene"
+    },
+    "170": {
+      "original_name": "171_personal_hygiene",
+      "evaluation_category": "personal hygiene"
+    },
+    "171": {
+      "original_name": "172_personal_hygiene",
+      "evaluation_category": "personal hygiene"
+    },
+    "172": {
+      "original_name": "173_personal_hygiene",
+      "evaluation_category": "personal hygiene"
+    },
+    "173": {
+      "original_name": "174_tissue",
+      "evaluation_category": "tissue"
+    },
+    "174": {
+      "original_name": "175_tissue",
+      "evaluation_category": "tissue"
+    },
+    "175": {
+      "original_name": "176_tissue",
+      "evaluation_category": "tissue"
+    },
+    "176": {
+      "original_name": "177_tissue",
+      "evaluation_category": "tissue"
+    },
+    "177": {
+      "original_name": "178_tissue",
+      "evaluation_category": "tissue"
+    },
+    "178": {
+      "original_name": "179_tissue",
+      "evaluation_category": "tissue"
+    },
+    "179": {
+      "original_name": "180_tissue",
+      "evaluation_category": "tissue"
+    },
+    "180": {
+      "original_name": "181_tissue",
+      "evaluation_category": "tissue"
+    },
+    "181": {
+      "original_name": "182_tissue",
+      "evaluation_category": "tissue"
+    },
+    "182": {
+      "original_name": "183_tissue",
+      "evaluation_category": "tissue"
+    },
+    "183": {
+      "original_name": "184_tissue",
+      "evaluation_category": "tissue"
+    },
+    "184": {
+      "original_name": "185_tissue",
+      "evaluation_category": "tissue"
+    },
+    "185": {
+      "original_name": "186_tissue",
+      "evaluation_category": "tissue"
+    },
+    "186": {
+      "original_name": "187_tissue",
+      "evaluation_category": "tissue"
+    },
+    "187": {
+      "original_name": "188_tissue",
+      "evaluation_category": "tissue"
+    },
+    "188": {
+      "original_name": "189_tissue",
+      "evaluation_category": "tissue"
+    },
+    "189": {
+      "original_name": "190_tissue",
+      "evaluation_category": "tissue"
+    },
+    "190": {
+      "original_name": "191_tissue",
+      "evaluation_category": "tissue"
+    },
+    "191": {
+      "original_name": "192_tissue",
+      "evaluation_category": "tissue"
+    },
+    "192": {
+      "original_name": "193_tissue",
+      "evaluation_category": "tissue"
+    },
+    "193": {
+      "original_name": "194_stationery",
+      "evaluation_category": "stationery"
+    },
+    "194": {
+      "original_name": "195_stationery",
+      "evaluation_category": "stationery"
+    },
+    "195": {
+      "original_name": "196_stationery",
+      "evaluation_category": "stationery"
+    },
+    "196": {
+      "original_name": "197_stationery",
+      "evaluation_category": "stationery"
+    },
+    "197": {
+      "original_name": "198_stationery",
+      "evaluation_category": "stationery"
+    },
+    "198": {
+      "original_name": "199_stationery",
+      "evaluation_category": "stationery"
+    },
+    "199": {
+      "original_name": "200_stationery",
+      "evaluation_category": "stationery"
+    }
+  },
+  "split_image_ids": {
+    "calibration": [
+      "rpc-validation-00000-000196",
+      "rpc-validation-00001-000278",
+      "rpc-validation-00002-000093",
+      "rpc-validation-00000-000132",
+      "rpc-validation-00002-000348",
+      "rpc-validation-00001-000236",
+      "rpc-validation-00001-000471",
+      "rpc-validation-00003-000008",
+      "rpc-validation-00001-000174",
+      "rpc-validation-00002-000000",
+      "rpc-validation-00002-000475",
+      "rpc-validation-00002-000181",
+      "rpc-validation-00000-000083",
+      "rpc-validation-00002-000077",
+      "rpc-validation-00002-000186",
+      "rpc-validation-00003-000259",
+      "rpc-validation-00000-000433",
+      "rpc-validation-00000-000027",
+      "rpc-validation-00002-000135",
+      "rpc-validation-00000-000087",
+      "rpc-validation-00001-000438",
+      "rpc-validation-00003-000266",
+      "rpc-validation-00001-000092",
+      "rpc-validation-00000-000122",
+      "rpc-validation-00001-000406",
+      "rpc-validation-00000-000358",
+      "rpc-validation-00001-000074",
+      "rpc-validation-00001-000216",
+      "rpc-validation-00001-000031",
+      "rpc-validation-00000-000321",
+      "rpc-validation-00000-000265",
+      "rpc-validation-00002-000388",
+      "rpc-validation-00000-000108",
+      "rpc-validation-00001-000395",
+      "rpc-validation-00001-000238",
+      "rpc-validation-00003-000211",
+      "rpc-validation-00002-000156",
+      "rpc-validation-00003-000154",
+      "rpc-validation-00001-000488",
+      "rpc-validation-00003-000362",
+      "rpc-validation-00003-000488",
+      "rpc-validation-00003-000248",
+      "rpc-validation-00003-000228",
+      "rpc-validation-00000-000294",
+      "rpc-validation-00003-000439",
+      "rpc-validation-00002-000012",
+      "rpc-validation-00002-000459",
+      "rpc-validation-00003-000018",
+      "rpc-validation-00003-000491",
+      "rpc-validation-00000-000365"
+    ],
+    "test": [
+      "rpc-validation-00002-000308",
+      "rpc-validation-00000-000264",
+      "rpc-validation-00001-000482",
+      "rpc-validation-00003-000178",
+      "rpc-validation-00002-000331",
+      "rpc-validation-00003-000153",
+      "rpc-validation-00002-000375",
+      "rpc-validation-00002-000464",
+      "rpc-validation-00002-000131",
+      "rpc-validation-00002-000363",
+      "rpc-validation-00003-000335",
+      "rpc-validation-00000-000348",
+      "rpc-validation-00001-000279",
+      "rpc-validation-00001-000136",
+      "rpc-validation-00001-000288",
+      "rpc-validation-00001-000333",
+      "rpc-validation-00001-000313",
+      "rpc-validation-00002-000034",
+      "rpc-validation-00002-000358",
+      "rpc-validation-00000-000432",
+      "rpc-validation-00002-000072",
+      "rpc-validation-00003-000047",
+      "rpc-validation-00002-000227",
+      "rpc-validation-00001-000259",
+      "rpc-validation-00002-000442",
+      "rpc-validation-00000-000182",
+      "rpc-validation-00001-000203",
+      "rpc-validation-00002-000416",
+      "rpc-validation-00001-000229",
+      "rpc-validation-00002-000043",
+      "rpc-validation-00000-000407",
+      "rpc-validation-00002-000028",
+      "rpc-validation-00000-000091",
+      "rpc-validation-00001-000494",
+      "rpc-validation-00003-000298",
+      "rpc-validation-00003-000020",
+      "rpc-validation-00002-000022",
+      "rpc-validation-00000-000491",
+      "rpc-validation-00001-000134",
+      "rpc-validation-00002-000302",
+      "rpc-validation-00000-000367",
+      "rpc-validation-00001-000490",
+      "rpc-validation-00000-000172",
+      "rpc-validation-00000-000042",
+      "rpc-validation-00003-000124",
+      "rpc-validation-00003-000434",
+      "rpc-validation-00000-000469",
+      "rpc-validation-00002-000251",
+      "rpc-validation-00003-000083",
+      "rpc-validation-00003-000296",
+      "rpc-validation-00003-000095",
+      "rpc-validation-00002-000027",
+      "rpc-validation-00001-000444",
+      "rpc-validation-00003-000186",
+      "rpc-validation-00002-000458",
+      "rpc-validation-00003-000155",
+      "rpc-validation-00001-000029",
+      "rpc-validation-00002-000039",
+      "rpc-validation-00000-000137",
+      "rpc-validation-00002-000236",
+      "rpc-validation-00002-000428",
+      "rpc-validation-00002-000394",
+      "rpc-validation-00003-000489",
+      "rpc-validation-00001-000237",
+      "rpc-validation-00002-000238",
+      "rpc-validation-00003-000410",
+      "rpc-validation-00003-000414",
+      "rpc-validation-00002-000491",
+      "rpc-validation-00003-000175",
+      "rpc-validation-00002-000306",
+      "rpc-validation-00003-000252",
+      "rpc-validation-00002-000024",
+      "rpc-validation-00002-000336",
+      "rpc-validation-00002-000038",
+      "rpc-validation-00003-000130",
+      "rpc-validation-00001-000271",
+      "rpc-validation-00003-000051",
+      "rpc-validation-00003-000428",
+      "rpc-validation-00000-000032",
+      "rpc-validation-00002-000154",
+      "rpc-validation-00003-000479",
+      "rpc-validation-00002-000261",
+      "rpc-validation-00003-000294",
+      "rpc-validation-00002-000422",
+      "rpc-validation-00002-000337",
+      "rpc-validation-00002-000259",
+      "rpc-validation-00003-000128",
+      "rpc-validation-00002-000485",
+      "rpc-validation-00000-000024",
+      "rpc-validation-00003-000039",
+      "rpc-validation-00003-000287",
+      "rpc-validation-00003-000406",
+      "rpc-validation-00002-000212",
+      "rpc-validation-00003-000119",
+      "rpc-validation-00003-000468",
+      "rpc-validation-00001-000412",
+      "rpc-validation-00001-000321",
+      "rpc-validation-00002-000171",
+      "rpc-validation-00002-000421",
+      "rpc-validation-00001-000041",
+      "rpc-validation-00003-000137",
+      "rpc-validation-00000-000215",
+      "rpc-validation-00001-000290",
+      "rpc-validation-00002-000497",
+      "rpc-validation-00003-000333",
+      "rpc-validation-00001-000169",
+      "rpc-validation-00003-000067",
+      "rpc-validation-00003-000427",
+      "rpc-validation-00002-000314",
+      "rpc-validation-00002-000472",
+      "rpc-validation-00001-000099",
+      "rpc-validation-00003-000121",
+      "rpc-validation-00001-000039",
+      "rpc-validation-00000-000121",
+      "rpc-validation-00003-000030",
+      "rpc-validation-00000-000291",
+      "rpc-validation-00002-000379",
+      "rpc-validation-00002-000106",
+      "rpc-validation-00003-000069",
+      "rpc-validation-00000-000464",
+      "rpc-validation-00003-000156",
+      "rpc-validation-00002-000030",
+      "rpc-validation-00002-000380",
+      "rpc-validation-00003-000411",
+      "rpc-validation-00003-000122",
+      "rpc-validation-00002-000414",
+      "rpc-validation-00003-000377",
+      "rpc-validation-00001-000268",
+      "rpc-validation-00002-000499",
+      "rpc-validation-00001-000189",
+      "rpc-validation-00003-000456",
+      "rpc-validation-00003-000043",
+      "rpc-validation-00001-000265",
+      "rpc-validation-00003-000391",
+      "rpc-validation-00003-000082",
+      "rpc-validation-00002-000250",
+      "rpc-validation-00003-000308",
+      "rpc-validation-00002-000219",
+      "rpc-validation-00003-000197",
+      "rpc-validation-00000-000010",
+      "rpc-validation-00003-000169",
+      "rpc-validation-00001-000335",
+      "rpc-validation-00002-000490",
+      "rpc-validation-00001-000405",
+      "rpc-validation-00000-000213",
+      "rpc-validation-00003-000466",
+      "rpc-validation-00003-000477",
+      "rpc-validation-00001-000245",
+      "rpc-validation-00001-000258",
+      "rpc-validation-00003-000000",
+      "rpc-validation-00001-000138",
+      "rpc-validation-00001-000179",
+      "rpc-validation-00000-000300",
+      "rpc-validation-00001-000364",
+      "rpc-validation-00001-000209",
+      "rpc-validation-00000-000428",
+      "rpc-validation-00001-000351",
+      "rpc-validation-00000-000350",
+      "rpc-validation-00000-000089",
+      "rpc-validation-00000-000364",
+      "rpc-validation-00000-000067",
+      "rpc-validation-00000-000176",
+      "rpc-validation-00000-000420",
+      "rpc-validation-00000-000274",
+      "rpc-validation-00001-000220",
+      "rpc-validation-00001-000300",
+      "rpc-validation-00000-000225",
+      "rpc-validation-00001-000322",
+      "rpc-validation-00000-000086",
+      "rpc-validation-00000-000214",
+      "rpc-validation-00000-000307",
+      "rpc-validation-00001-000160",
+      "rpc-validation-00000-000374",
+      "rpc-validation-00001-000269",
+      "rpc-validation-00001-000464",
+      "rpc-validation-00000-000351",
+      "rpc-validation-00001-000311",
+      "rpc-validation-00000-000363",
+      "rpc-validation-00000-000136",
+      "rpc-validation-00001-000366",
+      "rpc-validation-00000-000254",
+      "rpc-validation-00000-000421",
+      "rpc-validation-00001-000028",
+      "rpc-validation-00001-000226",
+      "rpc-validation-00000-000415",
+      "rpc-validation-00000-000188",
+      "rpc-validation-00001-000239",
+      "rpc-validation-00000-000408",
+      "rpc-validation-00001-000323",
+      "rpc-validation-00000-000045",
+      "rpc-validation-00001-000380",
+      "rpc-validation-00000-000369",
+      "rpc-validation-00000-000388",
+      "rpc-validation-00000-000266",
+      "rpc-validation-00001-000033",
+      "rpc-validation-00001-000365",
+      "rpc-validation-00000-000325",
+      "rpc-validation-00000-000370",
+      "rpc-validation-00000-000483",
+      "rpc-validation-00000-000180"
+    ]
+  }
+}

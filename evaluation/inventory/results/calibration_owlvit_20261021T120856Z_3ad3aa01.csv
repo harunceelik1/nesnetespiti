@@ -1,0 +1,18 @@
+image_id,category,ground_truth_count,predicted_count,TP,FP,FN,precision,recall,F1,average_matched_iou,count_absolute_error,inference_time_ms,inference_time_scope,model,threshold,matching_iou_threshold
+rpc-validation-00003-000154,puffed food,0,0,0,0,0,0.0,0.0,0.0,,0,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,dried fruit,0,0,0,0,0,0.0,0.0,0.0,,0,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,dried food,0,0,0,0,0,0.0,0.0,0.0,,0,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,instant drink,0,5,0,5,0,0.0,0.0,0.0,,5,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,instant noodles,3,0,0,0,3,0.0,0.0,0.0,,3,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,dessert,0,6,0,6,0,0.0,0.0,0.0,,6,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,drink,2,1,0,1,2,0.0,0.0,0.0,,1,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,alcohol,3,0,0,0,3,0.0,0.0,0.0,,3,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,milk,0,1,0,1,0,0.0,0.0,0.0,,1,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,canned food,0,3,0,3,0,0.0,0.0,0.0,,3,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,chocolate,0,0,0,0,0,0.0,0.0,0.0,,0,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,gum,0,0,0,0,0,0.0,0.0,0.0,,0,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,candy,0,1,0,1,0,0.0,0.0,0.0,,1,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,seasoner,0,0,0,0,0,0.0,0.0,0.0,,0,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,personal hygiene,1,1,1,0,0,1.0,1.0,1.0,0.8808532072355089,0,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,tissue,3,0,0,0,3,0.0,0.0,0.0,,3,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5
+rpc-validation-00003-000154,stationery,0,0,0,0,0,0.0,0.0,0.0,,0,664.8948999936692,image_all_17_categories,owlvit,"{""confidence_threshold"": 0.05, ""strategy"": ""fixed_smoke_baseline""}",0.5

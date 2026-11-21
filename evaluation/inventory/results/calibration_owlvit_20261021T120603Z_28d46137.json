@@ -1,0 +1,814 @@
+{
+  "metadata": {
+    "dataset": "finedet/rpc",
+    "revision": "d60ce8389c5108c0f59bb01fcb470419c69ccee8",
+    "split": "calibration",
+    "seed": 42,
+    "full_annotations_sha256": "60207936539f1584c9495f2268d91bd462cad308d037a1f964caadc32afbfedc",
+    "manifest_sha256": "a332627ac44bbbac2c5407ce367cb11092f0bfa12e2159d7523940936b7f4c78",
+    "model": "owlvit",
+    "categories": [
+      "puffed food",
+      "dried fruit",
+      "dried food",
+      "instant drink",
+      "instant noodles",
+      "dessert",
+      "drink",
+      "alcohol",
+      "milk",
+      "canned food",
+      "chocolate",
+      "gum",
+      "candy",
+      "seasoner",
+      "personal hygiene",
+      "tissue",
+      "stationery"
+    ],
+    "inference_mode": "multi_category_single_pass_fixed_threshold",
+    "production_adaptive_threshold_used": false
+  },
+  "records": [
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "puffed food",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "dried fruit",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "dried food",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "instant drink",
+      "ground_truth_count": 0,
+      "predicted_count": 5,
+      "TP": 0,
+      "FP": 5,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 5,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "instant noodles",
+      "ground_truth_count": 3,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 3,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "dessert",
+      "ground_truth_count": 0,
+      "predicted_count": 6,
+      "TP": 0,
+      "FP": 6,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 6,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "drink",
+      "ground_truth_count": 2,
+      "predicted_count": 1,
+      "TP": 0,
+      "FP": 1,
+      "FN": 2,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 1,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "alcohol",
+      "ground_truth_count": 3,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 3,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "milk",
+      "ground_truth_count": 0,
+      "predicted_count": 1,
+      "TP": 0,
+      "FP": 1,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 1,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "canned food",
+      "ground_truth_count": 0,
+      "predicted_count": 3,
+      "TP": 0,
+      "FP": 3,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 3,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "chocolate",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "gum",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "candy",
+      "ground_truth_count": 0,
+      "predicted_count": 1,
+      "TP": 0,
+      "FP": 1,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 1,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "seasoner",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "personal hygiene",
+      "ground_truth_count": 1,
+      "predicted_count": 1,
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "F1": 1.0,
+      "average_matched_iou": 0.8808532072355089,
+      "count_absolute_error": 0,
+      "matches": [
+        {
+          "prediction_index": 0,
+          "ground_truth_index": 0,
+          "iou": 0.8808532072355089
+        }
+      ],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "tissue",
+      "ground_truth_count": 3,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 3,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "stationery",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 1053.9139999891631,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    }
+  ],
+  "image_runs": [
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "inference_time_ms": 1053.9139999891631,
+      "model": "owlvit",
+      "device": "cpu",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "detections": [
+        {
+          "label": "instant drink",
+          "model_query": "instant drink",
+          "confidence": 0.19077207148075104,
+          "box": {
+            "xmin": 1046.206298828125,
+            "ymin": 488.3392333984375,
+            "xmax": 1242.1689453125,
+            "ymax": 841.195556640625
+          }
+        },
+        {
+          "label": "instant drink",
+          "model_query": "instant drink",
+          "confidence": 0.14123575389385223,
+          "box": {
+            "xmin": 878.6956176757812,
+            "ymin": 480.0132751464844,
+            "xmax": 1059.2919921875,
+            "ymax": 809.9114379882812
+          }
+        },
+        {
+          "label": "instant drink",
+          "model_query": "instant drink",
+          "confidence": 0.12591655552387238,
+          "box": {
+            "xmin": 994.4197998046875,
+            "ymin": 827.7544555664062,
+            "xmax": 1184.532470703125,
+            "ymax": 1127.53955078125
+          }
+        },
+        {
+          "label": "canned food",
+          "model_query": "canned food",
+          "confidence": 0.11278991401195526,
+          "box": {
+            "xmin": 659.9295654296875,
+            "ymin": 526.9655151367188,
+            "xmax": 963.1600952148438,
+            "ymax": 919.4027709960938
+          }
+        },
+        {
+          "label": "dessert",
+          "model_query": "dessert",
+          "confidence": 0.10607839375734329,
+          "box": {
+            "xmin": 397.96142578125,
+            "ymin": 832.6075439453125,
+            "xmax": 595.2723999023438,
+            "ymax": 1062.4422607421875
+          }
+        },
+        {
+          "label": "dessert",
+          "model_query": "dessert",
+          "confidence": 0.10050861537456512,
+          "box": {
+            "xmin": 229.18814086914062,
+            "ymin": 339.81036376953125,
+            "xmax": 449.2129821777344,
+            "ymax": 523.674072265625
+          }
+        },
+        {
+          "label": "dessert",
+          "model_query": "dessert",
+          "confidence": 0.08153889328241348,
+          "box": {
+            "xmin": 460.3985290527344,
+            "ymin": 1186.090576171875,
+            "xmax": 644.14697265625,
+            "ymax": 1404.090087890625
+          }
+        },
+        {
+          "label": "milk",
+          "model_query": "milk",
+          "confidence": 0.07724326103925705,
+          "box": {
+            "xmin": 1378.6859130859375,
+            "ymin": 789.5667114257812,
+            "xmax": 1656.014892578125,
+            "ymax": 1193.419189453125
+          }
+        },
+        {
+          "label": "dessert",
+          "model_query": "dessert",
+          "confidence": 0.07532632350921631,
+          "box": {
+            "xmin": 140.34544372558594,
+            "ymin": 311.7212829589844,
+            "xmax": 658.34326171875,
+            "ymax": 695.3612060546875
+          }
+        },
+        {
+          "label": "canned food",
+          "model_query": "canned food",
+          "confidence": 0.07018337398767471,
+          "box": {
+            "xmin": 167.28306579589844,
+            "ymin": 726.8297729492188,
+            "xmax": 686.6551513671875,
+            "ymax": 1165.364013671875
+          }
+        },
+        {
+          "label": "dessert",
+          "model_query": "dessert",
+          "confidence": 0.06706071645021439,
+          "box": {
+            "xmin": 1046.79248046875,
+            "ymin": 1228.19580078125,
+            "xmax": 1504.646728515625,
+            "ymax": 1628.8968505859375
+          }
+        },
+        {
+          "label": "instant drink",
+          "model_query": "instant drink",
+          "confidence": 0.0631982609629631,
+          "box": {
+            "xmin": 641.7097778320312,
+            "ymin": 952.4786376953125,
+            "xmax": 986.2866821289062,
+            "ymax": 1331.46484375
+          }
+        },
+        {
+          "label": "canned food",
+          "model_query": "canned food",
+          "confidence": 0.05734769627451897,
+          "box": {
+            "xmin": 362.12347412109375,
+            "ymin": 932.50439453125,
+            "xmax": 962.08544921875,
+            "ymax": 1509.7967529296875
+          }
+        },
+        {
+          "label": "candy",
+          "model_query": "candy",
+          "confidence": 0.05508103594183922,
+          "box": {
+            "xmin": 1333.7945556640625,
+            "ymin": 240.27276611328125,
+            "xmax": 1755.684326171875,
+            "ymax": 691.5847778320312
+          }
+        },
+        {
+          "label": "dessert",
+          "model_query": "dessert",
+          "confidence": 0.05463913828134537,
+          "box": {
+            "xmin": 634.2166748046875,
+            "ymin": 522.3985595703125,
+            "xmax": 936.6237182617188,
+            "ymax": 912.4961547851562
+          }
+        },
+        {
+          "label": "personal hygiene",
+          "model_query": "personal hygiene",
+          "confidence": 0.05451905354857445,
+          "box": {
+            "xmin": 1222.833740234375,
+            "ymin": 747.0763549804688,
+            "xmax": 1374.5679931640625,
+            "ymax": 983.7775268554688
+          }
+        },
+        {
+          "label": "instant drink",
+          "model_query": "instant drink",
+          "confidence": 0.05399978905916214,
+          "box": {
+            "xmin": 888.176513671875,
+            "ymin": 612.7362670898438,
+            "xmax": 1068.444580078125,
+            "ymax": 802.682373046875
+          }
+        },
+        {
+          "label": "drink",
+          "model_query": "drink",
+          "confidence": 0.05299018323421478,
+          "box": {
+            "xmin": 622.90625,
+            "ymin": 942.4918212890625,
+            "xmax": 847.5960693359375,
+            "ymax": 1165.951171875
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "TP": 1,
+    "FP": 17,
+    "FN": 11,
+    "micro_precision": 0.05555555555555555,
+    "micro_recall": 0.08333333333333333,
+    "micro_F1": 0.06666666666666667,
+    "macro_precision": 0.058823529411764705,
+    "macro_recall": 0.058823529411764705,
+    "macro_F1": 0.058823529411764705,
+    "mean_matched_iou": 0.8808532072355089,
+    "mean_absolute_counting_error": 1.5294117647058822,
+    "average_inference_time_ms": 1053.9139999891631,
+    "images_evaluated": 1,
+    "image_category_records": 17,
+    "per_category": [
+      {
+        "category": "puffed food",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "dried fruit",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "dried food",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "instant drink",
+        "TP": 0,
+        "FP": 5,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "instant noodles",
+        "TP": 0,
+        "FP": 0,
+        "FN": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "dessert",
+        "TP": 0,
+        "FP": 6,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "drink",
+        "TP": 0,
+        "FP": 1,
+        "FN": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "alcohol",
+        "TP": 0,
+        "FP": 0,
+        "FN": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "milk",
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "canned food",
+        "TP": 0,
+        "FP": 3,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "chocolate",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "gum",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "candy",
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "seasoner",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "personal hygiene",
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "F1": 1.0
+      },
+      {
+        "category": "tissue",
+        "TP": 0,
+        "FP": 0,
+        "FN": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "stationery",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      }
+    ]
+  }
+}

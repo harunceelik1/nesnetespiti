@@ -1,0 +1,135 @@
+{
+  "dataset": "finedet/rpc",
+  "source_split": "validation",
+  "revision": "d60ce8389c5108c0f59bb01fcb470419c69ccee8",
+  "source": "full_annotations.json",
+  "categories": [
+    {
+      "semantic_category": "alcohol",
+      "image_count": 69,
+      "object_count": 136,
+      "calibration_image_count": 18,
+      "test_image_count": 51
+    },
+    {
+      "semantic_category": "candy",
+      "image_count": 59,
+      "object_count": 135,
+      "calibration_image_count": 10,
+      "test_image_count": 49
+    },
+    {
+      "semantic_category": "canned food",
+      "image_count": 72,
+      "object_count": 153,
+      "calibration_image_count": 15,
+      "test_image_count": 57
+    },
+    {
+      "semantic_category": "chocolate",
+      "image_count": 71,
+      "object_count": 148,
+      "calibration_image_count": 13,
+      "test_image_count": 58
+    },
+    {
+      "semantic_category": "dessert",
+      "image_count": 95,
+      "object_count": 247,
+      "calibration_image_count": 18,
+      "test_image_count": 77
+    },
+    {
+      "semantic_category": "dried food",
+      "image_count": 71,
+      "object_count": 152,
+      "calibration_image_count": 13,
+      "test_image_count": 58
+    },
+    {
+      "semantic_category": "dried fruit",
+      "image_count": 73,
+      "object_count": 151,
+      "calibration_image_count": 14,
+      "test_image_count": 59
+    },
+    {
+      "semantic_category": "drink",
+      "image_count": 99,
+      "object_count": 237,
+      "calibration_image_count": 18,
+      "test_image_count": 81
+    },
+    {
+      "semantic_category": "gum",
+      "image_count": 40,
+      "object_count": 93,
+      "calibration_image_count": 11,
+      "test_image_count": 29
+    },
+    {
+      "semantic_category": "instant drink",
+      "image_count": 71,
+      "object_count": 155,
+      "calibration_image_count": 13,
+      "test_image_count": 58
+    },
+    {
+      "semantic_category": "instant noodles",
+      "image_count": 72,
+      "object_count": 170,
+      "calibration_image_count": 16,
+      "test_image_count": 56
+    },
+    {
+      "semantic_category": "milk",
+      "image_count": 73,
+      "object_count": 142,
+      "calibration_image_count": 17,
+      "test_image_count": 56
+    },
+    {
+      "semantic_category": "personal hygiene",
+      "image_count": 71,
+      "object_count": 151,
+      "calibration_image_count": 15,
+      "test_image_count": 56
+    },
+    {
+      "semantic_category": "puffed food",
+      "image_count": 74,
+      "object_count": 160,
+      "calibration_image_count": 14,
+      "test_image_count": 60
+    },
+    {
+      "semantic_category": "seasoner",
+      "image_count": 84,
+      "object_count": 191,
+      "calibration_image_count": 12,
+      "test_image_count": 72
+    },
+    {
+      "semantic_category": "stationery",
+      "image_count": 70,
+      "object_count": 133,
+      "calibration_image_count": 14,
+      "test_image_count": 56
+    },
+    {
+      "semantic_category": "tissue",
+      "image_count": 120,
+      "object_count": 297,
+      "calibration_image_count": 23,
+      "test_image_count": 97
+    }
+  ],
+  "summary": {
+    "total_images": 250,
+    "calibration_images": 50,
+    "test_images": 200,
+    "total_semantic_categories": 17,
+    "total_objects": 2851,
+    "average_objects_per_annotation": 11.404
+  }
+}

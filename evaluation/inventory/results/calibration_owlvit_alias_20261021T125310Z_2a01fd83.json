@@ -1,0 +1,1046 @@
+{
+  "metadata": {
+    "dataset": "finedet/rpc",
+    "revision": "d60ce8389c5108c0f59bb01fcb470419c69ccee8",
+    "split": "calibration",
+    "seed": 42,
+    "full_annotations_sha256": "60207936539f1584c9495f2268d91bd462cad308d037a1f964caadc32afbfedc",
+    "manifest_sha256": "a332627ac44bbbac2c5407ce367cb11092f0bfa12e2159d7523940936b7f4c78",
+    "model": "owlvit",
+    "categories": [
+      "puffed food",
+      "dried fruit",
+      "dried food",
+      "instant drink",
+      "instant noodles",
+      "dessert",
+      "drink",
+      "alcohol",
+      "milk",
+      "canned food",
+      "chocolate",
+      "gum",
+      "candy",
+      "seasoner",
+      "personal hygiene",
+      "tissue",
+      "stationery"
+    ],
+    "inference_mode": "multi_category_single_pass_fixed_threshold",
+    "prompt_mode": "alias",
+    "category_prompt_mapping": {
+      "puffed food": "puffed snack package",
+      "dried fruit": "dried fruit package",
+      "dried food": "dried food package",
+      "instant drink": "instant drink package",
+      "instant noodles": "instant noodle package",
+      "dessert": "dessert package",
+      "drink": "beverage bottle",
+      "alcohol": "alcohol bottle",
+      "milk": "milk carton",
+      "canned food": "canned food can",
+      "chocolate": "chocolate package",
+      "gum": "chewing gum package",
+      "candy": "candy package",
+      "seasoner": "seasoning package",
+      "personal hygiene": "personal care product",
+      "tissue": "tissue pack",
+      "stationery": "stationery item"
+    },
+    "production_adaptive_threshold_used": false
+  },
+  "records": [
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "puffed food",
+      "model_prompt": "puffed snack package",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 10,
+      "TP": 0,
+      "FP": 10,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 10,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "dried fruit",
+      "model_prompt": "dried fruit package",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "dried food",
+      "model_prompt": "dried food package",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "instant drink",
+      "model_prompt": "instant drink package",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 1,
+      "TP": 0,
+      "FP": 1,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 1,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "instant noodles",
+      "model_prompt": "instant noodle package",
+      "prompt_mode": "alias",
+      "ground_truth_count": 3,
+      "predicted_count": 1,
+      "TP": 1,
+      "FP": 0,
+      "FN": 2,
+      "precision": 1.0,
+      "recall": 0.3333333333333333,
+      "F1": 0.5,
+      "average_matched_iou": 0.6346002742852376,
+      "count_absolute_error": 2,
+      "matches": [
+        {
+          "prediction_index": 0,
+          "ground_truth_index": 2,
+          "iou": 0.6346002742852376
+        }
+      ],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "dessert",
+      "model_prompt": "dessert package",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 2,
+      "TP": 0,
+      "FP": 2,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 2,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "drink",
+      "model_prompt": "beverage bottle",
+      "prompt_mode": "alias",
+      "ground_truth_count": 2,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 2,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 2,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "alcohol",
+      "model_prompt": "alcohol bottle",
+      "prompt_mode": "alias",
+      "ground_truth_count": 3,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 3,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "milk",
+      "model_prompt": "milk carton",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 2,
+      "TP": 0,
+      "FP": 2,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 2,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "canned food",
+      "model_prompt": "canned food can",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "chocolate",
+      "model_prompt": "chocolate package",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "gum",
+      "model_prompt": "chewing gum package",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "candy",
+      "model_prompt": "candy package",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "seasoner",
+      "model_prompt": "seasoning package",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "personal hygiene",
+      "model_prompt": "personal care product",
+      "prompt_mode": "alias",
+      "ground_truth_count": 1,
+      "predicted_count": 6,
+      "TP": 1,
+      "FP": 5,
+      "FN": 0,
+      "precision": 0.16666666666666666,
+      "recall": 1.0,
+      "F1": 0.2857142857142857,
+      "average_matched_iou": 0.8808532072355089,
+      "count_absolute_error": 5,
+      "matches": [
+        {
+          "prediction_index": 2,
+          "ground_truth_index": 0,
+          "iou": 0.8808532072355089
+        }
+      ],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "tissue",
+      "model_prompt": "tissue pack",
+      "prompt_mode": "alias",
+      "ground_truth_count": 3,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 3,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    },
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "category": "stationery",
+      "model_prompt": "stationery item",
+      "prompt_mode": "alias",
+      "ground_truth_count": 0,
+      "predicted_count": 0,
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "average_matched_iou": null,
+      "count_absolute_error": 0,
+      "matches": [],
+      "inference_time_ms": 905.6416999956127,
+      "inference_time_scope": "image_all_17_categories",
+      "model": "owlvit",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "matching_iou_threshold": 0.5
+    }
+  ],
+  "image_runs": [
+    {
+      "image_id": "rpc-validation-00003-000154",
+      "inference_time_ms": 905.6416999956127,
+      "model": "owlvit",
+      "device": "cpu",
+      "threshold": {
+        "strategy": "fixed_smoke_baseline",
+        "confidence_threshold": 0.05
+      },
+      "detections": [
+        {
+          "label": "puffed food",
+          "model_query": "puffed snack package",
+          "confidence": 0.29350945353507996,
+          "box": {
+            "xmin": 659.9295654296875,
+            "ymin": 526.9655151367188,
+            "xmax": 963.1600952148438,
+            "ymax": 919.4027709960938
+          },
+          "category": "puffed food",
+          "raw_model_label": "puffed snack package",
+          "model_prompt": "puffed snack package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "puffed food",
+          "model_query": "puffed snack package",
+          "confidence": 0.2766205072402954,
+          "box": {
+            "xmin": 1333.7945556640625,
+            "ymin": 240.27276611328125,
+            "xmax": 1755.684326171875,
+            "ymax": 691.5847778320312
+          },
+          "category": "puffed food",
+          "raw_model_label": "puffed snack package",
+          "model_prompt": "puffed snack package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "milk",
+          "model_query": "milk carton",
+          "confidence": 0.25764909386634827,
+          "box": {
+            "xmin": 994.4197998046875,
+            "ymin": 827.7544555664062,
+            "xmax": 1184.532470703125,
+            "ymax": 1127.53955078125
+          },
+          "category": "milk",
+          "raw_model_label": "milk carton",
+          "model_prompt": "milk carton",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "puffed food",
+          "model_query": "puffed snack package",
+          "confidence": 0.2568033039569855,
+          "box": {
+            "xmin": 1046.79248046875,
+            "ymin": 1228.19580078125,
+            "xmax": 1504.646728515625,
+            "ymax": 1628.8968505859375
+          },
+          "category": "puffed food",
+          "raw_model_label": "puffed snack package",
+          "model_prompt": "puffed snack package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "puffed food",
+          "model_query": "puffed snack package",
+          "confidence": 0.24879057705402374,
+          "box": {
+            "xmin": 1378.6859130859375,
+            "ymin": 789.5667114257812,
+            "xmax": 1656.014892578125,
+            "ymax": 1193.419189453125
+          },
+          "category": "puffed food",
+          "raw_model_label": "puffed snack package",
+          "model_prompt": "puffed snack package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "puffed food",
+          "model_query": "puffed snack package",
+          "confidence": 0.21084249019622803,
+          "box": {
+            "xmin": 140.34544372558594,
+            "ymin": 311.7212829589844,
+            "xmax": 658.34326171875,
+            "ymax": 695.3612060546875
+          },
+          "category": "puffed food",
+          "raw_model_label": "puffed snack package",
+          "model_prompt": "puffed snack package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "puffed food",
+          "model_query": "puffed snack package",
+          "confidence": 0.18348057568073273,
+          "box": {
+            "xmin": 167.28306579589844,
+            "ymin": 726.8297729492188,
+            "xmax": 686.6551513671875,
+            "ymax": 1165.364013671875
+          },
+          "category": "puffed food",
+          "raw_model_label": "puffed snack package",
+          "model_prompt": "puffed snack package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "dessert",
+          "model_query": "dessert package",
+          "confidence": 0.17313171923160553,
+          "box": {
+            "xmin": 362.12347412109375,
+            "ymin": 932.50439453125,
+            "xmax": 962.08544921875,
+            "ymax": 1509.7967529296875
+          },
+          "category": "dessert",
+          "raw_model_label": "dessert package",
+          "model_prompt": "dessert package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "puffed food",
+          "model_query": "puffed snack package",
+          "confidence": 0.16786892712116241,
+          "box": {
+            "xmin": 641.7097778320312,
+            "ymin": 952.4786376953125,
+            "xmax": 986.2866821289062,
+            "ymax": 1331.46484375
+          },
+          "category": "puffed food",
+          "raw_model_label": "puffed snack package",
+          "model_prompt": "puffed snack package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "milk",
+          "model_query": "milk carton",
+          "confidence": 0.1259027123451233,
+          "box": {
+            "xmin": 1049.6473388671875,
+            "ymin": 482.4520568847656,
+            "xmax": 1247.2364501953125,
+            "ymax": 834.4591064453125
+          },
+          "category": "milk",
+          "raw_model_label": "milk carton",
+          "model_prompt": "milk carton",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "personal hygiene",
+          "model_query": "personal care product",
+          "confidence": 0.10515820235013962,
+          "box": {
+            "xmin": 875.432861328125,
+            "ymin": 486.41912841796875,
+            "xmax": 1070.0482177734375,
+            "ymax": 832.79541015625
+          },
+          "category": "personal hygiene",
+          "raw_model_label": "personal care product",
+          "model_prompt": "personal care product",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "instant noodles",
+          "model_query": "instant noodle package",
+          "confidence": 0.0965486615896225,
+          "box": {
+            "xmin": 374.185791015625,
+            "ymin": 1099.5853271484375,
+            "xmax": 811.0357666015625,
+            "ymax": 1480.208984375
+          },
+          "category": "instant noodles",
+          "raw_model_label": "instant noodle package",
+          "model_prompt": "instant noodle package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "personal hygiene",
+          "model_query": "personal care product",
+          "confidence": 0.095192089676857,
+          "box": {
+            "xmin": 634.2166748046875,
+            "ymin": 522.3985595703125,
+            "xmax": 936.6237182617188,
+            "ymax": 912.4961547851562
+          },
+          "category": "personal hygiene",
+          "raw_model_label": "personal care product",
+          "model_prompt": "personal care product",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "personal hygiene",
+          "model_query": "personal care product",
+          "confidence": 0.08518185466527939,
+          "box": {
+            "xmin": 1222.833740234375,
+            "ymin": 747.0763549804688,
+            "xmax": 1374.5679931640625,
+            "ymax": 983.7775268554688
+          },
+          "category": "personal hygiene",
+          "raw_model_label": "personal care product",
+          "model_prompt": "personal care product",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "personal hygiene",
+          "model_query": "personal care product",
+          "confidence": 0.08364540338516235,
+          "box": {
+            "xmin": 1394.28564453125,
+            "ymin": 790.1146850585938,
+            "xmax": 1663.4815673828125,
+            "ymax": 1199.6279296875
+          },
+          "category": "personal hygiene",
+          "raw_model_label": "personal care product",
+          "model_prompt": "personal care product",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "personal hygiene",
+          "model_query": "personal care product",
+          "confidence": 0.07047709822654724,
+          "box": {
+            "xmin": 1327.3260498046875,
+            "ymin": 245.1881103515625,
+            "xmax": 1769.3782958984375,
+            "ymax": 707.5123901367188
+          },
+          "category": "personal hygiene",
+          "raw_model_label": "personal care product",
+          "model_prompt": "personal care product",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "puffed food",
+          "model_query": "puffed snack package",
+          "confidence": 0.06988439708948135,
+          "box": {
+            "xmin": 460.3985290527344,
+            "ymin": 1186.090576171875,
+            "xmax": 644.14697265625,
+            "ymax": 1404.090087890625
+          },
+          "category": "puffed food",
+          "raw_model_label": "puffed snack package",
+          "model_prompt": "puffed snack package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "personal hygiene",
+          "model_query": "personal care product",
+          "confidence": 0.06912267208099365,
+          "box": {
+            "xmin": 1046.206298828125,
+            "ymin": 488.3392333984375,
+            "xmax": 1242.1689453125,
+            "ymax": 841.195556640625
+          },
+          "category": "personal hygiene",
+          "raw_model_label": "personal care product",
+          "model_prompt": "personal care product",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "puffed food",
+          "model_query": "puffed snack package",
+          "confidence": 0.06148051470518112,
+          "box": {
+            "xmin": 397.96142578125,
+            "ymin": 832.6075439453125,
+            "xmax": 595.2723999023438,
+            "ymax": 1062.4422607421875
+          },
+          "category": "puffed food",
+          "raw_model_label": "puffed snack package",
+          "model_prompt": "puffed snack package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "puffed food",
+          "model_query": "puffed snack package",
+          "confidence": 0.05854625254869461,
+          "box": {
+            "xmin": 622.90625,
+            "ymin": 942.4918212890625,
+            "xmax": 847.5960693359375,
+            "ymax": 1165.951171875
+          },
+          "category": "puffed food",
+          "raw_model_label": "puffed snack package",
+          "model_prompt": "puffed snack package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "instant drink",
+          "model_query": "instant drink package",
+          "confidence": 0.056746479123830795,
+          "box": {
+            "xmin": 1068.224609375,
+            "ymin": 606.2123413085938,
+            "xmax": 1240.671142578125,
+            "ymax": 796.5659790039062
+          },
+          "category": "instant drink",
+          "raw_model_label": "instant drink package",
+          "model_prompt": "instant drink package",
+          "prompt_mode": "alias"
+        },
+        {
+          "label": "dessert",
+          "model_query": "dessert package",
+          "confidence": 0.05386091768741608,
+          "box": {
+            "xmin": 229.18814086914062,
+            "ymin": 339.81036376953125,
+            "xmax": 449.2129821777344,
+            "ymax": 523.674072265625
+          },
+          "category": "dessert",
+          "raw_model_label": "dessert package",
+          "model_prompt": "dessert package",
+          "prompt_mode": "alias"
+        }
+      ],
+      "prompt_mode": "alias",
+      "category_prompt_mapping": {
+        "puffed food": "puffed snack package",
+        "dried fruit": "dried fruit package",
+        "dried food": "dried food package",
+        "instant drink": "instant drink package",
+        "instant noodles": "instant noodle package",
+        "dessert": "dessert package",
+        "drink": "beverage bottle",
+        "alcohol": "alcohol bottle",
+        "milk": "milk carton",
+        "canned food": "canned food can",
+        "chocolate": "chocolate package",
+        "gum": "chewing gum package",
+        "candy": "candy package",
+        "seasoner": "seasoning package",
+        "personal hygiene": "personal care product",
+        "tissue": "tissue pack",
+        "stationery": "stationery item"
+      }
+    }
+  ],
+  "summary": {
+    "TP": 2,
+    "FP": 20,
+    "FN": 10,
+    "micro_precision": 0.09090909090909091,
+    "micro_recall": 0.16666666666666666,
+    "micro_F1": 0.11764705882352942,
+    "macro_precision": 0.06862745098039216,
+    "macro_recall": 0.0784313725490196,
+    "macro_F1": 0.046218487394957986,
+    "mean_matched_iou": 0.7577267407603732,
+    "mean_absolute_counting_error": 1.7647058823529411,
+    "average_inference_time_ms": 905.6416999956127,
+    "images_evaluated": 1,
+    "image_category_records": 17,
+    "per_category": [
+      {
+        "category": "puffed food",
+        "TP": 0,
+        "FP": 10,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "dried fruit",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "dried food",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "instant drink",
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "instant noodles",
+        "TP": 1,
+        "FP": 0,
+        "FN": 2,
+        "precision": 1.0,
+        "recall": 0.3333333333333333,
+        "F1": 0.5
+      },
+      {
+        "category": "dessert",
+        "TP": 0,
+        "FP": 2,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "drink",
+        "TP": 0,
+        "FP": 0,
+        "FN": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "alcohol",
+        "TP": 0,
+        "FP": 0,
+        "FN": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "milk",
+        "TP": 0,
+        "FP": 2,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "canned food",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "chocolate",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "gum",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "candy",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "seasoner",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "personal hygiene",
+        "TP": 1,
+        "FP": 5,
+        "FN": 0,
+        "precision": 0.16666666666666666,
+        "recall": 1.0,
+        "F1": 0.2857142857142857
+      },
+      {
+        "category": "tissue",
+        "TP": 0,
+        "FP": 0,
+        "FN": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      {
+        "category": "stationery",
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0
+      }
+    ],
+    "prompt_mode": "alias",
+    "category_prompt_mapping": {
+      "puffed food": "puffed snack package",
+      "dried fruit": "dried fruit package",
+      "dried food": "dried food package",
+      "instant drink": "instant drink package",
+      "instant noodles": "instant noodle package",
+      "dessert": "dessert package",
+      "drink": "beverage bottle",
+      "alcohol": "alcohol bottle",
+      "milk": "milk carton",
+      "canned food": "canned food can",
+      "chocolate": "chocolate package",
+      "gum": "chewing gum package",
+      "candy": "candy package",
+      "seasoner": "seasoning package",
+      "personal hygiene": "personal care product",
+      "tissue": "tissue pack",
+      "stationery": "stationery item"
+    }
+  }
+}

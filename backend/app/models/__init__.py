@@ -1,0 +1,1 @@
+"""Nesne tespiti model servisleri."""
