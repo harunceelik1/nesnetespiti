@@ -1,12 +1,36 @@
 import logging
+import re
 import unicodedata
 from pathlib import Path
 from threading import Lock
 
+from .. import config
 from . import object_lexicon as lexicon
 
 
 logger = logging.getLogger(__name__)
+
+# Bağlamla çeviri: tek sözcük belirsizdir ("yüz" → "100"); cümle içinde model nesne
+# anlamını seçer ("Fotoğrafta yüz var." → "There's a face in the photo.").
+CONTEXT_TEMPLATE = "Fotoğrafta {query} var."
+_CONTEXT_PATTERNS = [
+    re.compile(r"^there(?:'s| is| are| was| were)\s+(?P<obj>.+?)\s+(?:in|on)\s+(?:the|this|that)\s+(?:photo|photograph|picture|image|photography|pic)\W*$", re.I),
+    re.compile(r"^(?:in|on)\s+(?:the|this)\s+(?:photo|photograph|picture|image|photography),?\s+there(?:'s| is| are)\s+(?P<obj>.+?)\W*$", re.I),
+    re.compile(r"^(?:the|this)\s+(?:photo|photograph|picture|image)\s+(?:has|shows|contains)\s+(?P<obj>.+?)\W*$", re.I),
+]
+_LEADING_ARTICLE = re.compile(r"^(?:a|an|the|some|one)\s+", re.I)
+
+
+def extract_object(sentence: str) -> str | None:
+    """Bağlam cümlesinin çevirisinden nesne adını çıkarır; kalıp dışıysa None."""
+    sentence = " ".join(sentence.split())
+    for pattern in _CONTEXT_PATTERNS:
+        match = pattern.match(sentence)
+        if match:
+            obj = _LEADING_ARTICLE.sub("", match.group("obj").strip())
+            # "There is a in the photo." gibi boş kalan nesne kabul edilmez.
+            return obj if obj and obj.casefold() not in {"a", "an", "the", "some", "one"} else None
+    return None
 
 
 class TranslationServiceError(RuntimeError):
@@ -22,7 +46,14 @@ class TranslationService:
     # Dil tespiti kısa kelimelerde belirsiz olabilir; bu bir çeviri sözlüğü değildir.
     ENGLISH_SHORT_QUERIES = {"bag", "bags", "rug", "rugs", "person", "car", "dog", "cat", "backpack"}
 
-    def __init__(self):
+    # "context" (varsayılan) veya "lexicon"; bkz. config.TRANSLATION_STRATEGY.
+    strategy = config.TRANSLATION_STRATEGY
+
+    def __init__(self, strategy: str | None = None):
+        if strategy is not None:
+            self.strategy = strategy
+        if self.strategy not in config.TRANSLATION_STRATEGIES:
+            raise ValueError(f"Bilinmeyen çeviri yolu: {self.strategy!r} (seçenekler: {config.TRANSLATION_STRATEGIES})")
         self.detector = None
         self._load_error = None
         self._lock = Lock()
@@ -53,9 +84,12 @@ class TranslationService:
 
     def detect_language(self, text: str) -> str:
         normalized = text.casefold().replace("̇", "")
-        if lexicon.lookup(text) is not None:
-            return "tr"
-        if normalized in self.ENGLISH_SHORT_QUERIES or lexicon.is_known_english(text):
+        if self.strategy == "lexicon":
+            if lexicon.lookup(text) is not None:
+                return "tr"
+            if lexicon.is_known_english(text):
+                return "en"
+        if normalized in self.ENGLISH_SHORT_QUERIES:
             return "en"
         if any(character in normalized for character in "çğıöşü"):
             return "tr"
@@ -87,19 +121,33 @@ class TranslationService:
             logger.error("TR→EN çeviri işlemi başarısız: %s", exc)
             raise TranslationServiceError("Sorgu İngilizceye çevrilemedi. Backend terminalini kontrol ederek tekrar deneyin.") from exc
 
+    def translate_object(self, text: str) -> tuple[str, str]:
+        """Nesne adını bağlam cümlesiyle çevirir. (çeviri, kaynak) döndürür.
+
+        Kaynak "context": nesne cümleden çıkarıldı. "model": çeviri beklenen kalıpta
+        değildi, sorgu tek başına çevrildi (daha az güvenilir; arayüz uyarı gösterir).
+        """
+        sentence = self.translate(CONTEXT_TEMPLATE.format(query=text))
+        extracted = extract_object(sentence)
+        if extracted is not None:
+            return extracted, "context"
+        logger.info("Bağlam çevirisi kalıp dışı (%r → %r); düz çeviri kullanılıyor.", text, sentence)
+        return self.translate(text), "model"
+
     def prepare_query(self, original_query: str) -> dict:
         text = " ".join(unicodedata.normalize("NFKC", original_query).split())
         if not text:
             raise TranslationServiceError("Sorgu boş olamaz.", 422)
-        # Sözlük önce gelir: çok anlamlı tek sözcükleri ("yüz" → face, "100" değil)
-        # ve Türkçe karakter içermeyen sözcükleri ("kravat") kesin çevirir.
-        dictionary_translation = lexicon.lookup(text)
+        # "lexicon" yolunda sözlük önce gelir (eski davranış). "context" yolunda sözlük
+        # kullanılmaz; Türkçe sorgu bağlam cümlesiyle çevrilir.
+        dictionary_translation = lexicon.lookup(text) if self.strategy == "lexicon" else None
         if dictionary_translation is not None:
             language, translated, source = "tr", dictionary_translation, "lexicon"
         else:
             language = self.detect_language(text)
-            translated = self.translate(text) if language == "tr" else None
-            source = "model" if translated is not None else None
+            translated, source = None, None
+            if language == "tr":
+                translated, source = self.translate_object(text) if self.strategy == "context" else (self.translate(text), "model")
         # Çevirinin tekil/çoğul biçimi ve niteleyicileri korunur.
         return {
             "original_query": original_query,

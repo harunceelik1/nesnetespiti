@@ -461,6 +461,16 @@ test("Compare içinde bir model hata verirse başarılı modelin sonucu korunur"
   }
 });
 
+test("bağlamla çeviri sakin etiketle gösterilir, uyarı verilmez", async () => {
+  globalThis.fetch = async () => Response.json({ ...responseBody, translation_source: "context" });
+  await upload();
+  await query("çanta");
+  await submit();
+  const section = element<HTMLElement>(".query-interpretation");
+  assert.match(element(".query-source").textContent!, /^çeviri$/);
+  assert.equal(section.classList.contains("uncertain"), false);
+});
+
 test("aranan İngilizce ifade gösterilir; düzeltilince english_query ile tekrar aranır", async () => {
   const sent: Array<{ query: FormDataEntryValue | null; english: FormDataEntryValue | null }> = [];
   globalThis.fetch = async (_url, options) => {
@@ -479,8 +489,8 @@ test("aranan İngilizce ifade gösterilir; düzeltilince english_query ile tekra
   await submit();
   const section = element<HTMLElement>(".query-interpretation");
   assert.equal(element(".query-value").textContent, "pharmaceutical box");
-  assert.match(section.textContent!, /çeviri modeli/);
-  assert.ok(section.classList.contains("uncertain"), "çeviri modeli kaynağı uyarı ile işaretlenir");
+  assert.match(section.textContent!, /düz çeviri, kontrol et/);
+  assert.ok(section.classList.contains("uncertain"), "düz çeviri kaynağı uyarı ile işaretlenir");
   assert.equal(sent[0].english, null);
 
   const editButton = [...section.querySelectorAll("button")].find((b) => b.textContent === "Düzenle")!;

@@ -56,7 +56,7 @@ export interface DetectionDetails extends SceneBoxDiagnostics {
   original_query: string;
   detected_language: string;
   translated_query: string | null;
-  /** lexicon / model / user / mixed; null: İngilizce sorgu, çevrilmedi. */
+  /** context (bağlamla çeviri) / model (düz çeviri) / lexicon / user / mixed; null: İngilizce sorgu, çevrilmedi. */
   translation_source?: string | null;
   primary_query: string;
   processed_queries: string[];

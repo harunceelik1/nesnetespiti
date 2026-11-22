@@ -36,6 +36,8 @@ def translator():
     service = TranslationService.__new__(TranslationService)
     service.detect_language = lambda text: "tr" if text in ("çantalar", "şişeler", "kutular") else "en"
     service.translate = lambda text: {"çantalar": "The bags.", "şişeler": "Bottles.", "kutular": "Boxes."}[text]
+    # Bu testler çeviri yolunu değil normalizasyonu ölçer; bağlam cümlesi atlanır.
+    service.translate_object = lambda text: (service.translate(text), "model")
     return service
 
 

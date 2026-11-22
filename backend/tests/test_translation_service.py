@@ -20,9 +20,11 @@ def fake_load(service):
 
 
 class TranslationServiceTests(unittest.TestCase):
+    """Eski "lexicon" yolu: sözlük + düz Marian. Geri dönüş seçeneği olarak korunur."""
+
     def setUp(self):
         with patch.object(TranslationService, "_load_resources", fake_load):
-            self.service = TranslationService()
+            self.service = TranslationService(strategy="lexicon")
 
     def test_turkish_queries_use_model_outputs(self):
         # Sözlük dışı ifadeler model yolundan geçer; sözlük burada kapatılır.
@@ -140,6 +142,74 @@ class TranslationServiceTests(unittest.TestCase):
         with self.assertRaisesRegex(TranslationServiceError, "çok uzun"):
             self.service.translate("halı")
         self.service.model.generate.assert_not_called()
+
+
+class ContextTranslationTests(unittest.TestCase):
+    """Varsayılan "context" yolu: sözlük kullanılmaz, sorgu bağlam cümlesi içinde çevrilir."""
+
+    def setUp(self):
+        with patch.object(TranslationService, "_load_resources", fake_load):
+            self.service = TranslationService(strategy="context")
+        self.sources = []
+        self.outputs = {}
+
+        def translate(text):
+            self.sources.append(text)
+            return self.outputs[text]
+        self.service.translate = translate
+
+    def test_default_strategy_is_context(self):
+        self.assertEqual(TranslationService.strategy, "context")
+        with patch.object(TranslationService, "_load_resources", fake_load):
+            self.assertEqual(TranslationService().strategy, "context")
+        with self.assertRaises(ValueError):
+            TranslationService(strategy="llm")
+
+    def test_query_is_translated_inside_context_sentence(self):
+        self.outputs = {"Fotoğrafta yüz var.": "There's a face in the photo.",
+                        "Fotoğrafta şişeler var.": "There are bottles in the picture.",
+                        "Fotoğrafta kırmızı spor ayakkabı var.": "There are red sneakers in the photo."}
+        for query, expected in {"yüz": "face", "şişeler": "bottles", "kırmızı spor ayakkabı": "red sneakers"}.items():
+            with self.subTest(query=query):
+                result = self.service.prepare_query(query)
+                self.assertEqual(result["detected_language"], "tr")
+                self.assertEqual(result["translation_source"], "context")
+                self.assertEqual(result["primary_query"], expected)
+        self.assertEqual(self.sources, list(self.outputs))
+
+    def test_lexicon_is_not_used(self):
+        # "kravat" sözlükte "tie"; context yolunda yine de modelden geçer.
+        self.service.detector.compute_language_confidence.return_value = 0.55
+        self.outputs = {"Fotoğrafta kravat var.": "There's a necktie in the photo."}
+        with patch("backend.app.services.object_lexicon.lookup") as lookup:
+            result = self.service.prepare_query("kravat")
+        lookup.assert_not_called()
+        self.assertEqual(result["primary_query"], "necktie")
+
+    def test_unexpected_sentence_falls_back_to_plain_translation(self):
+        self.service.detector.compute_language_confidence.return_value = 0.2
+        self.outputs = {"Fotoğrafta palet var.": "Palette in the photo.", "palet": "pallet"}
+        result = self.service.prepare_query("palet")
+        self.assertEqual(result["translation_source"], "model")
+        self.assertEqual(result["primary_query"], "pallet")
+
+    def test_english_queries_are_not_translated(self):
+        self.service.detector.compute_language_confidence.return_value = 0.9
+        for query in ["bag", "stapler", "red sneakers"]:
+            with self.subTest(query=query):
+                result = self.service.prepare_query(query)
+                self.assertEqual(result["detected_language"], "en")
+                self.assertIsNone(result["translated_query"])
+        self.assertEqual(self.sources, [])
+
+    def test_extract_object(self):
+        from backend.app.services.translation_service import extract_object
+        cases = {"There is a remote in the photo.": "remote", "There's a hard hat in the picture.": "hard hat",
+                 "In the photo, there are bottles.": "bottles", "The photo has a cat.": "cat",
+                 "Remote in photo.": None, "There is a in the photo.": None}
+        for sentence, expected in cases.items():
+            with self.subTest(sentence=sentence):
+                self.assertEqual(extract_object(sentence), expected)
 
 
 @unittest.skipUnless(os.environ.get("RUN_TRANSLATION_SMOKE") == "1", "Gerçek model testi isteğe bağlıdır.")

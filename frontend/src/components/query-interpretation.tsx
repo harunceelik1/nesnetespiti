@@ -15,10 +15,13 @@ interface Props {
 }
 
 const SOURCE_LABELS: Record<string, string> = {
+  // context: bağlam cümlesiyle çeviri (varsayılan yol). model: cümle kalıp dışı kaldı,
+  // sorgu tek başına çevrildi; daha az güvenilir olduğu için uyarı rengiyle gösterilir.
+  context: "çeviri",
   lexicon: "sözlükten",
-  model: "çeviri modeli",
+  model: "düz çeviri, kontrol et",
   user: "senin düzeltmen",
-  mixed: "sözlük + çeviri",
+  mixed: "birden fazla kaynak",
 };
 
 function sourceLabel(details: DetectionDetails): string {

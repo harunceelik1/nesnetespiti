@@ -1,3 +1,4 @@
+import os
 from dataclasses import dataclass
 
 
@@ -247,3 +248,14 @@ ADAPTIVE_THRESHOLDS = {
     # olmayan nesnede en yüksek sahte puan 0.046.
     "yolo-world": AdaptiveThresholdSettings(thresholds=(0.10,)),
 }
+
+
+# TR→EN çeviri yolu (evaluation/translation/compare_translators.py ile seçildi):
+#   "context": Marian, sorguyu "Fotoğrafta {sorgu} var." cümlesi içinde çevirir ve nesne
+#              adını cümleden çıkarır. 183 sorguluk testte %93 (düz Marian %85); sözlük
+#              kullanılmaz. Varsayılan.
+#   "lexicon": elle yazılmış sözlük (object_lexicon.py), yoksa düz Marian. Eski davranış;
+#              sorun çıkarsa geri dönmek için saklanıyor.
+# Backend başlarken TRANSLATION_STRATEGY ortam değişkeniyle değiştirilebilir.
+TRANSLATION_STRATEGIES = ("context", "lexicon")
+TRANSLATION_STRATEGY = os.environ.get("TRANSLATION_STRATEGY", "context").strip().lower()

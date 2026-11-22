@@ -30,6 +30,8 @@ from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from backend.app.services import object_lexicon  # noqa: E402
+# Bağlam cümlesi ve nesne çıkarma backend ile aynı koddur (ölçülen = çalışan).
+from backend.app.services.translation_service import CONTEXT_TEMPLATE, extract_object  # noqa: E402
 
 CACHE = ROOT / ".cache" / "translation"
 TEST_FILE = Path(__file__).with_name("tr_en_test.tsv")
@@ -40,13 +42,6 @@ MODELS = {
     "opus-big": "Helsinki-NLP/opus-mt-tc-big-tr-en",
     "nllb": "facebook/nllb-200-distilled-600M",
 }
-CONTEXT_TEMPLATE = "Fotoğrafta {query} var."
-# "There is a remote in the photo." / "There's a remote in the picture." / "In the photo there are bottles."
-_CONTEXT_PATTERNS = [
-    re.compile(r"^there(?:'s| is| are| was| were)\s+(?P<obj>.+?)\s+(?:in|on)\s+(?:the|this|that)\s+(?:photo|photograph|picture|image|photography|pic)\W*$", re.I),
-    re.compile(r"^(?:in|on)\s+(?:the|this)\s+(?:photo|photograph|picture|image|photography),?\s+there(?:'s| is| are)\s+(?P<obj>.+?)\W*$", re.I),
-    re.compile(r"^(?:the|this)\s+(?:photo|photograph|picture|image)\s+(?:has|shows|contains)\s+(?P<obj>.+?)\W*$", re.I),
-]
 _ARTICLES = re.compile(r"^(?:a|an|the|some|one)\s+", re.I)
 
 
@@ -88,15 +83,6 @@ def score(output: str, accepted: list[str]) -> str:
     if any(f" {form} " in padded or f" {form}s " in padded or f" {form}es " in padded for form in forms):
         return "eklemeli"
     return "yanlış"
-
-
-def extract_object(sentence: str) -> str | None:
-    sentence = " ".join(sentence.split())
-    for pattern in _CONTEXT_PATTERNS:
-        match = pattern.match(sentence)
-        if match:
-            return _ARTICLES.sub("", match.group("obj").strip())
-    return None
 
 
 class Translator:
