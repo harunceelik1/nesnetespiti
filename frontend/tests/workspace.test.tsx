@@ -80,8 +80,15 @@ async function submit() {
   });
 }
 
+// Geliştirici modu (?debug=1): ham tanılar yalnızca bu adresle görünür.
+async function enableDebug() {
+  dom.window.history.replaceState(null, "", "/?debug=1");
+  await act(async () => { root.render(<DetectionWorkspace key={Math.random()} />); });
+}
+
 beforeEach(async () => {
   globalThis.fetch = realFetch;
+  dom.window.history.replaceState(null, "", "/");
   await act(async () => { root.render(<DetectionWorkspace key={Math.random()} />); });
 });
 after(async () => {
@@ -102,9 +109,11 @@ test("scene-box kaldırma nedeni ve alan oranı sadece teknik detaylarda göster
       reason: "oversized_scene_box", near_borders: ["left", "right", "top", "bottom"],
       threshold: .05, phase: "primary", canonical_query: "bag" }],
   });
+  await enableDebug();
   await upload();
   await query("bag");
   await submit();
+  assert.match(element(".technical-content").textContent!, /Elenen dev kutu1 kutu görselin/);
   assert.match(element(".technical-content").textContent!, /oversized_boxes_removed.*1.*area_ratio=0\.9604.*oversized_scene_box/);
   assert.match(element(".technical-content").textContent!, /scene_box_diagnostics.*area_ratio=0\.0025.*touched_edges=2.*korundu.*no_rule.*left:0\.0000.*image=1000×1000/);
   assert.doesNotMatch(element(".result-summary").textContent!, /oversized_scene_box|area_ratio/);
@@ -119,6 +128,7 @@ test("rule_c eksen oranları Teknik Detaylar içinde görünür", async () => {
       near_borders: ["left", "right", "bottom"], touched_edges: 3, matched_rule: "rule_c", removed: true,
       reason: "oversized_scene_box", canonical_query: "backpack" }],
   });
+  await enableDebug();
   await upload();
   await query("backpack");
   await submit();
@@ -217,22 +227,56 @@ test("tek /detect akışı, adaptive detaylar, loading, sekmeler ve sonuç temiz
     element(".viewer-toolbar .segmented-control").dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }));
   });
   assert.equal(element("#tab-result").getAttribute("aria-selected"), "true");
-  assert.match(element(".technical-content").textContent!, /translated_query.*bag/);
+  assert.match(element(".technical-content").textContent!, /Aranan ifadeçanta → bag/);
   assert.match(element(".technical-content").textContent!, /0\.840/);
   const technical = element<HTMLDetailsElement>(".technical-details");
   await act(async () => { element<HTMLElement>(".technical-details summary").click(); });
   assert.equal(technical.open, true);
   assert.match(technical.textContent!, /Seçilen eşik0\.03/);
-  assert.match(technical.textContent!, /Seçim nedenifirst_valid_result/);
-  const attempts = Array.from(technical.querySelectorAll("table"))[0].querySelectorAll("tbody tr");
-  assert.equal(attempts.length, 2);
-  assert.deepEqual(Array.from(attempts[0].querySelectorAll("td"), (cell) => cell.textContent), ["0.05", "—", "primary / bag", "0", "0"]);
-  assert.deepEqual(Array.from(attempts[1].querySelectorAll("td"), (cell) => cell.textContent), ["0.03", "—", "primary / bag", "3", "2"]);
+  assert.match(technical.textContent!, /Kutular3 aday → 2 kutu kaldı/);
+  assert.match(technical.textContent!, /Model süresi686 ms/);
   assert.doesNotMatch(technical.textContent!, /0\.20|ayrı inference/);
   await upload(new File(["next"], "next.png", { type: "image/png" }));
   assert.equal(document.querySelectorAll(".viewer-pane img").length, 1);
   assert.match(element(".file-name").textContent!, /next.png/);
   assert.doesNotMatch(element(".result-summary").textContent!, /2 nesne/);
+});
+
+test("ham tanılar varsayılan olarak gizlidir; okunur özet görünür", async () => {
+  globalThis.fetch = async () => Response.json({ ...responseBody,
+    scene_box_diagnostics: [{ detection: responseBody.detections[0], area_ratio: .0025,
+      box_area: 2500, image_area: 1000000, image_size: { width: 1000, height: 1000 },
+      edge_distance_ratios: { left: 0, right: .95, top: 0, bottom: .95 },
+      near_borders: ["left", "top"], touched_edges: 2, matched_rule: null, removed: false,
+      reason: "scene_box_criteria_not_met", threshold: .03, canonical_query: "bag" }],
+    oversized_boxes_removed_count: 0, oversized_boxes_removed: [],
+  });
+  await upload();
+  await query("çanta");
+  await submit();
+  const text = element(".technical-content").textContent!;
+  assert.match(text, /Elenen dev kutuYok/);
+  assert.match(text, /Seçilen eşik0\.03/);
+  assert.equal(document.querySelector(".raw-diagnostics"), null);
+  assert.equal(document.querySelector(".attempts-table"), null);
+  assert.doesNotMatch(text, /scene_box_diagnostics|area_ratio|first_valid_result|translated_query/);
+  assert.doesNotMatch(element(".technical-details summary").textContent!, /geliştirici modu/);
+});
+
+test("?debug=1 ile eşik denemeleri ve ham alanlar gösterilir", async () => {
+  globalThis.fetch = async () => Response.json(responseBody);
+  await enableDebug();
+  await upload();
+  await query("çanta");
+  await submit();
+  const technical = element<HTMLDetailsElement>(".technical-details");
+  assert.match(element(".technical-details summary").textContent!, /geliştirici modu/);
+  assert.match(technical.textContent!, /threshold_selection_reasonfirst_valid_result/);
+  assert.match(technical.textContent!, /translated_query.*bag/);
+  const attempts = element(".attempts-table").querySelectorAll("tbody tr");
+  assert.equal(attempts.length, 2);
+  assert.deepEqual(Array.from(attempts[0].querySelectorAll("td"), (cell) => cell.textContent), ["0.05", "—", "primary / bag", "0", "0"]);
+  assert.deepEqual(Array.from(attempts[1].querySelectorAll("td"), (cell) => cell.textContent), ["0.03", "—", "primary / bag", "3", "2"]);
 });
 
 test("backend hatası solda gösterilir ve orijinal görüntü korunur", async () => {
@@ -277,13 +321,14 @@ test("tek Grounding DINO seçimi yalnızca o modeli çağırır ve gerçek metri
       ],
     });
   };
+  await enableDebug();
   await upload();
   await query("çanta");
   await selectModel("grounding-dino");
   await submit();
   assert.deepEqual(calls, ["/detect"]);
   assert.match(element(".result-summary").textContent!, /10\.097 ms.*Grounding DINO.*CUDA/);
-  assert.match(element(".technical-content").textContent!, /Seçilen eşik \(box\)0\.30/);
+  assert.match(element(".technical-content").textContent!, /Seçilen eşik \(kutu\)0\.30/);
   assert.match(element(".technical-content").textContent!, /0\.350\.25/);
 });
 
@@ -308,7 +353,7 @@ test("tek YOLO-World seçimi yalnızca o modeli çağırır ve kendi eşiğini g
   assert.deepEqual(models, ["yolo-world"]);
   assert.match(element(".result-summary").textContent!, /412 ms.*YOLO-World.*CPU/);
   assert.match(element(".technical-content").textContent!, /Seçilen eşik0\.15/);
-  assert.doesNotMatch(element(".technical-content").textContent!, /\(box\)/);
+  assert.doesNotMatch(element(".technical-content").textContent!, /\(kutu\)/);
 });
 
 test("Compare üç modeli çağırır; biri tamamlanınca ortak loading diğerlerini bekler", async () => {
@@ -357,9 +402,9 @@ test("Compare üç modeli çağırır; biri tamamlanınca ortak loading diğerle
   assert.equal(document.querySelectorAll(".model-canvas img").length, 3);
   assert.equal(document.querySelectorAll(".technical-details").length, 3);
   assert.match(document.querySelectorAll(".technical-details")[2].textContent!, /Teknik detaylar · YOLO-World/);
-  assert.match(document.querySelectorAll(".technical-details")[1].textContent!, /inference_time_ms.*10097/);
+  assert.match(document.querySelectorAll(".technical-details")[1].textContent!, /Model süresi10\.097 ms/);
   assert.match(document.querySelectorAll(".technical-details")[0].textContent!, /Seçilen eşik0\.03/);
-  assert.match(document.querySelectorAll(".technical-details")[1].textContent!, /Seçilen eşik \(box\)0\.30/);
+  assert.match(document.querySelectorAll(".technical-details")[1].textContent!, /Seçilen eşik \(kutu\)0\.30/);
 });
 
 test("karşılaştırmada tek model büyük gösterilir; sekme ve Yan yana düzeni değiştirir", async () => {

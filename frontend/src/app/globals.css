@@ -65,7 +65,8 @@
   .technical-content .debug-grid { @apply grid gap-x-6 gap-y-3 sm:grid-cols-2; }
   .technical-content .debug-grid > div { @apply min-w-0; }
   .technical-content .debug-grid .wide { @apply sm:col-span-2; }
-  .technical-content dt { @apply mb-0.5 font-mono text-[11px] text-muted-foreground; }
+  .technical-content dt { @apply mb-0.5 text-[11px] font-medium text-muted-foreground; }
+  .technical-content .raw-diagnostics dt { @apply font-mono font-normal; }
   .technical-content dd { @apply m-0 break-words text-foreground; }
   .technical-content .table-scroll { @apply overflow-x-auto rounded-lg border; }
   .technical-content table { @apply w-full border-collapse text-left; }
