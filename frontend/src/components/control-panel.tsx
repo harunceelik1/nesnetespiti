@@ -1,5 +1,15 @@
-import type { ChangeEvent, FormEvent } from "react";
+import type { ChangeEvent, FormEvent, ReactNode } from "react";
+import { AlertTriangle, ImageUp, Loader2, MousePointerSquareDashed, Search, Type } from "lucide-react";
 import { SENSITIVITY_LABELS, type ModelSelection, type Sensitivity } from "@/lib/detection-api";
+import { cn } from "@/lib/utils";
+import { Alert } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { NativeSelect } from "@/components/ui/native-select";
+import { Segmented, segmentClass } from "@/components/ui/segmented";
+
+export type SearchMode = "text" | "example";
 
 const SENSITIVITY_HELP: Record<Sensitivity, string> = {
   strict: "Yalnızca emin olunan kutular. Bazı gerçek nesneler kaçabilir.",
@@ -13,6 +23,10 @@ interface Props {
   busy: boolean;
   loading: boolean;
   checkingFile: boolean;
+  mode: SearchMode;
+  onModeChange: (mode: SearchMode) => void;
+  /** Örnekle aramada görselde kutu çizildi mi. */
+  exampleReady: boolean;
   model: ModelSelection;
   onModelChange: (model: ModelSelection) => void;
   sensitivity: Sensitivity;
@@ -30,54 +44,103 @@ function messageText(message: string): string {
   return message.split(/\r?\n/)[0].slice(0, 260);
 }
 
-export default function ControlPanel(props: Props) {
-  const { image, query, busy, loading, checkingFile, error, warning } = props;
+function Step({ number, title, children, htmlFor }: { number: number; title: string; children: ReactNode; htmlFor?: string }) {
+  const heading = <><span className="flex size-5 items-center justify-center rounded-full bg-primary/10 text-[11px] font-semibold text-primary">{number}</span>{title}</>;
   return (
-    <aside className="control-panel" aria-label="Analiz kontrolleri">
-      <h2 className="panel-title">Analiz kontrolleri</h2>
-      <form className="control-form" onSubmit={props.onSubmit}>
-        <div className="field-group">
-          <label className="field-label" htmlFor="image-file">Görsel</label>
-          <input id="image-file" className="visually-hidden" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" disabled={busy} onChange={props.onChooseImage} />
-          <label htmlFor="image-file" className={"file-picker" + (busy ? " disabled" : "")}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><path d="M12 16V4m-4 4 4-4 4 4M4 15v5h16v-5" /></svg>
-            <strong>{checkingFile ? "Görsel kontrol ediliyor…" : image ? "Görseli değiştir" : "Görsel yükle"}</strong>
-            <span>JPG veya PNG</span>
-          </label>
-          <div className="file-metadata">
-            <span className="file-name">{image?.name || "Henüz bir dosya seçilmedi."}</span>
-            {image && <span>{(image.size / 1024 / 1024).toFixed(2)} MB</span>}
-          </div>
-        </div>
-        <div className="field-group">
-          <label className="field-label" htmlFor="object-query">Aranacak nesne</label>
-          <input id="object-query" type="text" placeholder="Nesne veya nesne ifadesi" value={query} disabled={busy} onChange={(event) => props.onQueryChange(event.target.value)} autoComplete="off" aria-describedby="query-helper" />
-          <p className="field-helper" id="query-helper">Birden fazla nesne için virgülle ayırın: şişe, kutu, çanta</p>
-        </div>
-        <div className="field-group">
-          <label className="field-label" htmlFor="detector-model">Model</label>
-          <select id="detector-model" value={props.model} disabled={busy} onChange={(event) => props.onModelChange(event.target.value as ModelSelection)}>
-            <option value="owlvit">OWLv2</option>
-            <option value="grounding-dino">Grounding DINO</option>
-            <option value="yolo-world">YOLO-World</option>
-            <option value="compare">Compare</option>
-          </select>
-        </div>
-        <fieldset className="field-group sensitivity-group" disabled={busy}>
-          <legend className="field-label">Hassasiyet</legend>
-          <div className="segmented-control sensitivity-control">
-            {(Object.keys(SENSITIVITY_LABELS) as Sensitivity[]).map((level) => <label key={level} className={props.sensitivity === level ? "is-selected" : undefined}>
-              <input type="radio" name="sensitivity" value={level} checked={props.sensitivity === level}
-                onChange={() => props.onSensitivityChange(level)} />
-              {SENSITIVITY_LABELS[level]}
-            </label>)}
-          </div>
-          <p className={"field-helper" + (props.sensitivity === "loose" ? " sensitivity-warning" : "")} id="sensitivity-helper">{SENSITIVITY_HELP[props.sensitivity]}</p>
-        </fieldset>
-        <button type="submit" className="detect-button" disabled={!image || !query.split(",").some((part) => part.trim()) || busy}>{loading ? "Tespit ediliyor…" : "Tespit Et"}</button>
-      </form>
-      {error && <p className="panel-message" role="alert">{messageText(error)}</p>}
-      {warning && <p className="panel-message warning" role="status">{messageText(warning)}</p>}
+    <div className="flex flex-col gap-2.5">
+      {htmlFor
+        ? <label htmlFor={htmlFor} className="flex items-center gap-2 text-sm font-medium">{heading}</label>
+        : <div className="flex items-center gap-2 text-sm font-medium">{heading}</div>}
+      {children}
+    </div>
+  );
+}
+
+export default function ControlPanel(props: Props) {
+  const { image, query, busy, loading, checkingFile, mode, error, warning } = props;
+  const example = mode === "example";
+  const canSubmit = !!image && !busy && (example ? props.exampleReady : query.split(",").some((part) => part.trim()));
+  const buttonText = loading ? (example ? "Aranıyor…" : "Tespit ediliyor…") : example ? "Benzerlerini bul" : "Tespit Et";
+
+  return (
+    <aside className="control-panel lg:sticky lg:top-6" aria-label="Analiz kontrolleri">
+      <Card className="gap-0 py-0">
+        <CardContent className="px-5 py-5">
+          <form className="flex flex-col gap-6" onSubmit={props.onSubmit}>
+            <Step number={1} title="Görsel">
+              <input id="image-file" className="sr-only" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" disabled={busy} onChange={props.onChooseImage} />
+              <label htmlFor="image-file" className={cn(
+                "flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-dashed border-input bg-muted/40 px-4 py-6 text-center transition-colors hover:border-primary/40 hover:bg-accent",
+                busy && "pointer-events-none opacity-60")}>
+                {checkingFile ? <Loader2 aria-hidden="true" className="size-5 animate-spin text-muted-foreground" /> : <ImageUp aria-hidden="true" className="size-5 text-muted-foreground" />}
+                <span className="text-sm font-medium">{checkingFile ? "Görsel kontrol ediliyor…" : image ? "Görseli değiştir" : "Görsel yükle"}</span>
+                <span className="text-xs text-muted-foreground">JPG veya PNG</span>
+              </label>
+              <p className="flex justify-between gap-3 text-xs text-muted-foreground">
+                <span className="file-name truncate" title={image?.name}>{image?.name || "Henüz bir dosya seçilmedi."}</span>
+                {image && <span className="shrink-0 tabular-nums">{(image.size / 1024 / 1024).toFixed(2)} MB</span>}
+              </p>
+            </Step>
+
+            <Step number={2} title="Ne arıyorsun?">
+              <Segmented role="radiogroup" aria-label="Arama yolu">
+                {([["text", "Metinle ara", Type], ["example", "Örnekle ara", MousePointerSquareDashed]] as const).map(([value, label, Icon]) => (
+                  <button key={value} type="button" role="radio" aria-checked={mode === value} disabled={busy}
+                    className={segmentClass(mode === value)} onClick={() => props.onModeChange(value)}>
+                    <Icon aria-hidden="true" />{label}
+                  </button>
+                ))}
+              </Segmented>
+              {example && <p className="rounded-md bg-accent px-3 py-2 text-xs leading-relaxed text-accent-foreground">
+                {props.exampleReady ? "Örnek seçildi. Benzerlerini bulmak için aşağıdaki düğmeye bas." : "Sağdaki görselde aradığın nesnelerden birinin etrafına fareyle kutu çiz."}
+              </p>}
+              <label htmlFor="object-query" className="sr-only">{example ? "Ad (isteğe bağlı)" : "Aranacak nesne"}</label>
+              <Input id="object-query" type="text" value={query} disabled={busy} autoComplete="off" aria-describedby="query-helper"
+                placeholder={example ? "Ad (isteğe bağlı), ör. sakız" : "ör. ilaç kutusu, şişe"}
+                onChange={(event) => props.onQueryChange(event.target.value)} />
+              <p className="text-xs text-muted-foreground" id="query-helper">
+                {example ? "Yazdığın ad yalnızca sonuçta etiket olarak görünür." : "Birden fazla nesne için virgülle ayır: şişe, kutu, çanta"}
+              </p>
+            </Step>
+
+            <Step number={3} title="Model" htmlFor={example ? undefined : "detector-model"}>
+              {example
+                ? <p className="text-xs text-muted-foreground">Örnekle arama yalnızca OWLv2 ile çalışır.</p>
+                : <NativeSelect id="detector-model" value={props.model} disabled={busy} onChange={(event) => props.onModelChange(event.target.value as ModelSelection)}>
+                  <option value="owlvit">OWLv2</option>
+                  <option value="grounding-dino">Grounding DINO</option>
+                  <option value="yolo-world">YOLO-World</option>
+                  <option value="compare">Üç modeli karşılaştır</option>
+                </NativeSelect>}
+            </Step>
+
+            <fieldset className="sensitivity-group flex min-w-0 flex-col gap-2.5" disabled={busy}>
+              <legend className="mb-2.5 text-sm font-medium">Hassasiyet</legend>
+              <Segmented className="sensitivity-control">
+                {(Object.keys(SENSITIVITY_LABELS) as Sensitivity[]).map((level) => (
+                  <label key={level} className={segmentClass(props.sensitivity === level)}>
+                    <input type="radio" name="sensitivity" value={level} className="sr-only" checked={props.sensitivity === level}
+                      onChange={() => props.onSensitivityChange(level)} />
+                    {SENSITIVITY_LABELS[level]}
+                  </label>
+                ))}
+              </Segmented>
+              <p id="sensitivity-helper" className={cn("text-xs", props.sensitivity === "loose" ? "sensitivity-warning text-warning-foreground" : "text-muted-foreground")}>
+                {SENSITIVITY_HELP[props.sensitivity]}
+              </p>
+            </fieldset>
+
+            <Button type="submit" size="lg" className="w-full" disabled={!canSubmit}>
+              {loading ? <Loader2 aria-hidden="true" className="animate-spin" /> : <Search aria-hidden="true" />}
+              {buttonText}
+            </Button>
+          </form>
+          {(error || warning) && <div className="mt-4 flex flex-col gap-2">
+            {error && <Alert variant="destructive" role="alert"><AlertTriangle aria-hidden="true" /><span>{messageText(error)}</span></Alert>}
+            {warning && <Alert variant="warning" role="status"><AlertTriangle aria-hidden="true" /><span>{messageText(warning)}</span></Alert>}
+          </div>}
+        </CardContent>
+      </Card>
     </aside>
   );
 }

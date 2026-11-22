@@ -2,12 +2,15 @@
 
 import { useEffect, useState, type PointerEvent } from "react";
 import type { Box } from "@/lib/detection-api";
+import { cn } from "@/lib/utils";
 
 interface Props {
   /** Üzerine kutu çizilen <img>; görsel object-fit: contain ile gösterilir. */
   image: HTMLImageElement | null;
   box: Box | null;
   onChange: (box: Box | null) => void;
+  /** Katman <img> ile aynı konuma yerleştirilmelidir (ör. "absolute inset-4"). */
+  className?: string;
 }
 
 interface Layout { width: number; height: number; naturalWidth: number; naturalHeight: number }
@@ -25,7 +28,7 @@ function measure(image: HTMLImageElement): Layout | null {
 }
 
 /** Görselin üstüne sürükleyerek örnek kutu çizdirir; kutu orijinal piksel koordinatlarında döner. */
-export default function ExampleSelector({ image, box, onChange }: Props) {
+export default function ExampleSelector({ image, box, onChange, className }: Props) {
   const [layout, setLayout] = useState<Layout | null>(null);
   const [start, setStart] = useState<{ x: number; y: number } | null>(null);
 
@@ -88,9 +91,9 @@ export default function ExampleSelector({ image, box, onChange }: Props) {
   })() : null;
 
   return (
-    <div className="example-overlay" data-testid="example-overlay" aria-label="Örnek nesnenin etrafına kutu çizin"
+    <div className={cn("example-overlay cursor-crosshair touch-none select-none overflow-hidden", className)} data-testid="example-overlay" aria-label="Örnek nesnenin etrafına kutu çizin"
       onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={() => setStart(null)}>
-      {view && <div className="example-box" style={view} />}
+      {view && <div className="pointer-events-none absolute rounded-sm border-2 border-primary bg-primary/15 shadow-[0_0_0_9999px_rgb(0_0_0/0.25)]" style={view} />}
     </div>
   );
 }

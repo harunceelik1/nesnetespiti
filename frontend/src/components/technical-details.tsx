@@ -1,12 +1,17 @@
+import { ChevronRight } from "lucide-react";
 import { SENSITIVITY_LABELS, type DetectionDetails } from "@/lib/detection-api";
 
 interface Props { details: DetectionDetails | null; loading: boolean; warning: string | null; elapsedMs: number | null; modelName?: string }
 
 export default function TechnicalDetails({ details, loading, warning, elapsedMs, modelName }: Props) {
   return (
-    <details className="technical-details">
-      <summary>Teknik detaylar{modelName ? " · " + modelName : ""}</summary>
-      <div className="technical-content">
+    <details className="technical-details group rounded-xl border bg-card text-sm shadow-sm">
+      <summary className="flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-muted-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">
+        <ChevronRight aria-hidden="true" className="size-4 transition-transform group-open:rotate-90" />
+        <span className="font-medium">Teknik detaylar{modelName ? " · " + modelName : ""}</span>
+        <span className="ml-auto text-xs text-muted-foreground/70">geliştirici</span>
+      </summary>
+      <div className="technical-content border-t px-4 py-4">
         {!details && <p className="muted">{loading ? "Teknik bilgiler alınıyor…" : warning || "Tespit tamamlandığında sorgu ve model bilgileri burada gösterilir."}</p>}
         {details && (
           <>

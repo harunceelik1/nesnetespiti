@@ -1,0 +1,19 @@
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+/** shadcn Tabs/ToggleGroup görünümünde, yerel düğmelerle çalışan seçim grubu. */
+function Segmented({ className, ...props }: React.ComponentProps<"div">) {
+  return <div className={cn("inline-flex w-full items-center rounded-lg bg-muted p-1 text-muted-foreground", className)} {...props} />;
+}
+
+function segmentClass(selected: boolean, className?: string) {
+  return cn(
+    "inline-flex h-8 flex-1 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-3 text-sm font-medium outline-none transition-all",
+    "focus-visible:ring-[3px] focus-visible:ring-ring/50 has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50",
+    "disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4",
+    selected ? "bg-background text-foreground shadow-sm" : "hover:text-foreground",
+    className,
+  );
+}
+
+export { Segmented, segmentClass };
