@@ -6,7 +6,7 @@
   "guven": [
    0.75
   ],
-  "sure_ms": 10369
+  "sure_ms": 5494
  },
  "01_makas_grounding-dino": {
   "aranan_ifade": "scissors",
@@ -15,7 +15,7 @@
   "guven": [
    0.9
   ],
-  "sure_ms": 16183
+  "sure_ms": 8706
  },
  "01_makas_yolo-world": {
   "aranan_ifade": "scissors",
@@ -24,7 +24,7 @@
   "guven": [
    0.58
   ],
-  "sure_ms": 1929
+  "sure_ms": 1067
  },
  "02_envanter_owlvit": {
   "aranan_ifade": "gum, bottle",
@@ -56,14 +56,14 @@
    0.14,
    0.14
   ],
-  "sure_ms": 18556
+  "sure_ms": 10968
  },
  "04_alkollu_icecek_owlvit": {
   "aranan_ifade": "alcohol",
   "kaynak": "context",
   "kutu": 0,
   "guven": [],
-  "sure_ms": 9066
+  "sure_ms": 5497
  },
  "04_alkollu_icecek_grounding-dino": {
   "aranan_ifade": "alcohol",
@@ -73,14 +73,14 @@
    0.39,
    0.38
   ],
-  "sure_ms": 10827
+  "sure_ms": 6520
  },
  "04_alkollu_icecek_yolo-world": {
   "aranan_ifade": "alcohol",
   "kaynak": "context",
   "kutu": 0,
   "guven": [],
-  "sure_ms": 1982
+  "sure_ms": 1063
  },
  "05_sac_spreyi_owlvit": {
   "aranan_ifade": "hairspray",
@@ -91,42 +91,42 @@
    0.19,
    0.19
   ],
-  "sure_ms": 8298
+  "sure_ms": 5472
  },
  "05_sac_spreyi_grounding-dino": {
   "aranan_ifade": "hairspray",
   "kaynak": "context",
   "kutu": 0,
   "guven": [],
-  "sure_ms": 12959
+  "sure_ms": 8561
  },
  "05_sac_spreyi_yolo-world": {
   "aranan_ifade": "hairspray",
   "kaynak": "context",
   "kutu": 0,
   "guven": [],
-  "sure_ms": 1692
+  "sure_ms": 1042
  },
  "06_olmayan_kedi_owlvit": {
   "aranan_ifade": "cat",
   "kaynak": "context",
   "kutu": 0,
   "guven": [],
-  "sure_ms": 8308
+  "sure_ms": 5501
  },
  "06_olmayan_kedi_grounding-dino": {
   "aranan_ifade": "cat",
   "kaynak": "context",
   "kutu": 0,
   "guven": [],
-  "sure_ms": 12730
+  "sure_ms": 8291
  },
  "06_olmayan_kedi_yolo-world": {
   "aranan_ifade": "cat",
   "kaynak": "context",
   "kutu": 0,
   "guven": [],
-  "sure_ms": 1688
+  "sure_ms": 976
  },
  "08_tv_unitesi_owlvit": {
   "aranan_ifade": "tv unit",
@@ -135,7 +135,7 @@
   "guven": [
    0.36
   ],
-  "sure_ms": 7986
+  "sure_ms": 5258
  },
  "08_tv_unitesi_grounding-dino": {
   "aranan_ifade": "tv unit",
@@ -144,7 +144,7 @@
   "guven": [
    0.93
   ],
-  "sure_ms": 12801
+  "sure_ms": 8399
  },
  "08_tv_unitesi_yolo-world": {
   "aranan_ifade": "tv unit",
@@ -154,7 +154,7 @@
    0.68,
    0.6
   ],
-  "sure_ms": 1795
+  "sure_ms": 1018
  },
  "08_tv_unitesi_duzeltilmis_owlvit": {
   "aranan_ifade": "tv stand",
@@ -163,7 +163,7 @@
   "guven": [
    0.41
   ],
-  "sure_ms": 8120
+  "sure_ms": 5320
  },
  "08_tv_unitesi_duzeltilmis_grounding-dino": {
   "aranan_ifade": "tv stand",
@@ -173,7 +173,7 @@
    0.53,
    0.39
   ],
-  "sure_ms": 13161
+  "sure_ms": 8384
  },
  "08_tv_unitesi_duzeltilmis_yolo-world": {
   "aranan_ifade": "tv stand",
@@ -183,7 +183,7 @@
    0.63,
    0.12
   ],
-  "sure_ms": 1610
+  "sure_ms": 1009
  },
  "09_pil_owlvit": {
   "aranan_ifade": "battery",
@@ -193,7 +193,7 @@
    0.22,
    0.22
   ],
-  "sure_ms": 8435
+  "sure_ms": 5458
  },
  "09_pil_grounding-dino": {
   "aranan_ifade": "battery",
@@ -203,7 +203,7 @@
    0.39,
    0.34
   ],
-  "sure_ms": 12863
+  "sure_ms": 8389
  },
  "09_pil_yolo-world": {
   "aranan_ifade": "battery",
@@ -213,7 +213,7 @@
    0.16,
    0.13
   ],
-  "sure_ms": 1802
+  "sure_ms": 1129
  },
  "03_ornekle_arama_owlvit": {
   "aranan_ifade": "sakız",
@@ -227,7 +227,7 @@
    0.91,
    0.91
   ],
-  "sure_ms": 8847,
+  "sure_ms": 5375,
   "ornek_kutu": {
    "xmin": 1493,
    "ymin": 374,
