@@ -48,11 +48,11 @@ IOU_MATCH = 0.5
 
 def query_names(subset: list[dict]) -> dict[str, str]:
     """LVIS kategori adı → modele gidecek okunur İngilizce ad (eş anlamlılardan parantezsiz olan)."""
-    if QUERY_NAMES.exists():
-        return json.loads(QUERY_NAMES.read_text(encoding="utf-8"))
-    data = json.loads(LVIS_JSON.read_text(encoding="utf-8"))
     needed = {n for item in subset for n in [*item["positives"], *item["negatives"]]}
-    result = {}
+    result = json.loads(QUERY_NAMES.read_text(encoding="utf-8")) if QUERY_NAMES.exists() else {}
+    if needed <= set(result):
+        return result
+    data = json.loads(LVIS_JSON.read_text(encoding="utf-8"))
     for category in data["categories"]:
         if category["name"] not in needed:
             continue
@@ -71,7 +71,16 @@ def questions(item: dict) -> tuple[list[str], list[str]]:
     return positives, item["negatives"][:MAX_NEGATIVES]
 
 
-def run_model(model: str, limit: int | None) -> None:
+def subset_path(tag: str) -> Path:
+    return SUBSET if tag == "temel" else Path(__file__).with_name(f"subset_{tag}_50.json")
+
+
+def detections_path(tag: str, model: str) -> Path:
+    # "temel" alt kümenin dosya adları eski haliyle kalır.
+    return OUT_DIR / (f"tespitler_{model}.json" if tag == "temel" else f"tespitler_{tag}_{model}.json")
+
+
+def run_model(model: str, limit: int | None, tag: str = "temel") -> None:
     os.environ.setdefault("HF_HUB_OFFLINE", "1")
     os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
     warnings.filterwarnings("ignore")
@@ -83,8 +92,8 @@ def run_model(model: str, limit: int | None) -> None:
     from backend.app.services.query_processor import process_query
     from backend.app.services.translation_service import TranslationService
 
-    subset = json.loads(SUBSET.read_text(encoding="utf-8"))[:limit]
-    names = query_names(json.loads(SUBSET.read_text(encoding="utf-8")))
+    subset = json.loads(subset_path(tag).read_text(encoding="utf-8"))[:limit]
+    names = query_names(json.loads(subset_path(tag).read_text(encoding="utf-8")))
     detector = DetectorRegistry().get(model)
     key = detector.policy_key or detector.model_id
     floor = config.SENSITIVITY_THRESHOLDS[key]["loose"]
@@ -113,7 +122,7 @@ def run_model(model: str, limit: int | None) -> None:
         print(f"[{model}] {number}/{len(subset)} {item['file_name']} {len(asked)} sorgu "
               f"{len(result['detections'])} kutu {records[-1]['seconds']}s", flush=True)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    target = OUT_DIR / f"tespitler_{model}.json"
+    target = detections_path(tag, model)
     target.write_text(json.dumps({"model": model, "floor": floor, "records": records}, indent=1), encoding="utf-8")
     print(f"{target} ({time.perf_counter() - started:.0f} s)")
 
@@ -215,9 +224,10 @@ def main() -> None:
     parser.add_argument("--model", choices=MODELS)
     parser.add_argument("--limit", type=int, default=None, help="yalnızca ilk N görsel (deneme)")
     parser.add_argument("--report", action="store_true")
+    parser.add_argument("--subset", default="temel", help="temel (subset_50.json) veya nadir (subset_nadir_50.json)")
     args = parser.parse_args()
     if args.model:
-        run_model(args.model, args.limit)
+        run_model(args.model, args.limit, args.subset)
     if args.report:
         report()
 

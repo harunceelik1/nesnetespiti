@@ -1,0 +1,5476 @@
+{
+ "model": "grounding-dino",
+ "floor": 0.27,
+ "records": [
+  {
+   "image_id": 169340,
+   "group": "nadir",
+   "positives": [
+    "ax",
+    "fire_engine",
+    "flag",
+    "flagpole"
+   ],
+   "negatives": [
+    "cymbal",
+    "hotplate",
+    "camcorder",
+    "trunk"
+   ],
+   "seconds": 76.67,
+   "detections": [
+    {
+     "category": "fire_engine",
+     "confidence": 0.5867,
+     "box": [
+      326.4,
+      172.4,
+      535.8,
+      306.4
+     ]
+    },
+    {
+     "category": "flag",
+     "confidence": 0.5115,
+     "box": [
+      181.8,
+      70.3,
+      305.5,
+      192.8
+     ]
+    },
+    {
+     "category": "flagpole",
+     "confidence": 0.4828,
+     "box": [
+      181.6,
+      70.1,
+      305.6,
+      193.0
+     ]
+    },
+    {
+     "category": "flag",
+     "confidence": 0.4493,
+     "box": [
+      155.5,
+      74.0,
+      184.5,
+      159.2
+     ]
+    },
+    {
+     "category": "flagpole",
+     "confidence": 0.4182,
+     "box": [
+      155.4,
+      73.9,
+      184.5,
+      158.5
+     ]
+    },
+    {
+     "category": "flagpole",
+     "confidence": 0.3136,
+     "box": [
+      177.8,
+      58.2,
+      189.6,
+      279.8
+     ]
+    },
+    {
+     "category": "ax",
+     "confidence": 0.2961,
+     "box": [
+      197.5,
+      222.6,
+      253.1,
+      298.2
+     ]
+    },
+    {
+     "category": "flagpole",
+     "confidence": 0.2793,
+     "box": [
+      154.1,
+      60.1,
+      166.1,
+      272.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 429228,
+   "group": "nadir",
+   "positives": [
+    "kitchen_table",
+    "cabinet",
+    "drawer",
+    "handle",
+    "hinge",
+    "microwave_oven"
+   ],
+   "negatives": [
+    "peach",
+    "tights_(clothing)",
+    "zucchini",
+    "doughnut"
+   ],
+   "seconds": 86.82,
+   "detections": [
+    {
+     "category": "microwave_oven",
+     "confidence": 0.563,
+     "box": [
+      310.1,
+      190.2,
+      387.6,
+      261.8
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.5287,
+     "box": [
+      427.1,
+      392.3,
+      478.9,
+      548.2
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.5009,
+     "box": [
+      438.8,
+      21.5,
+      479.8,
+      268.6
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.4724,
+     "box": [
+      308.7,
+      407.8,
+      368.0,
+      582.6
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.4522,
+     "box": [
+      366.6,
+      394.1,
+      430.0,
+      567.3
+     ]
+    },
+    {
+     "category": "kitchen_table",
+     "confidence": 0.4499,
+     "box": [
+      118.0,
+      537.9,
+      479.4,
+      639.3
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.4116,
+     "box": [
+      256.2,
+      34.6,
+      437.4,
+      190.7
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3819,
+     "box": [
+      0.2,
+      0.7,
+      119.7,
+      130.7
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3269,
+     "box": [
+      0.4,
+      0.8,
+      250.1,
+      139.3
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.3143,
+     "box": [
+      369.0,
+      398.1,
+      428.1,
+      442.0
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.3045,
+     "box": [
+      309.5,
+      408.3,
+      367.8,
+      451.4
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.292,
+     "box": [
+      308.5,
+      393.0,
+      430.7,
+      582.4
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.29,
+     "box": [
+      308.9,
+      444.7,
+      365.6,
+      511.4
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.2745,
+     "box": [
+      428.0,
+      392.6,
+      475.9,
+      547.9
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.273,
+     "box": [
+      308.2,
+      502.0,
+      365.9,
+      582.4
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 563882,
+   "group": "nadir",
+   "positives": [
+    "pantyhose",
+    "armchair",
+    "chair",
+    "skirt"
+   ],
+   "negatives": [
+    "batter_(food)",
+    "chocolate_bar",
+    "horse_carriage",
+    "strainer"
+   ],
+   "seconds": 78.71,
+   "detections": [
+    {
+     "category": "chair",
+     "confidence": 0.3272,
+     "box": [
+      520.3,
+      59.8,
+      639.5,
+      424.2
+     ]
+    },
+    {
+     "category": "chocolate_bar",
+     "confidence": 0.3026,
+     "box": [
+      157.4,
+      379.2,
+      253.3,
+      411.4
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.2953,
+     "box": [
+      389.8,
+      60.1,
+      639.6,
+      424.1
+     ]
+    },
+    {
+     "category": "armchair",
+     "confidence": 0.2852,
+     "box": [
+      389.9,
+      59.7,
+      639.6,
+      424.1
+     ]
+    },
+    {
+     "category": "pantyhose",
+     "confidence": 0.2732,
+     "box": [
+      268.3,
+      272.6,
+      574.8,
+      424.1
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 278463,
+   "group": "nadir",
+   "positives": [
+    "mint_candy",
+    "battery",
+    "binder",
+    "bottle",
+    "computer_keyboard",
+    "desk"
+   ],
+   "negatives": [
+    "chap",
+    "card",
+    "chocolate_bar",
+    "pea_(food)"
+   ],
+   "seconds": 85.09,
+   "detections": [
+    {
+     "category": "bottle",
+     "confidence": 0.6777,
+     "box": [
+      447.1,
+      255.0,
+      474.2,
+      302.5
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.6551,
+     "box": [
+      60.7,
+      265.3,
+      99.5,
+      343.7
+     ]
+    },
+    {
+     "category": "computer_keyboard",
+     "confidence": 0.5962,
+     "box": [
+      236.9,
+      314.5,
+      349.1,
+      343.8
+     ]
+    },
+    {
+     "category": "desk",
+     "confidence": 0.4582,
+     "box": [
+      0.3,
+      248.1,
+      635.1,
+      479.5
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.3948,
+     "box": [
+      59.3,
+      244.5,
+      119.4,
+      302.9
+     ]
+    },
+    {
+     "category": "chocolate_bar",
+     "confidence": 0.3762,
+     "box": [
+      467.2,
+      171.0,
+      546.3,
+      226.6
+     ]
+    },
+    {
+     "category": "chocolate_bar",
+     "confidence": 0.2914,
+     "box": [
+      372.2,
+      215.9,
+      400.5,
+      294.7
+     ]
+    },
+    {
+     "category": "binder",
+     "confidence": 0.2844,
+     "box": [
+      410.3,
+      212.7,
+      443.8,
+      294.4
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.2841,
+     "box": [
+      69.4,
+      190.9,
+      133.7,
+      288.6
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 480447,
+   "group": "nadir",
+   "positives": [
+    "space_shuttle"
+   ],
+   "negatives": [
+    "golfcart",
+    "penguin",
+    "thermometer",
+    "marker"
+   ],
+   "seconds": 42.49,
+   "detections": [
+    {
+     "category": "space_shuttle",
+     "confidence": 0.4201,
+     "box": [
+      241.4,
+      152.2,
+      363.7,
+      189.2
+     ]
+    },
+    {
+     "category": "space_shuttle",
+     "confidence": 0.419,
+     "box": [
+      208.8,
+      169.4,
+      413.5,
+      223.4
+     ]
+    },
+    {
+     "category": "space_shuttle",
+     "confidence": 0.2822,
+     "box": [
+      249.9,
+      389.3,
+      284.2,
+      399.7
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 116031,
+   "group": "nadir",
+   "positives": [
+    "tachometer",
+    "cat",
+    "motorcycle"
+   ],
+   "negatives": [
+    "mascot",
+    "cantaloup",
+    "fishing_rod",
+    "sunhat"
+   ],
+   "seconds": 67.84,
+   "detections": [
+    {
+     "category": "cat",
+     "confidence": 0.8584,
+     "box": [
+      227.0,
+      178.0,
+      513.0,
+      380.5
+     ]
+    },
+    {
+     "category": "motorcycle",
+     "confidence": 0.3383,
+     "box": [
+      0.5,
+      0.7,
+      334.3,
+      408.3
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 305665,
+   "group": "nadir",
+   "positives": [
+    "smoothie",
+    "blender",
+    "bottle_cap",
+    "crumb",
+    "knife",
+    "knob"
+   ],
+   "negatives": [
+    "cleat_(for_securing_rope)",
+    "aquarium",
+    "football_(American)",
+    "headstall_(for_horses)"
+   ],
+   "seconds": 65.1,
+   "detections": [
+    {
+     "category": "blender",
+     "confidence": 0.7728,
+     "box": [
+      181.3,
+      29.2,
+      522.6,
+      586.5
+     ]
+    },
+    {
+     "category": "knob",
+     "confidence": 0.3978,
+     "box": [
+      240.0,
+      462.6,
+      316.3,
+      547.9
+     ]
+    },
+    {
+     "category": "bottle_cap",
+     "confidence": 0.3957,
+     "box": [
+      430.6,
+      157.6,
+      482.7,
+      276.1
+     ]
+    },
+    {
+     "category": "smoothie",
+     "confidence": 0.3333,
+     "box": [
+      181.0,
+      29.3,
+      521.3,
+      585.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 47571,
+   "group": "nadir",
+   "positives": [
+    "horse_buggy",
+    "horse",
+    "silo"
+   ],
+   "negatives": [
+    "ballet_skirt",
+    "bullet_train",
+    "crescent_roll",
+    "fruit_juice"
+   ],
+   "seconds": 46.58,
+   "detections": [
+    {
+     "category": "horse",
+     "confidence": 0.8153,
+     "box": [
+      300.0,
+      154.9,
+      584.2,
+      362.3
+     ]
+    },
+    {
+     "category": "horse",
+     "confidence": 0.525,
+     "box": [
+      298.6,
+      386.9,
+      574.6,
+      551.8
+     ]
+    },
+    {
+     "category": "horse_buggy",
+     "confidence": 0.4528,
+     "box": [
+      71.2,
+      199.4,
+      317.1,
+      362.1
+     ]
+    },
+    {
+     "category": "horse",
+     "confidence": 0.4374,
+     "box": [
+      72.7,
+      408.3,
+      288.3,
+      600.6
+     ]
+    },
+    {
+     "category": "horse_buggy",
+     "confidence": 0.4158,
+     "box": [
+      299.9,
+      154.9,
+      583.6,
+      362.1
+     ]
+    },
+    {
+     "category": "ballet_skirt",
+     "confidence": 0.3854,
+     "box": [
+      117.7,
+      209.3,
+      142.1,
+      237.3
+     ]
+    },
+    {
+     "category": "bullet_train",
+     "confidence": 0.351,
+     "box": [
+      70.6,
+      155.5,
+      583.8,
+      362.3
+     ]
+    },
+    {
+     "category": "silo",
+     "confidence": 0.3279,
+     "box": [
+      2.6,
+      182.4,
+      29.3,
+      235.0
+     ]
+    },
+    {
+     "category": "silo",
+     "confidence": 0.3067,
+     "box": [
+      3.2,
+      142.8,
+      29.6,
+      236.5
+     ]
+    },
+    {
+     "category": "horse_buggy",
+     "confidence": 0.2894,
+     "box": [
+      70.9,
+      156.9,
+      582.9,
+      362.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 294124,
+   "group": "nadir",
+   "positives": [
+    "handcuff",
+    "chair",
+    "necktie",
+    "person",
+    "ring"
+   ],
+   "negatives": [
+    "chalice",
+    "electric_chair",
+    "inhaler",
+    "koala"
+   ],
+   "seconds": 77.05,
+   "detections": [
+    {
+     "category": "necktie",
+     "confidence": 0.8232,
+     "box": [
+      312.8,
+      182.3,
+      382.3,
+      402.8
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.8114,
+     "box": [
+      188.3,
+      69.2,
+      438.6,
+      479.6
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.7748,
+     "box": [
+      10.6,
+      28.5,
+      161.6,
+      479.4
+     ]
+    },
+    {
+     "category": "ring",
+     "confidence": 0.6917,
+     "box": [
+      429.0,
+      338.3,
+      435.7,
+      344.8
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.6475,
+     "box": [
+      116.8,
+      8.0,
+      196.5,
+      269.9
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.6166,
+     "box": [
+      186.5,
+      9.0,
+      278.4,
+      212.5
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.5708,
+     "box": [
+      475.9,
+      427.0,
+      629.9,
+      479.8
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.567,
+     "box": [
+      542.9,
+      0.4,
+      619.3,
+      57.5
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.5503,
+     "box": [
+      269.8,
+      0.8,
+      331.2,
+      84.1
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.5195,
+     "box": [
+      453.1,
+      0.4,
+      528.2,
+      106.7
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.4502,
+     "box": [
+      449.8,
+      85.7,
+      639.2,
+      470.3
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.4255,
+     "box": [
+      542.5,
+      54.5,
+      622.8,
+      90.7
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.386,
+     "box": [
+      0.0,
+      232.5,
+      19.7,
+      391.4
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.3566,
+     "box": [
+      408.6,
+      173.9,
+      492.9,
+      256.4
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.355,
+     "box": [
+      412.3,
+      86.5,
+      495.6,
+      136.4
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.3309,
+     "box": [
+      483.2,
+      93.1,
+      532.0,
+      136.5
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.3304,
+     "box": [
+      404.4,
+      134.2,
+      431.9,
+      179.1
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.3301,
+     "box": [
+      412.0,
+      256.7,
+      460.4,
+      296.6
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.3246,
+     "box": [
+      433.7,
+      135.9,
+      503.1,
+      174.5
+     ]
+    },
+    {
+     "category": "electric_chair",
+     "confidence": 0.3208,
+     "box": [
+      542.2,
+      54.1,
+      623.0,
+      90.9
+     ]
+    },
+    {
+     "category": "electric_chair",
+     "confidence": 0.3028,
+     "box": [
+      409.1,
+      173.0,
+      492.9,
+      254.8
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.2998,
+     "box": [
+      418.1,
+      135.6,
+      503.4,
+      188.3
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.2903,
+     "box": [
+      618.8,
+      56.4,
+      639.9,
+      98.1
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.2862,
+     "box": [
+      253.2,
+      19.0,
+      292.1,
+      61.0
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 500477,
+   "group": "nadir",
+   "positives": [
+    "shears",
+    "person",
+    "sheep"
+   ],
+   "negatives": [
+    "eraser",
+    "hamburger",
+    "sushi",
+    "bell"
+   ],
+   "seconds": 59.23,
+   "detections": [
+    {
+     "category": "shears",
+     "confidence": 0.4253,
+     "box": [
+      0.3,
+      48.8,
+      125.1,
+      161.0
+     ]
+    },
+    {
+     "category": "person",
+     "confidence": 0.3368,
+     "box": [
+      0.8,
+      0.3,
+      552.9,
+      289.2
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 50507,
+   "group": "nadir",
+   "positives": [
+    "bonnet",
+    "candle",
+    "doll",
+    "dress",
+    "mirror",
+    "radio_receiver"
+   ],
+   "negatives": [
+    "skullcap",
+    "sombrero",
+    "raspberry",
+    "yoke_(animal_equipment)"
+   ],
+   "seconds": 99.43,
+   "detections": [
+    {
+     "category": "sombrero",
+     "confidence": 0.6731,
+     "box": [
+      359.5,
+      116.1,
+      381.2,
+      128.8
+     ]
+    },
+    {
+     "category": "candle",
+     "confidence": 0.5794,
+     "box": [
+      600.3,
+      120.6,
+      611.1,
+      146.6
+     ]
+    },
+    {
+     "category": "radio_receiver",
+     "confidence": 0.5582,
+     "box": [
+      408.4,
+      95.0,
+      453.0,
+      145.3
+     ]
+    },
+    {
+     "category": "sombrero",
+     "confidence": 0.5483,
+     "box": [
+      232.1,
+      146.5,
+      255.1,
+      173.5
+     ]
+    },
+    {
+     "category": "dress",
+     "confidence": 0.5432,
+     "box": [
+      91.7,
+      150.3,
+      224.0,
+      359.4
+     ]
+    },
+    {
+     "category": "candle",
+     "confidence": 0.5184,
+     "box": [
+      524.3,
+      107.8,
+      528.9,
+      127.8
+     ]
+    },
+    {
+     "category": "mirror",
+     "confidence": 0.4839,
+     "box": [
+      319.7,
+      93.7,
+      351.8,
+      138.3
+     ]
+    },
+    {
+     "category": "bonnet",
+     "confidence": 0.4752,
+     "box": [
+      359.6,
+      116.2,
+      381.2,
+      129.1
+     ]
+    },
+    {
+     "category": "bonnet",
+     "confidence": 0.4727,
+     "box": [
+      232.1,
+      146.6,
+      256.4,
+      174.0
+     ]
+    },
+    {
+     "category": "doll",
+     "confidence": 0.4703,
+     "box": [
+      61.9,
+      191.3,
+      100.3,
+      225.5
+     ]
+    },
+    {
+     "category": "radio_receiver",
+     "confidence": 0.4636,
+     "box": [
+      536.8,
+      111.3,
+      584.5,
+      156.3
+     ]
+    },
+    {
+     "category": "candle",
+     "confidence": 0.4488,
+     "box": [
+      492.3,
+      76.4,
+      498.0,
+      106.0
+     ]
+    },
+    {
+     "category": "sombrero",
+     "confidence": 0.439,
+     "box": [
+      308.0,
+      153.0,
+      325.1,
+      165.2
+     ]
+    },
+    {
+     "category": "mirror",
+     "confidence": 0.4098,
+     "box": [
+      440.1,
+      31.5,
+      471.7,
+      75.4
+     ]
+    },
+    {
+     "category": "skullcap",
+     "confidence": 0.3475,
+     "box": [
+      232.3,
+      146.6,
+      258.7,
+      173.9
+     ]
+    },
+    {
+     "category": "radio_receiver",
+     "confidence": 0.3405,
+     "box": [
+      383.3,
+      122.4,
+      408.6,
+      142.8
+     ]
+    },
+    {
+     "category": "bonnet",
+     "confidence": 0.3346,
+     "box": [
+      308.2,
+      153.1,
+      325.1,
+      165.0
+     ]
+    },
+    {
+     "category": "skullcap",
+     "confidence": 0.3334,
+     "box": [
+      359.5,
+      116.2,
+      381.1,
+      129.4
+     ]
+    },
+    {
+     "category": "skullcap",
+     "confidence": 0.303,
+     "box": [
+      308.1,
+      153.1,
+      325.0,
+      165.1
+     ]
+    },
+    {
+     "category": "skullcap",
+     "confidence": 0.3026,
+     "box": [
+      383.9,
+      122.6,
+      408.4,
+      142.5
+     ]
+    },
+    {
+     "category": "mirror",
+     "confidence": 0.2967,
+     "box": [
+      501.8,
+      5.2,
+      549.2,
+      96.7
+     ]
+    },
+    {
+     "category": "mirror",
+     "confidence": 0.2746,
+     "box": [
+      107.4,
+      80.6,
+      124.2,
+      119.2
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 189982,
+   "group": "nadir",
+   "positives": [
+    "trench_coat",
+    "button",
+    "hat",
+    "skateboard",
+    "vest"
+   ],
+   "negatives": [
+    "crucifix",
+    "forklift",
+    "wig",
+    "airplane"
+   ],
+   "seconds": 76.89,
+   "detections": [
+    {
+     "category": "skateboard",
+     "confidence": 0.8647,
+     "box": [
+      271.5,
+      490.3,
+      342.4,
+      539.7
+     ]
+    },
+    {
+     "category": "vest",
+     "confidence": 0.7737,
+     "box": [
+      256.1,
+      188.3,
+      334.7,
+      323.8
+     ]
+    },
+    {
+     "category": "hat",
+     "confidence": 0.7508,
+     "box": [
+      229.2,
+      125.6,
+      313.4,
+      156.9
+     ]
+    },
+    {
+     "category": "forklift",
+     "confidence": 0.453,
+     "box": [
+      275.2,
+      489.6,
+      342.6,
+      540.1
+     ]
+    },
+    {
+     "category": "trench_coat",
+     "confidence": 0.4195,
+     "box": [
+      255.9,
+      188.2,
+      334.7,
+      324.2
+     ]
+    },
+    {
+     "category": "crucifix",
+     "confidence": 0.3781,
+     "box": [
+      275.5,
+      489.5,
+      342.6,
+      540.1
+     ]
+    },
+    {
+     "category": "wig",
+     "confidence": 0.361,
+     "box": [
+      249.0,
+      149.2,
+      290.1,
+      162.9
+     ]
+    },
+    {
+     "category": "wig",
+     "confidence": 0.3199,
+     "box": [
+      242.9,
+      149.1,
+      291.3,
+      172.3
+     ]
+    },
+    {
+     "category": "crucifix",
+     "confidence": 0.3192,
+     "box": [
+      126.2,
+      207.6,
+      203.3,
+      293.6
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 371280,
+   "group": "nadir",
+   "positives": [
+    "date_(fruit)",
+    "egg",
+    "lemon",
+    "orange_(fruit)",
+    "place_mat"
+   ],
+   "negatives": [
+    "boom_microphone",
+    "eggbeater",
+    "legging_(clothing)",
+    "sweat_pants"
+   ],
+   "seconds": 85.5,
+   "detections": [
+    {
+     "category": "orange_(fruit)",
+     "confidence": 0.6101,
+     "box": [
+      246.1,
+      0.2,
+      402.3,
+      156.9
+     ]
+    },
+    {
+     "category": "egg",
+     "confidence": 0.5938,
+     "box": [
+      11.8,
+      19.3,
+      125.7,
+      114.5
+     ]
+    },
+    {
+     "category": "egg",
+     "confidence": 0.5906,
+     "box": [
+      76.3,
+      0.2,
+      159.5,
+      66.3
+     ]
+    },
+    {
+     "category": "egg",
+     "confidence": 0.5413,
+     "box": [
+      0.1,
+      0.4,
+      64.2,
+      75.0
+     ]
+    },
+    {
+     "category": "lemon",
+     "confidence": 0.5352,
+     "box": [
+      325.6,
+      368.6,
+      428.8,
+      500.5
+     ]
+    },
+    {
+     "category": "orange_(fruit)",
+     "confidence": 0.5088,
+     "box": [
+      158.2,
+      0.1,
+      276.4,
+      44.0
+     ]
+    },
+    {
+     "category": "lemon",
+     "confidence": 0.48,
+     "box": [
+      158.2,
+      0.0,
+      276.6,
+      43.9
+     ]
+    },
+    {
+     "category": "orange_(fruit)",
+     "confidence": 0.4352,
+     "box": [
+      325.6,
+      368.7,
+      428.8,
+      500.5
+     ]
+    },
+    {
+     "category": "lemon",
+     "confidence": 0.3761,
+     "box": [
+      245.9,
+      0.1,
+      402.5,
+      157.0
+     ]
+    },
+    {
+     "category": "lemon",
+     "confidence": 0.3102,
+     "box": [
+      0.1,
+      0.5,
+      64.3,
+      74.8
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 162557,
+   "group": "nadir",
+   "positives": [
+    "harmonium",
+    "blouse",
+    "book",
+    "necktie",
+    "pew_(church_bench)",
+    "piano"
+   ],
+   "negatives": [
+    "football_helmet",
+    "horse_buggy",
+    "mascot",
+    "ping-pong_ball"
+   ],
+   "seconds": 85.39,
+   "detections": [
+    {
+     "category": "piano",
+     "confidence": 0.4622,
+     "box": [
+      517.8,
+      334.6,
+      584.9,
+      373.0
+     ]
+    },
+    {
+     "category": "necktie",
+     "confidence": 0.3975,
+     "box": [
+      357.3,
+      291.1,
+      361.2,
+      300.7
+     ]
+    },
+    {
+     "category": "necktie",
+     "confidence": 0.3454,
+     "box": [
+      377.0,
+      273.7,
+      379.9,
+      280.6
+     ]
+    },
+    {
+     "category": "necktie",
+     "confidence": 0.3451,
+     "box": [
+      472.1,
+      276.0,
+      474.9,
+      283.5
+     ]
+    },
+    {
+     "category": "pew_(church_bench)",
+     "confidence": 0.3396,
+     "box": [
+      243.6,
+      346.3,
+      292.1,
+      371.4
+     ]
+    },
+    {
+     "category": "necktie",
+     "confidence": 0.3317,
+     "box": [
+      375.8,
+      292.7,
+      380.1,
+      303.4
+     ]
+    },
+    {
+     "category": "necktie",
+     "confidence": 0.3307,
+     "box": [
+      419.4,
+      275.4,
+      422.8,
+      283.9
+     ]
+    },
+    {
+     "category": "necktie",
+     "confidence": 0.3179,
+     "box": [
+      417.9,
+      293.1,
+      421.2,
+      303.7
+     ]
+    },
+    {
+     "category": "necktie",
+     "confidence": 0.2969,
+     "box": [
+      302.1,
+      276.9,
+      305.8,
+      283.1
+     ]
+    },
+    {
+     "category": "necktie",
+     "confidence": 0.281,
+     "box": [
+      398.3,
+      278.4,
+      401.5,
+      284.3
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 440529,
+   "group": "nadir",
+   "positives": [
+    "falcon",
+    "baby_buggy",
+    "backpack",
+    "belt",
+    "bracelet",
+    "button"
+   ],
+   "negatives": [
+    "apricot",
+    "cleansing_agent",
+    "costume",
+    "passport"
+   ],
+   "seconds": 85.53,
+   "detections": [
+    {
+     "category": "bracelet",
+     "confidence": 0.6807,
+     "box": [
+      585.1,
+      458.3,
+      598.0,
+      479.9
+     ]
+    },
+    {
+     "category": "baby_buggy",
+     "confidence": 0.5977,
+     "box": [
+      372.1,
+      396.7,
+      531.5,
+      479.5
+     ]
+    },
+    {
+     "category": "costume",
+     "confidence": 0.5553,
+     "box": [
+      0.2,
+      78.3,
+      144.3,
+      479.4
+     ]
+    },
+    {
+     "category": "falcon",
+     "confidence": 0.5279,
+     "box": [
+      188.7,
+      76.3,
+      313.6,
+      228.4
+     ]
+    },
+    {
+     "category": "belt",
+     "confidence": 0.5239,
+     "box": [
+      -0.0,
+      394.7,
+      80.7,
+      426.0
+     ]
+    },
+    {
+     "category": "backpack",
+     "confidence": 0.3764,
+     "box": [
+      372.4,
+      397.8,
+      528.7,
+      479.7
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3728,
+     "box": [
+      11.8,
+      223.3,
+      21.7,
+      234.3
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3407,
+     "box": [
+      176.8,
+      355.7,
+      186.5,
+      365.8
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.318,
+     "box": [
+      196.2,
+      296.4,
+      215.0,
+      313.6
+     ]
+    },
+    {
+     "category": "bracelet",
+     "confidence": 0.3102,
+     "box": [
+      620.1,
+      473.5,
+      639.8,
+      479.9
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 78915,
+   "group": "nadir",
+   "positives": [
+    "headset",
+    "chair",
+    "hat",
+    "headband",
+    "tank_top_(clothing)",
+    "tarp"
+   ],
+   "negatives": [
+    "battery",
+    "cape",
+    "clothes_hamper",
+    "coin"
+   ],
+   "seconds": 86.16,
+   "detections": [
+    {
+     "category": "hat",
+     "confidence": 0.7593,
+     "box": [
+      326.0,
+      1.4,
+      354.5,
+      21.1
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.5843,
+     "box": [
+      45.1,
+      27.3,
+      91.7,
+      51.6
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.5797,
+     "box": [
+      0.1,
+      21.1,
+      44.4,
+      45.2
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.5614,
+     "box": [
+      139.2,
+      38.7,
+      185.4,
+      62.6
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.5569,
+     "box": [
+      91.8,
+      33.6,
+      138.0,
+      57.0
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.5564,
+     "box": [
+      186.5,
+      44.5,
+      233.7,
+      68.0
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.522,
+     "box": [
+      358.1,
+      13.8,
+      405.9,
+      40.6
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.4976,
+     "box": [
+      252.0,
+      4.1,
+      309.0,
+      40.7
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.4655,
+     "box": [
+      234.7,
+      49.4,
+      249.2,
+      70.0
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.4513,
+     "box": [
+      456.5,
+      24.0,
+      480.8,
+      43.6
+     ]
+    },
+    {
+     "category": "cape",
+     "confidence": 0.4345,
+     "box": [
+      0.0,
+      125.7,
+      481.0,
+      283.4
+     ]
+    },
+    {
+     "category": "headband",
+     "confidence": 0.4334,
+     "box": [
+      160.3,
+      553.1,
+      187.3,
+      611.6
+     ]
+    },
+    {
+     "category": "tank_top_(clothing)",
+     "confidence": 0.4261,
+     "box": [
+      169.1,
+      569.7,
+      300.2,
+      639.6
+     ]
+    },
+    {
+     "category": "headset",
+     "confidence": 0.4213,
+     "box": [
+      286.4,
+      86.7,
+      323.3,
+      113.9
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.416,
+     "box": [
+      468.7,
+      0.7,
+      480.9,
+      25.6
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.4099,
+     "box": [
+      303.0,
+      8.4,
+      328.7,
+      43.9
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.3883,
+     "box": [
+      406.6,
+      20.0,
+      455.7,
+      67.8
+     ]
+    },
+    {
+     "category": "headband",
+     "confidence": 0.3309,
+     "box": [
+      136.6,
+      550.2,
+      146.2,
+      580.8
+     ]
+    },
+    {
+     "category": "chair",
+     "confidence": 0.3249,
+     "box": [
+      253.2,
+      107.9,
+      291.0,
+      185.6
+     ]
+    },
+    {
+     "category": "headband",
+     "confidence": 0.3239,
+     "box": [
+      130.8,
+      548.0,
+      187.3,
+      611.5
+     ]
+    },
+    {
+     "category": "tank_top_(clothing)",
+     "confidence": 0.3118,
+     "box": [
+      370.4,
+      46.8,
+      401.0,
+      88.7
+     ]
+    },
+    {
+     "category": "hat",
+     "confidence": 0.2769,
+     "box": [
+      287.0,
+      86.9,
+      323.1,
+      113.2
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 303429,
+   "group": "nadir",
+   "positives": [
+    "milkshake",
+    "button",
+    "pizza",
+    "straw_(for_drinking)",
+    "tablecloth",
+    "water_bottle"
+   ],
+   "negatives": [
+    "mallet",
+    "muffin",
+    "nightshirt",
+    "passport"
+   ],
+   "seconds": 84.95,
+   "detections": [
+    {
+     "category": "pizza",
+     "confidence": 0.7681,
+     "box": [
+      13.0,
+      343.2,
+      131.5,
+      448.0
+     ]
+    },
+    {
+     "category": "pizza",
+     "confidence": 0.7481,
+     "box": [
+      227.5,
+      457.6,
+      304.2,
+      499.8
+     ]
+    },
+    {
+     "category": "water_bottle",
+     "confidence": 0.7471,
+     "box": [
+      23.1,
+      250.5,
+      59.4,
+      352.5
+     ]
+    },
+    {
+     "category": "pizza",
+     "confidence": 0.6346,
+     "box": [
+      49.8,
+      223.1,
+      121.7,
+      267.5
+     ]
+    },
+    {
+     "category": "straw_(for_drinking)",
+     "confidence": 0.5102,
+     "box": [
+      23.3,
+      268.6,
+      41.9,
+      320.3
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3774,
+     "box": [
+      215.2,
+      296.4,
+      220.6,
+      302.4
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.376,
+     "box": [
+      179.8,
+      288.1,
+      184.8,
+      293.2
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3655,
+     "box": [
+      184.6,
+      321.8,
+      190.4,
+      327.4
+     ]
+    },
+    {
+     "category": "mallet",
+     "confidence": 0.3557,
+     "box": [
+      49.8,
+      223.2,
+      121.9,
+      268.1
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3409,
+     "box": [
+      148.5,
+      294.1,
+      153.8,
+      299.5
+     ]
+    },
+    {
+     "category": "milkshake",
+     "confidence": 0.3366,
+     "box": [
+      0.6,
+      313.0,
+      42.5,
+      351.8
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3343,
+     "box": [
+      199.2,
+      340.8,
+      204.6,
+      345.7
+     ]
+    },
+    {
+     "category": "nightshirt",
+     "confidence": 0.3011,
+     "box": [
+      119.7,
+      175.1,
+      314.1,
+      432.7
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.2881,
+     "box": [
+      174.0,
+      252.3,
+      180.5,
+      258.8
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 295409,
+   "group": "nadir",
+   "positives": [
+    "futon",
+    "control",
+    "jacket",
+    "lampshade",
+    "speaker_(stero_equipment)",
+    "television_set"
+   ],
+   "negatives": [
+    "bowling_ball",
+    "diary",
+    "milestone",
+    "turnip"
+   ],
+   "seconds": 94.31,
+   "detections": [
+    {
+     "category": "speaker_(stero_equipment)",
+     "confidence": 0.6959,
+     "box": [
+      5.9,
+      286.4,
+      118.2,
+      386.5
+     ]
+    },
+    {
+     "category": "lampshade",
+     "confidence": 0.4286,
+     "box": [
+      280.5,
+      0.4,
+      309.3,
+      21.3
+     ]
+    },
+    {
+     "category": "lampshade",
+     "confidence": 0.4149,
+     "box": [
+      507.6,
+      31.2,
+      530.5,
+      49.5
+     ]
+    },
+    {
+     "category": "control",
+     "confidence": 0.4112,
+     "box": [
+      56.4,
+      4.4,
+      70.1,
+      27.1
+     ]
+    },
+    {
+     "category": "jacket",
+     "confidence": 0.32,
+     "box": [
+      143.1,
+      325.0,
+      253.4,
+      394.3
+     ]
+    },
+    {
+     "category": "lampshade",
+     "confidence": 0.2762,
+     "box": [
+      622.1,
+      207.4,
+      633.4,
+      219.8
+     ]
+    },
+    {
+     "category": "jacket",
+     "confidence": 0.2761,
+     "box": [
+      308.9,
+      154.6,
+      422.5,
+      293.2
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 36450,
+   "group": "nadir",
+   "positives": [
+    "pencil_sharpener",
+    "battery",
+    "birdhouse",
+    "calendar",
+    "drawer",
+    "earring"
+   ],
+   "negatives": [
+    "cigar_box",
+    "fedora",
+    "playpen",
+    "waffle_iron"
+   ],
+   "seconds": 84.38,
+   "detections": [
+    {
+     "category": "pencil_sharpener",
+     "confidence": 0.3675,
+     "box": [
+      394.6,
+      108.5,
+      427.0,
+      139.8
+     ]
+    },
+    {
+     "category": "earring",
+     "confidence": 0.2954,
+     "box": [
+      238.3,
+      126.6,
+      244.6,
+      138.4
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 449190,
+   "group": "nadir",
+   "positives": [
+    "burrito",
+    "carrot",
+    "plastic_bag"
+   ],
+   "negatives": [
+    "boom_microphone",
+    "broach",
+    "coleslaw",
+    "easel"
+   ],
+   "seconds": 69.07,
+   "detections": [
+    {
+     "category": "plastic_bag",
+     "confidence": 0.5076,
+     "box": [
+      1.0,
+      0.4,
+      288.5,
+      257.4
+     ]
+    },
+    {
+     "category": "burrito",
+     "confidence": 0.4733,
+     "box": [
+      221.1,
+      160.8,
+      524.7,
+      356.6
+     ]
+    },
+    {
+     "category": "coleslaw",
+     "confidence": 0.3807,
+     "box": [
+      284.2,
+      162.0,
+      407.8,
+      317.4
+     ]
+    },
+    {
+     "category": "broach",
+     "confidence": 0.2869,
+     "box": [
+      293.5,
+      162.5,
+      405.0,
+      316.1
+     ]
+    },
+    {
+     "category": "carrot",
+     "confidence": 0.2702,
+     "box": [
+      448.1,
+      71.5,
+      465.0,
+      116.7
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 378293,
+   "group": "nadir",
+   "positives": [
+    "nosebag_(for_animals)",
+    "headscarf",
+    "scale_(measuring_instrument)"
+   ],
+   "negatives": [
+    "tux",
+    "alcohol",
+    "artichoke",
+    "brownie"
+   ],
+   "seconds": 68.62,
+   "detections": [
+    {
+     "category": "artichoke",
+     "confidence": 0.5794,
+     "box": [
+      540.1,
+      273.0,
+      620.2,
+      335.0
+     ]
+    },
+    {
+     "category": "headscarf",
+     "confidence": 0.4828,
+     "box": [
+      539.9,
+      272.8,
+      620.2,
+      335.2
+     ]
+    },
+    {
+     "category": "nosebag_(for_animals)",
+     "confidence": 0.4279,
+     "box": [
+      464.9,
+      168.5,
+      516.3,
+      219.6
+     ]
+    },
+    {
+     "category": "artichoke",
+     "confidence": 0.3865,
+     "box": [
+      0.3,
+      273.8,
+      59.5,
+      340.7
+     ]
+    },
+    {
+     "category": "tux",
+     "confidence": 0.3528,
+     "box": [
+      540.0,
+      273.0,
+      620.2,
+      335.0
+     ]
+    },
+    {
+     "category": "scale_(measuring_instrument)",
+     "confidence": 0.3414,
+     "box": [
+      346.0,
+      291.5,
+      498.3,
+      359.1
+     ]
+    },
+    {
+     "category": "brownie",
+     "confidence": 0.2996,
+     "box": [
+      0.3,
+      273.6,
+      59.7,
+      340.8
+     ]
+    },
+    {
+     "category": "tux",
+     "confidence": 0.2859,
+     "box": [
+      0.3,
+      273.8,
+      59.7,
+      340.7
+     ]
+    },
+    {
+     "category": "headscarf",
+     "confidence": 0.2841,
+     "box": [
+      0.3,
+      273.7,
+      59.7,
+      340.8
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 168061,
+   "group": "nadir",
+   "positives": [
+    "cassette",
+    "clock",
+    "orange_(fruit)",
+    "phonograph_record",
+    "pillow",
+    "radio_receiver"
+   ],
+   "negatives": [
+    "bow_(weapon)",
+    "masher",
+    "salad_plate",
+    "wolf"
+   ],
+   "seconds": 79.57,
+   "detections": [
+    {
+     "category": "clock",
+     "confidence": 0.7692,
+     "box": [
+      132.3,
+      44.2,
+      182.0,
+      80.9
+     ]
+    },
+    {
+     "category": "phonograph_record",
+     "confidence": 0.4729,
+     "box": [
+      131.7,
+      320.7,
+      277.7,
+      368.5
+     ]
+    },
+    {
+     "category": "salad_plate",
+     "confidence": 0.4423,
+     "box": [
+      131.8,
+      322.2,
+      276.2,
+      368.4
+     ]
+    },
+    {
+     "category": "radio_receiver",
+     "confidence": 0.3359,
+     "box": [
+      105.1,
+      308.2,
+      310.0,
+      414.0
+     ]
+    },
+    {
+     "category": "cassette",
+     "confidence": 0.3144,
+     "box": [
+      51.2,
+      196.2,
+      98.4,
+      220.9
+     ]
+    },
+    {
+     "category": "pillow",
+     "confidence": 0.2937,
+     "box": [
+      28.2,
+      379.0,
+      115.4,
+      471.7
+     ]
+    },
+    {
+     "category": "pillow",
+     "confidence": 0.29,
+     "box": [
+      260.4,
+      374.6,
+      368.6,
+      470.6
+     ]
+    },
+    {
+     "category": "cassette",
+     "confidence": 0.2802,
+     "box": [
+      105.0,
+      316.3,
+      309.4,
+      414.3
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 560332,
+   "group": "nadir",
+   "positives": [
+    "armoire",
+    "bed",
+    "bedspread",
+    "blanket",
+    "drawer",
+    "knob"
+   ],
+   "negatives": [
+    "chain_mail",
+    "blackberry",
+    "coatrack",
+    "ferry"
+   ],
+   "seconds": 84.61,
+   "detections": [
+    {
+     "category": "armoire",
+     "confidence": 0.6774,
+     "box": [
+      0.3,
+      2.0,
+      139.4,
+      221.1
+     ]
+    },
+    {
+     "category": "bed",
+     "confidence": 0.4917,
+     "box": [
+      0.5,
+      0.6,
+      417.9,
+      374.6
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.4433,
+     "box": [
+      410.1,
+      185.1,
+      499.7,
+      314.0
+     ]
+    },
+    {
+     "category": "knob",
+     "confidence": 0.3932,
+     "box": [
+      440.6,
+      273.0,
+      453.0,
+      283.5
+     ]
+    },
+    {
+     "category": "knob",
+     "confidence": 0.3839,
+     "box": [
+      443.3,
+      243.2,
+      455.8,
+      253.8
+     ]
+    },
+    {
+     "category": "knob",
+     "confidence": 0.3796,
+     "box": [
+      445.7,
+      215.9,
+      459.1,
+      226.7
+     ]
+    },
+    {
+     "category": "blanket",
+     "confidence": 0.3373,
+     "box": [
+      1.8,
+      189.6,
+      395.2,
+      374.7
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.3301,
+     "box": [
+      0.3,
+      2.2,
+      139.2,
+      219.3
+     ]
+    },
+    {
+     "category": "bedspread",
+     "confidence": 0.3109,
+     "box": [
+      6.2,
+      187.9,
+      396.6,
+      374.4
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 109916,
+   "group": "nadir",
+   "positives": [
+    "vinegar",
+    "cake",
+    "pan_(for_cooking)",
+    "stove"
+   ],
+   "negatives": [
+    "fig_(fruit)",
+    "headset",
+    "cappuccino",
+    "platter"
+   ],
+   "seconds": 67.69,
+   "detections": [
+    {
+     "category": "stove",
+     "confidence": 0.6083,
+     "box": [
+      28.5,
+      26.2,
+      639.3,
+      479.4
+     ]
+    },
+    {
+     "category": "pan_(for_cooking)",
+     "confidence": 0.4561,
+     "box": [
+      107.4,
+      8.5,
+      351.3,
+      221.0
+     ]
+    },
+    {
+     "category": "cappuccino",
+     "confidence": 0.4053,
+     "box": [
+      286.9,
+      199.3,
+      579.0,
+      466.8
+     ]
+    },
+    {
+     "category": "pan_(for_cooking)",
+     "confidence": 0.3714,
+     "box": [
+      155.7,
+      193.0,
+      585.8,
+      475.6
+     ]
+    },
+    {
+     "category": "cappuccino",
+     "confidence": 0.3705,
+     "box": [
+      119.6,
+      23.4,
+      342.7,
+      187.6
+     ]
+    },
+    {
+     "category": "platter",
+     "confidence": 0.3433,
+     "box": [
+      279.3,
+      195.3,
+      584.5,
+      471.7
+     ]
+    },
+    {
+     "category": "cake",
+     "confidence": 0.303,
+     "box": [
+      119.0,
+      23.8,
+      341.8,
+      187.4
+     ]
+    },
+    {
+     "category": "cake",
+     "confidence": 0.2821,
+     "box": [
+      289.9,
+      201.8,
+      575.7,
+      466.4
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 24125,
+   "group": "nadir",
+   "positives": [
+    "salmon_(food)",
+    "bagel",
+    "cucumber",
+    "fork",
+    "lemon",
+    "onion"
+   ],
+   "negatives": [
+    "camcorder",
+    "kimono",
+    "parasail_(sports)",
+    "police_cruiser"
+   ],
+   "seconds": 64.54,
+   "detections": [
+    {
+     "category": "fork",
+     "confidence": 0.5625,
+     "box": [
+      0.0,
+      183.3,
+      41.2,
+      318.0
+     ]
+    },
+    {
+     "category": "lemon",
+     "confidence": 0.5061,
+     "box": [
+      158.2,
+      191.8,
+      282.9,
+      299.0
+     ]
+    },
+    {
+     "category": "cucumber",
+     "confidence": 0.4713,
+     "box": [
+      303.9,
+      259.6,
+      459.3,
+      376.1
+     ]
+    },
+    {
+     "category": "cucumber",
+     "confidence": 0.4443,
+     "box": [
+      280.6,
+      215.9,
+      399.9,
+      301.2
+     ]
+    },
+    {
+     "category": "parasail_(sports)",
+     "confidence": 0.3748,
+     "box": [
+      303.9,
+      259.1,
+      459.7,
+      376.9
+     ]
+    },
+    {
+     "category": "salmon_(food)",
+     "confidence": 0.3345,
+     "box": [
+      1.3,
+      249.3,
+      238.4,
+      483.4
+     ]
+    },
+    {
+     "category": "bagel",
+     "confidence": 0.3192,
+     "box": [
+      162.3,
+      371.7,
+      534.7,
+      639.7
+     ]
+    },
+    {
+     "category": "parasail_(sports)",
+     "confidence": 0.301,
+     "box": [
+      280.7,
+      215.5,
+      400.2,
+      302.4
+     ]
+    },
+    {
+     "category": "salmon_(food)",
+     "confidence": 0.2951,
+     "box": [
+      446.6,
+      337.6,
+      592.5,
+      466.7
+     ]
+    },
+    {
+     "category": "salmon_(food)",
+     "confidence": 0.2926,
+     "box": [
+      419.0,
+      184.2,
+      555.4,
+      289.3
+     ]
+    },
+    {
+     "category": "salmon_(food)",
+     "confidence": 0.2729,
+     "box": [
+      474.1,
+      277.1,
+      618.9,
+      405.7
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 437970,
+   "group": "nadir",
+   "positives": [
+    "cargo_ship",
+    "polo_shirt"
+   ],
+   "negatives": [
+    "dagger",
+    "jelly_bean",
+    "lightning_rod",
+    "bobby_pin"
+   ],
+   "seconds": 36.5,
+   "detections": [
+    {
+     "category": "cargo_ship",
+     "confidence": 0.587,
+     "box": [
+      69.7,
+      64.9,
+      613.4,
+      166.1
+     ]
+    },
+    {
+     "category": "polo_shirt",
+     "confidence": 0.4339,
+     "box": [
+      392.5,
+      136.9,
+      402.6,
+      149.2
+     ]
+    },
+    {
+     "category": "polo_shirt",
+     "confidence": 0.4099,
+     "box": [
+      330.7,
+      139.3,
+      340.2,
+      149.5
+     ]
+    },
+    {
+     "category": "lightning_rod",
+     "confidence": 0.3335,
+     "box": [
+      96.5,
+      87.9,
+      104.0,
+      123.5
+     ]
+    },
+    {
+     "category": "lightning_rod",
+     "confidence": 0.2976,
+     "box": [
+      493.5,
+      64.8,
+      506.6,
+      90.7
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 422705,
+   "group": "nadir",
+   "positives": [
+    "penny_(coin)",
+    "banana",
+    "basket",
+    "coin",
+    "tag"
+   ],
+   "negatives": [
+    "cleansing_agent",
+    "grater",
+    "mop",
+    "sword"
+   ],
+   "seconds": 58.4,
+   "detections": [
+    {
+     "category": "grater",
+     "confidence": 0.4909,
+     "box": [
+      22.8,
+      67.0,
+      88.8,
+      161.9
+     ]
+    },
+    {
+     "category": "banana",
+     "confidence": 0.4829,
+     "box": [
+      117.5,
+      278.4,
+      427.6,
+      593.7
+     ]
+    },
+    {
+     "category": "banana",
+     "confidence": 0.4414,
+     "box": [
+      100.4,
+      24.3,
+      535.2,
+      370.0
+     ]
+    },
+    {
+     "category": "cleansing_agent",
+     "confidence": 0.3163,
+     "box": [
+      117.1,
+      279.7,
+      428.6,
+      593.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 18519,
+   "group": "nadir",
+   "positives": [
+    "roller_skate",
+    "helmet",
+    "knee_pad"
+   ],
+   "negatives": [
+    "dolphin",
+    "slipper_(footwear)",
+    "wall_socket",
+    "wet_suit"
+   ],
+   "seconds": 55.74,
+   "detections": [
+    {
+     "category": "helmet",
+     "confidence": 0.7509,
+     "box": [
+      188.0,
+      226.6,
+      237.8,
+      275.8
+     ]
+    },
+    {
+     "category": "roller_skate",
+     "confidence": 0.7093,
+     "box": [
+      327.5,
+      312.9,
+      368.2,
+      365.6
+     ]
+    },
+    {
+     "category": "wet_suit",
+     "confidence": 0.6029,
+     "box": [
+      225.7,
+      238.2,
+      337.3,
+      395.2
+     ]
+    },
+    {
+     "category": "knee_pad",
+     "confidence": 0.4768,
+     "box": [
+      230.5,
+      345.1,
+      268.8,
+      381.4
+     ]
+    },
+    {
+     "category": "knee_pad",
+     "confidence": 0.4291,
+     "box": [
+      264.1,
+      365.0,
+      298.7,
+      398.0
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 419653,
+   "group": "nadir",
+   "positives": [
+    "playpen",
+    "bottle",
+    "cabinet",
+    "drawer",
+    "flower_arrangement",
+    "microwave_oven"
+   ],
+   "negatives": [
+    "icecream",
+    "underdrawers",
+    "basket",
+    "flip-flop_(sandal)"
+   ],
+   "seconds": 84.14,
+   "detections": [
+    {
+     "category": "microwave_oven",
+     "confidence": 0.6964,
+     "box": [
+      44.9,
+      138.3,
+      118.2,
+      214.5
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.6961,
+     "box": [
+      340.5,
+      220.7,
+      379.6,
+      344.5
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.6101,
+     "box": [
+      453.5,
+      128.2,
+      639.7,
+      293.1
+     ]
+    },
+    {
+     "category": "basket",
+     "confidence": 0.5596,
+     "box": [
+      73.8,
+      101.7,
+      109.9,
+      140.8
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.5521,
+     "box": [
+      486.6,
+      65.0,
+      511.6,
+      131.0
+     ]
+    },
+    {
+     "category": "flower_arrangement",
+     "confidence": 0.533,
+     "box": [
+      70.6,
+      66.3,
+      115.0,
+      104.3
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.5005,
+     "box": [
+      45.3,
+      0.3,
+      153.8,
+      114.2
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.4908,
+     "box": [
+      80.0,
+      289.7,
+      128.4,
+      372.6
+     ]
+    },
+    {
+     "category": "icecream",
+     "confidence": 0.4736,
+     "box": [
+      287.6,
+      356.2,
+      470.7,
+      464.2
+     ]
+    },
+    {
+     "category": "flower_arrangement",
+     "confidence": 0.4273,
+     "box": [
+      348.9,
+      155.9,
+      365.6,
+      180.9
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.4047,
+     "box": [
+      46.0,
+      222.8,
+      145.9,
+      281.9
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3828,
+     "box": [
+      45.8,
+      205.8,
+      193.3,
+      348.3
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.3562,
+     "box": [
+      146.1,
+      212.4,
+      191.3,
+      252.0
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.3473,
+     "box": [
+      606.7,
+      248.2,
+      639.8,
+      317.8
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.3127,
+     "box": [
+      46.4,
+      255.1,
+      145.6,
+      347.4
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.3077,
+     "box": [
+      510.9,
+      71.8,
+      537.6,
+      127.4
+     ]
+    },
+    {
+     "category": "playpen",
+     "confidence": 0.3045,
+     "box": [
+      108.5,
+      129.2,
+      192.3,
+      205.7
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.3022,
+     "box": [
+      237.6,
+      121.6,
+      254.8,
+      149.6
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.2935,
+     "box": [
+      453.6,
+      128.5,
+      639.9,
+      292.5
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.278,
+     "box": [
+      544.7,
+      103.1,
+      559.3,
+      130.3
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.2734,
+     "box": [
+      289.4,
+      126.7,
+      311.3,
+      153.1
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.2704,
+     "box": [
+      355.7,
+      130.3,
+      366.9,
+      159.3
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 173716,
+   "group": "nadir",
+   "positives": [
+    "pin_(non_jewelry)",
+    "belt",
+    "briefcase",
+    "bucket",
+    "necktie",
+    "tarp"
+   ],
+   "negatives": [
+    "baboon",
+    "liquor",
+    "horse_carriage",
+    "screwdriver"
+   ],
+   "seconds": 68.85,
+   "detections": [
+    {
+     "category": "necktie",
+     "confidence": 0.7081,
+     "box": [
+      298.6,
+      165.2,
+      330.1,
+      295.8
+     ]
+    },
+    {
+     "category": "belt",
+     "confidence": 0.4699,
+     "box": [
+      311.9,
+      293.6,
+      352.1,
+      308.1
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 155162,
+   "group": "nadir",
+   "positives": [
+    "washbasin",
+    "faucet",
+    "lightbulb",
+    "mirror",
+    "toilet_tissue",
+    "towel_rack"
+   ],
+   "negatives": [
+    "dirt_bike",
+    "flashlight",
+    "forklift",
+    "grizzly"
+   ],
+   "seconds": 93.72,
+   "detections": [
+    {
+     "category": "faucet",
+     "confidence": 0.5979,
+     "box": [
+      322.1,
+      171.2,
+      364.1,
+      216.5
+     ]
+    },
+    {
+     "category": "mirror",
+     "confidence": 0.5251,
+     "box": [
+      318.1,
+      39.4,
+      461.0,
+      191.6
+     ]
+    },
+    {
+     "category": "faucet",
+     "confidence": 0.4304,
+     "box": [
+      374.1,
+      168.9,
+      400.9,
+      187.3
+     ]
+    },
+    {
+     "category": "towel_rack",
+     "confidence": 0.3856,
+     "box": [
+      268.5,
+      115.3,
+      304.2,
+      204.9
+     ]
+    },
+    {
+     "category": "towel_rack",
+     "confidence": 0.3748,
+     "box": [
+      234.4,
+      113.5,
+      271.8,
+      206.1
+     ]
+    },
+    {
+     "category": "toilet_tissue",
+     "confidence": 0.3014,
+     "box": [
+      284.6,
+      298.6,
+      315.3,
+      333.9
+     ]
+    },
+    {
+     "category": "towel_rack",
+     "confidence": 0.2972,
+     "box": [
+      284.7,
+      298.5,
+      315.5,
+      333.9
+     ]
+    },
+    {
+     "category": "lightbulb",
+     "confidence": 0.2844,
+     "box": [
+      379.5,
+      75.2,
+      398.3,
+      95.4
+     ]
+    },
+    {
+     "category": "lightbulb",
+     "confidence": 0.276,
+     "box": [
+      332.2,
+      82.7,
+      345.5,
+      96.9
+     ]
+    },
+    {
+     "category": "lightbulb",
+     "confidence": 0.275,
+     "box": [
+      361.9,
+      77.9,
+      379.2,
+      97.0
+     ]
+    },
+    {
+     "category": "towel_rack",
+     "confidence": 0.2727,
+     "box": [
+      329.1,
+      118.4,
+      391.0,
+      186.4
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 93288,
+   "group": "nadir",
+   "positives": [
+    "pencil_box",
+    "pencil_sharpener",
+    "computer_keyboard",
+    "desk",
+    "eraser",
+    "hog"
+   ],
+   "negatives": [
+    "combination_lock",
+    "milk_can",
+    "ashtray",
+    "clip"
+   ],
+   "seconds": 83.83,
+   "detections": [
+    {
+     "category": "computer_keyboard",
+     "confidence": 0.6581,
+     "box": [
+      4.3,
+      0.2,
+      526.9,
+      228.6
+     ]
+    },
+    {
+     "category": "clip",
+     "confidence": 0.4521,
+     "box": [
+      387.6,
+      361.3,
+      558.3,
+      469.1
+     ]
+    },
+    {
+     "category": "ashtray",
+     "confidence": 0.4406,
+     "box": [
+      532.0,
+      0.1,
+      639.5,
+      120.6
+     ]
+    },
+    {
+     "category": "combination_lock",
+     "confidence": 0.3746,
+     "box": [
+      0.5,
+      353.4,
+      44.4,
+      421.7
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3579,
+     "box": [
+      138.3,
+      235.2,
+      157.9,
+      418.7
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3519,
+     "box": [
+      106.2,
+      234.4,
+      126.3,
+      417.0
+     ]
+    },
+    {
+     "category": "pencil_sharpener",
+     "confidence": 0.3495,
+     "box": [
+      0.1,
+      146.3,
+      60.7,
+      240.0
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3484,
+     "box": [
+      153.2,
+      238.5,
+      175.7,
+      423.7
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3445,
+     "box": [
+      122.2,
+      250.2,
+      140.5,
+      436.3
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3442,
+     "box": [
+      89.4,
+      233.8,
+      113.3,
+      415.8
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3237,
+     "box": [
+      284.1,
+      218.4,
+      320.9,
+      409.4
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3232,
+     "box": [
+      167.3,
+      242.3,
+      199.7,
+      427.9
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3218,
+     "box": [
+      334.3,
+      214.7,
+      374.2,
+      395.1
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3119,
+     "box": [
+      262.9,
+      222.2,
+      303.4,
+      413.2
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3061,
+     "box": [
+      494.5,
+      173.4,
+      555.1,
+      355.9
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3034,
+     "box": [
+      355.4,
+      206.5,
+      390.3,
+      390.7
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3025,
+     "box": [
+      179.8,
+      228.6,
+      218.2,
+      420.9
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3019,
+     "box": [
+      221.8,
+      210.6,
+      273.8,
+      432.0
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3017,
+     "box": [
+      300.1,
+      212.8,
+      331.5,
+      391.7
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3015,
+     "box": [
+      564.4,
+      166.6,
+      610.6,
+      334.3
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.3014,
+     "box": [
+      316.5,
+      215.3,
+      355.9,
+      398.6
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.2986,
+     "box": [
+      544.4,
+      140.7,
+      595.7,
+      320.5
+     ]
+    },
+    {
+     "category": "pencil_sharpener",
+     "confidence": 0.2956,
+     "box": [
+      0.5,
+      353.3,
+      44.6,
+      421.7
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.2861,
+     "box": [
+      375.0,
+      214.6,
+      406.2,
+      378.7
+     ]
+    },
+    {
+     "category": "clip",
+     "confidence": 0.2817,
+     "box": [
+      0.1,
+      146.2,
+      60.6,
+      240.3
+     ]
+    },
+    {
+     "category": "pencil_box",
+     "confidence": 0.281,
+     "box": [
+      459.8,
+      163.7,
+      506.2,
+      355.2
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 25202,
+   "group": "nadir",
+   "positives": [
+    "omelet",
+    "doughnut",
+    "orange_(fruit)"
+   ],
+   "negatives": [
+    "crouton",
+    "gasmask",
+    "sofa_bed",
+    "space_shuttle"
+   ],
+   "seconds": 58.91,
+   "detections": [
+    {
+     "category": "orange_(fruit)",
+     "confidence": 0.4837,
+     "box": [
+      0.2,
+      120.8,
+      196.1,
+      359.5
+     ]
+    },
+    {
+     "category": "orange_(fruit)",
+     "confidence": 0.4623,
+     "box": [
+      58.5,
+      178.0,
+      243.2,
+      448.9
+     ]
+    },
+    {
+     "category": "crouton",
+     "confidence": 0.3261,
+     "box": [
+      0.7,
+      0.2,
+      217.4,
+      60.1
+     ]
+    },
+    {
+     "category": "doughnut",
+     "confidence": 0.3166,
+     "box": [
+      168.6,
+      198.3,
+      389.6,
+      410.3
+     ]
+    },
+    {
+     "category": "crouton",
+     "confidence": 0.3025,
+     "box": [
+      110.1,
+      1.7,
+      306.5,
+      82.0
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 458768,
+   "group": "nadir",
+   "positives": [
+    "trampoline",
+    "cabinet",
+    "doorknob",
+    "doormat",
+    "drawer",
+    "kitchen_sink"
+   ],
+   "negatives": [
+    "pool_table",
+    "kiwi_fruit",
+    "edible_corn",
+    "scissors"
+   ],
+   "seconds": 94.99,
+   "detections": [
+    {
+     "category": "cabinet",
+     "confidence": 0.4725,
+     "box": [
+      463.1,
+      312.2,
+      534.5,
+      426.8
+     ]
+    },
+    {
+     "category": "doormat",
+     "confidence": 0.4559,
+     "box": [
+      320.6,
+      295.6,
+      357.4,
+      324.9
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.443,
+     "box": [
+      427.0,
+      289.7,
+      463.6,
+      426.3
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.4328,
+     "box": [
+      534.1,
+      359.2,
+      635.2,
+      426.8
+     ]
+    },
+    {
+     "category": "trampoline",
+     "confidence": 0.3906,
+     "box": [
+      468.1,
+      295.5,
+      639.3,
+      347.2
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3862,
+     "box": [
+      411.5,
+      311.9,
+      427.6,
+      378.6
+     ]
+    },
+    {
+     "category": "kitchen_sink",
+     "confidence": 0.3666,
+     "box": [
+      202.8,
+      329.6,
+      307.8,
+      369.5
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3623,
+     "box": [
+      606.5,
+      3.5,
+      639.8,
+      200.6
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3619,
+     "box": [
+      467.3,
+      80.9,
+      513.9,
+      203.9
+     ]
+    },
+    {
+     "category": "kitchen_sink",
+     "confidence": 0.348,
+     "box": [
+      196.1,
+      278.6,
+      308.9,
+      370.0
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3394,
+     "box": [
+      513.3,
+      56.7,
+      552.0,
+      202.5
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3369,
+     "box": [
+      394.9,
+      124.3,
+      412.1,
+      354.1
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3268,
+     "box": [
+      551.4,
+      22.8,
+      607.7,
+      201.5
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3189,
+     "box": [
+      394.0,
+      107.4,
+      502.8,
+      360.8
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.3185,
+     "box": [
+      551.3,
+      3.4,
+      639.7,
+      202.0
+     ]
+    },
+    {
+     "category": "pool_table",
+     "confidence": 0.317,
+     "box": [
+      29.4,
+      284.9,
+      331.9,
+      426.4
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.286,
+     "box": [
+      379.5,
+      255.5,
+      400.0,
+      341.3
+     ]
+    },
+    {
+     "category": "cabinet",
+     "confidence": 0.2784,
+     "box": [
+      466.6,
+      2.3,
+      639.6,
+      203.8
+     ]
+    },
+    {
+     "category": "drawer",
+     "confidence": 0.278,
+     "box": [
+      463.1,
+      312.0,
+      534.7,
+      400.1
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 86216,
+   "group": "nadir",
+   "positives": [
+    "pistol",
+    "boot",
+    "horse",
+    "saddle_blanket",
+    "vest"
+   ],
+   "negatives": [
+    "dropper",
+    "sparkler_(fireworks)",
+    "spear",
+    "dishrag"
+   ],
+   "seconds": 58.83,
+   "detections": [
+    {
+     "category": "horse",
+     "confidence": 0.7025,
+     "box": [
+      0.2,
+      240.3,
+      630.1,
+      639.8
+     ]
+    },
+    {
+     "category": "vest",
+     "confidence": 0.4895,
+     "box": [
+      253.9,
+      101.9,
+      412.4,
+      267.8
+     ]
+    },
+    {
+     "category": "saddle_blanket",
+     "confidence": 0.4417,
+     "box": [
+      203.6,
+      285.2,
+      416.4,
+      460.9
+     ]
+    },
+    {
+     "category": "boot",
+     "confidence": 0.4209,
+     "box": [
+      292.5,
+      394.1,
+      364.1,
+      536.9
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 30418,
+   "group": "nadir",
+   "positives": [
+    "pennant",
+    "ladder",
+    "passenger_car_(part_of_a_train)",
+    "speaker_(stero_equipment)",
+    "train_(railroad_vehicle)",
+    "vent"
+   ],
+   "negatives": [
+    "date_(fruit)",
+    "cleansing_agent",
+    "lion",
+    "oil_lamp"
+   ],
+   "seconds": 96.41,
+   "detections": [
+    {
+     "category": "train_(railroad_vehicle)",
+     "confidence": 0.4847,
+     "box": [
+      0.5,
+      127.9,
+      639.3,
+      426.1
+     ]
+    },
+    {
+     "category": "speaker_(stero_equipment)",
+     "confidence": 0.3996,
+     "box": [
+      6.6,
+      43.3,
+      37.8,
+      71.8
+     ]
+    },
+    {
+     "category": "passenger_car_(part_of_a_train)",
+     "confidence": 0.3939,
+     "box": [
+      0.8,
+      127.9,
+      639.1,
+      426.0
+     ]
+    },
+    {
+     "category": "ladder",
+     "confidence": 0.3585,
+     "box": [
+      6.9,
+      257.2,
+      52.1,
+      354.1
+     ]
+    },
+    {
+     "category": "ladder",
+     "confidence": 0.3481,
+     "box": [
+      249.7,
+      60.8,
+      261.2,
+      81.2
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 30357,
+   "group": "nadir",
+   "positives": [
+    "dustpan",
+    "bottle",
+    "hand_towel",
+    "refrigerator",
+    "wall_socket"
+   ],
+   "negatives": [
+    "boxing_glove",
+    "headset",
+    "persimmon",
+    "dirt_bike"
+   ],
+   "seconds": 77.48,
+   "detections": [
+    {
+     "category": "refrigerator",
+     "confidence": 0.8833,
+     "box": [
+      86.0,
+      78.6,
+      319.6,
+      493.2
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.6409,
+     "box": [
+      310.5,
+      216.1,
+      330.4,
+      288.4
+     ]
+    },
+    {
+     "category": "hand_towel",
+     "confidence": 0.5784,
+     "box": [
+      349.8,
+      147.5,
+      375.0,
+      234.1
+     ]
+    },
+    {
+     "category": "wall_socket",
+     "confidence": 0.4955,
+     "box": [
+      318.1,
+      106.9,
+      333.0,
+      136.8
+     ]
+    },
+    {
+     "category": "bottle",
+     "confidence": 0.3217,
+     "box": [
+      213.4,
+      24.8,
+      248.3,
+      90.6
+     ]
+    },
+    {
+     "category": "boxing_glove",
+     "confidence": 0.3068,
+     "box": [
+      298.8,
+      375.1,
+      375.0,
+      402.6
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 346207,
+   "group": "nadir",
+   "positives": [
+    "dropper",
+    "book",
+    "cellular_telephone",
+    "computer_keyboard",
+    "desk",
+    "mug"
+   ],
+   "negatives": [
+    "ax",
+    "checkbook",
+    "bulldog",
+    "crayon"
+   ],
+   "seconds": 135.48,
+   "detections": [
+    {
+     "category": "computer_keyboard",
+     "confidence": 0.7625,
+     "box": [
+      247.2,
+      256.7,
+      298.1,
+      284.6
+     ]
+    },
+    {
+     "category": "mug",
+     "confidence": 0.7457,
+     "box": [
+      567.0,
+      235.1,
+      624.5,
+      294.0
+     ]
+    },
+    {
+     "category": "bulldog",
+     "confidence": 0.6979,
+     "box": [
+      491.9,
+      162.3,
+      573.7,
+      276.0
+     ]
+    },
+    {
+     "category": "desk",
+     "confidence": 0.6792,
+     "box": [
+      0.4,
+      213.3,
+      639.5,
+      479.0
+     ]
+    },
+    {
+     "category": "cellular_telephone",
+     "confidence": 0.6262,
+     "box": [
+      148.6,
+      246.7,
+      211.5,
+      274.5
+     ]
+    },
+    {
+     "category": "crayon",
+     "confidence": 0.6173,
+     "box": [
+      78.2,
+      286.9,
+      123.5,
+      323.5
+     ]
+    },
+    {
+     "category": "crayon",
+     "confidence": 0.522,
+     "box": [
+      527.5,
+      271.7,
+      594.6,
+      300.2
+     ]
+    },
+    {
+     "category": "book",
+     "confidence": 0.484,
+     "box": [
+      22.1,
+      269.7,
+      218.8,
+      359.9
+     ]
+    },
+    {
+     "category": "checkbook",
+     "confidence": 0.4794,
+     "box": [
+      22.1,
+      269.7,
+      218.6,
+      359.8
+     ]
+    },
+    {
+     "category": "book",
+     "confidence": 0.4082,
+     "box": [
+      0.1,
+      296.1,
+      108.6,
+      411.5
+     ]
+    },
+    {
+     "category": "book",
+     "confidence": 0.3686,
+     "box": [
+      616.2,
+      270.9,
+      639.9,
+      325.9
+     ]
+    },
+    {
+     "category": "crayon",
+     "confidence": 0.3669,
+     "box": [
+      196.7,
+      268.8,
+      239.0,
+      289.9
+     ]
+    },
+    {
+     "category": "dropper",
+     "confidence": 0.3299,
+     "box": [
+      78.2,
+      286.9,
+      123.6,
+      323.5
+     ]
+    },
+    {
+     "category": "book",
+     "confidence": 0.2981,
+     "box": [
+      291.2,
+      223.5,
+      397.9,
+      253.7
+     ]
+    },
+    {
+     "category": "dropper",
+     "confidence": 0.275,
+     "box": [
+      196.9,
+      268.8,
+      239.2,
+      290.1
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 232093,
+   "group": "nadir",
+   "positives": [
+    "stirrer",
+    "button",
+    "glass_(drink_container)",
+    "necktie",
+    "wineglass"
+   ],
+   "negatives": [
+    "scarecrow",
+    "cincture",
+    "tassel",
+    "wooden_spoon"
+   ],
+   "seconds": 108.44,
+   "detections": [
+    {
+     "category": "necktie",
+     "confidence": 0.8404,
+     "box": [
+      177.5,
+      318.3,
+      220.7,
+      397.5
+     ]
+    },
+    {
+     "category": "wineglass",
+     "confidence": 0.7808,
+     "box": [
+      229.0,
+      382.9,
+      283.1,
+      577.5
+     ]
+    },
+    {
+     "category": "wineglass",
+     "confidence": 0.5308,
+     "box": [
+      358.1,
+      275.9,
+      380.4,
+      367.9
+     ]
+    },
+    {
+     "category": "glass_(drink_container)",
+     "confidence": 0.5132,
+     "box": [
+      228.9,
+      382.6,
+      283.3,
+      577.8
+     ]
+    },
+    {
+     "category": "glass_(drink_container)",
+     "confidence": 0.5036,
+     "box": [
+      294.8,
+      466.9,
+      393.3,
+      639.2
+     ]
+    },
+    {
+     "category": "glass_(drink_container)",
+     "confidence": 0.4791,
+     "box": [
+      180.1,
+      467.3,
+      262.9,
+      606.3
+     ]
+    },
+    {
+     "category": "glass_(drink_container)",
+     "confidence": 0.4052,
+     "box": [
+      357.8,
+      275.6,
+      380.5,
+      367.3
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3786,
+     "box": [
+      184.3,
+      406.7,
+      194.9,
+      417.0
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3765,
+     "box": [
+      117.9,
+      473.3,
+      126.4,
+      486.8
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3737,
+     "box": [
+      184.0,
+      434.0,
+      194.6,
+      442.9
+     ]
+    },
+    {
+     "category": "tassel",
+     "confidence": 0.3667,
+     "box": [
+      156.1,
+      430.7,
+      189.6,
+      479.8
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3604,
+     "box": [
+      171.0,
+      494.0,
+      181.3,
+      505.2
+     ]
+    },
+    {
+     "category": "stirrer",
+     "confidence": 0.3227,
+     "box": [
+      156.0,
+      430.5,
+      189.2,
+      479.0
+     ]
+    },
+    {
+     "category": "stirrer",
+     "confidence": 0.3009,
+     "box": [
+      155.7,
+      430.2,
+      215.2,
+      529.0
+     ]
+    },
+    {
+     "category": "wooden_spoon",
+     "confidence": 0.2987,
+     "box": [
+      156.2,
+      430.6,
+      188.3,
+      476.9
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.2933,
+     "box": [
+      167.0,
+      525.5,
+      177.9,
+      537.2
+     ]
+    },
+    {
+     "category": "tassel",
+     "confidence": 0.2876,
+     "box": [
+      156.0,
+      430.5,
+      215.6,
+      530.1
+     ]
+    },
+    {
+     "category": "scarecrow",
+     "confidence": 0.2776,
+     "box": [
+      237.0,
+      356.5,
+      278.2,
+      385.0
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 550481,
+   "group": "nadir",
+   "positives": [
+    "microscope",
+    "cover",
+    "glass_(drink_container)",
+    "lampshade",
+    "pizza",
+    "pot"
+   ],
+   "negatives": [
+    "brussels_sprouts",
+    "coffeepot",
+    "gargle",
+    "toast_(food)"
+   ],
+   "seconds": 92.0,
+   "detections": [
+    {
+     "category": "pizza",
+     "confidence": 0.6925,
+     "box": [
+      127.0,
+      302.9,
+      243.1,
+      344.5
+     ]
+    },
+    {
+     "category": "pot",
+     "confidence": 0.6169,
+     "box": [
+      264.7,
+      287.6,
+      411.3,
+      345.6
+     ]
+    },
+    {
+     "category": "lampshade",
+     "confidence": 0.3952,
+     "box": [
+      320.3,
+      7.3,
+      359.5,
+      58.8
+     ]
+    },
+    {
+     "category": "microscope",
+     "confidence": 0.3927,
+     "box": [
+      226.4,
+      185.1,
+      273.8,
+      247.8
+     ]
+    },
+    {
+     "category": "coffeepot",
+     "confidence": 0.3735,
+     "box": [
+      264.3,
+      287.2,
+      411.5,
+      345.6
+     ]
+    },
+    {
+     "category": "lampshade",
+     "confidence": 0.3552,
+     "box": [
+      320.1,
+      7.9,
+      359.5,
+      167.0
+     ]
+    },
+    {
+     "category": "glass_(drink_container)",
+     "confidence": 0.3534,
+     "box": [
+      453.1,
+      267.4,
+      494.4,
+      312.4
+     ]
+    },
+    {
+     "category": "brussels_sprouts",
+     "confidence": 0.2933,
+     "box": [
+      26.3,
+      288.3,
+      89.2,
+      306.5
+     ]
+    },
+    {
+     "category": "lampshade",
+     "confidence": 0.2858,
+     "box": [
+      385.9,
+      0.2,
+      458.4,
+      43.6
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 252342,
+   "group": "nadir",
+   "positives": [
+    "subwoofer",
+    "Christmas_tree",
+    "fireplace",
+    "painting",
+    "snowman",
+    "speaker_(stero_equipment)"
+   ],
+   "negatives": [
+    "eyepatch",
+    "martini",
+    "shears",
+    "binoculars"
+   ],
+   "seconds": 93.95,
+   "detections": [
+    {
+     "category": "Christmas_tree",
+     "confidence": 0.6979,
+     "box": [
+      101.9,
+      207.8,
+      334.1,
+      592.7
+     ]
+    },
+    {
+     "category": "snowman",
+     "confidence": 0.663,
+     "box": [
+      377.5,
+      496.9,
+      408.4,
+      538.4
+     ]
+    },
+    {
+     "category": "painting",
+     "confidence": 0.6531,
+     "box": [
+      0.1,
+      222.4,
+      39.6,
+      359.5
+     ]
+    },
+    {
+     "category": "painting",
+     "confidence": 0.6365,
+     "box": [
+      408.8,
+      198.5,
+      426.9,
+      266.9
+     ]
+    },
+    {
+     "category": "speaker_(stero_equipment)",
+     "confidence": 0.5822,
+     "box": [
+      230.1,
+      567.6,
+      291.3,
+      638.4
+     ]
+    },
+    {
+     "category": "speaker_(stero_equipment)",
+     "confidence": 0.5642,
+     "box": [
+      319.2,
+      471.3,
+      361.1,
+      508.7
+     ]
+    },
+    {
+     "category": "fireplace",
+     "confidence": 0.4484,
+     "box": [
+      0.1,
+      372.2,
+      86.1,
+      584.2
+     ]
+    },
+    {
+     "category": "subwoofer",
+     "confidence": 0.3853,
+     "box": [
+      229.8,
+      567.2,
+      291.5,
+      638.0
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 428039,
+   "group": "nadir",
+   "positives": [
+    "barbell",
+    "sunglasses",
+    "tennis_racket"
+   ],
+   "negatives": [
+    "baboon",
+    "shears",
+    "alcohol",
+    "coat_hanger"
+   ],
+   "seconds": 59.63,
+   "detections": [
+    {
+     "category": "sunglasses",
+     "confidence": 0.6674,
+     "box": [
+      301.6,
+      112.7,
+      321.7,
+      119.4
+     ]
+    },
+    {
+     "category": "sunglasses",
+     "confidence": 0.6511,
+     "box": [
+      307.8,
+      162.2,
+      329.5,
+      169.8
+     ]
+    },
+    {
+     "category": "sunglasses",
+     "confidence": 0.6032,
+     "box": [
+      195.9,
+      151.0,
+      220.2,
+      161.0
+     ]
+    },
+    {
+     "category": "barbell",
+     "confidence": 0.5637,
+     "box": [
+      2.6,
+      272.7,
+      116.9,
+      368.4
+     ]
+    },
+    {
+     "category": "coat_hanger",
+     "confidence": 0.3112,
+     "box": [
+      2.4,
+      272.3,
+      117.2,
+      368.5
+     ]
+    },
+    {
+     "category": "shears",
+     "confidence": 0.2961,
+     "box": [
+      208.3,
+      220.8,
+      269.4,
+      270.9
+     ]
+    },
+    {
+     "category": "shears",
+     "confidence": 0.2822,
+     "box": [
+      2.7,
+      272.6,
+      116.9,
+      368.4
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 284743,
+   "group": "nadir",
+   "positives": [
+    "flash",
+    "baseball_bat",
+    "button",
+    "camera"
+   ],
+   "negatives": [
+    "dirt_bike",
+    "wagon_wheel",
+    "zucchini",
+    "blackboard"
+   ],
+   "seconds": 77.51,
+   "detections": [
+    {
+     "category": "baseball_bat",
+     "confidence": 0.752,
+     "box": [
+      39.7,
+      90.2,
+      362.2,
+      297.3
+     ]
+    },
+    {
+     "category": "camera",
+     "confidence": 0.4962,
+     "box": [
+      441.3,
+      62.8,
+      477.4,
+      116.9
+     ]
+    },
+    {
+     "category": "button",
+     "confidence": 0.3051,
+     "box": [
+      511.1,
+      348.6,
+      519.3,
+      358.5
+     ]
+    },
+    {
+     "category": "zucchini",
+     "confidence": 0.2977,
+     "box": [
+      39.3,
+      89.8,
+      362.5,
+      297.3
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 103746,
+   "group": "nadir",
+   "positives": [
+    "bow_(weapon)",
+    "barrel",
+    "bench",
+    "birdfeeder",
+    "cock",
+    "doorknob"
+   ],
+   "negatives": [
+    "bass_horn",
+    "compass",
+    "piggy_bank",
+    "Band_Aid"
+   ],
+   "seconds": 84.44,
+   "detections": [
+    {
+     "category": "bench",
+     "confidence": 0.4862,
+     "box": [
+      346.2,
+      92.0,
+      497.0,
+      240.0
+     ]
+    },
+    {
+     "category": "barrel",
+     "confidence": 0.3127,
+     "box": [
+      152.8,
+      95.8,
+      272.5,
+      259.0
+     ]
+    },
+    {
+     "category": "barrel",
+     "confidence": 0.3108,
+     "box": [
+      275.3,
+      135.9,
+      339.8,
+      203.9
+     ]
+    },
+    {
+     "category": "barrel",
+     "confidence": 0.2859,
+     "box": [
+      453.7,
+      201.2,
+      483.9,
+      239.6
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 496578,
+   "group": "nadir",
+   "positives": [
+    "puffin"
+   ],
+   "negatives": [
+    "pegboard",
+    "crab_(animal)",
+    "sponge",
+    "frisbee"
+   ],
+   "seconds": 32.23,
+   "detections": [
+    {
+     "category": "puffin",
+     "confidence": 0.3513,
+     "box": [
+      409.7,
+      118.2,
+      457.2,
+      164.9
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 177014,
+   "group": "nadir",
+   "positives": [
+    "table-tennis_table",
+    "can",
+    "jar"
+   ],
+   "negatives": [
+    "crouton",
+    "pendulum",
+    "costume",
+    "duct_tape"
+   ],
+   "seconds": 59.09,
+   "detections": [
+    {
+     "category": "jar",
+     "confidence": 0.5187,
+     "box": [
+      115.9,
+      214.7,
+      146.8,
+      264.5
+     ]
+    },
+    {
+     "category": "duct_tape",
+     "confidence": 0.4303,
+     "box": [
+      561.2,
+      216.6,
+      615.9,
+      266.4
+     ]
+    },
+    {
+     "category": "duct_tape",
+     "confidence": 0.3766,
+     "box": [
+      611.5,
+      218.1,
+      639.5,
+      271.6
+     ]
+    },
+    {
+     "category": "table-tennis_table",
+     "confidence": 0.3547,
+     "box": [
+      0.5,
+      108.8,
+      618.6,
+      479.2
+     ]
+    },
+    {
+     "category": "pendulum",
+     "confidence": 0.2935,
+     "box": [
+      82.4,
+      106.5,
+      251.2,
+      213.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 1006,
+   "group": "nadir",
+   "positives": [
+    "leather",
+    "grill",
+    "hat",
+    "headlight",
+    "slipper_(footwear)"
+   ],
+   "negatives": [
+    "stew",
+    "basketball",
+    "chili_(vegetable)",
+    "hog"
+   ],
+   "seconds": 84.07,
+   "detections": [
+    {
+     "category": "hat",
+     "confidence": 0.8341,
+     "box": [
+      193.2,
+      60.3,
+      261.9,
+      100.2
+     ]
+    },
+    {
+     "category": "headlight",
+     "confidence": 0.5634,
+     "box": [
+      378.9,
+      169.5,
+      409.6,
+      187.2
+     ]
+    },
+    {
+     "category": "leather",
+     "confidence": 0.4363,
+     "box": [
+      179.8,
+      528.5,
+      263.3,
+      579.8
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 344621,
+   "group": "nadir",
+   "positives": [
+    "checkerboard",
+    "armchair",
+    "book",
+    "fan",
+    "lamp",
+    "pillow"
+   ],
+   "negatives": [
+    "bandage",
+    "melon",
+    "pie",
+    "buoy"
+   ],
+   "seconds": 94.59,
+   "detections": [
+    {
+     "category": "lamp",
+     "confidence": 0.6888,
+     "box": [
+      222.8,
+      115.8,
+      252.6,
+      167.6
+     ]
+    },
+    {
+     "category": "pillow",
+     "confidence": 0.6842,
+     "box": [
+      369.0,
+      184.3,
+      424.2,
+      229.7
+     ]
+    },
+    {
+     "category": "pillow",
+     "confidence": 0.6513,
+     "box": [
+      285.4,
+      163.4,
+      315.9,
+      200.5
+     ]
+    },
+    {
+     "category": "fan",
+     "confidence": 0.5911,
+     "box": [
+      177.2,
+      0.0,
+      269.7,
+      15.9
+     ]
+    },
+    {
+     "category": "armchair",
+     "confidence": 0.5797,
+     "box": [
+      143.7,
+      139.1,
+      218.9,
+      228.0
+     ]
+    },
+    {
+     "category": "lamp",
+     "confidence": 0.4886,
+     "box": [
+      202.2,
+      0.2,
+      234.5,
+      21.2
+     ]
+    },
+    {
+     "category": "book",
+     "confidence": 0.4542,
+     "box": [
+      239.4,
+      241.4,
+      293.2,
+      265.0
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 544329,
+   "group": "nadir",
+   "positives": [
+    "matchbox",
+    "apple",
+    "condiment",
+    "cooler_(for_food)",
+    "knife",
+    "plastic_bag"
+   ],
+   "negatives": [
+    "pinwheel",
+    "brussels_sprouts",
+    "calf",
+    "identity_card"
+   ],
+   "seconds": 93.18,
+   "detections": [
+    {
+     "category": "knife",
+     "confidence": 0.6949,
+     "box": [
+      427.0,
+      179.1,
+      529.8,
+      340.8
+     ]
+    },
+    {
+     "category": "plastic_bag",
+     "confidence": 0.529,
+     "box": [
+      290.5,
+      1.5,
+      535.9,
+      193.9
+     ]
+    },
+    {
+     "category": "identity_card",
+     "confidence": 0.4409,
+     "box": [
+      446.5,
+      232.4,
+      509.6,
+      295.4
+     ]
+    },
+    {
+     "category": "plastic_bag",
+     "confidence": 0.4401,
+     "box": [
+      73.1,
+      131.1,
+      407.0,
+      310.1
+     ]
+    },
+    {
+     "category": "pinwheel",
+     "confidence": 0.3177,
+     "box": [
+      426.9,
+      179.3,
+      530.1,
+      341.0
+     ]
+    },
+    {
+     "category": "matchbox",
+     "confidence": 0.3086,
+     "box": [
+      427.0,
+      179.3,
+      530.0,
+      340.9
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": 67832,
+   "group": "nadir",
+   "positives": [
+    "lamb-chop",
+    "carrot",
+    "potato"
+   ],
+   "negatives": [
+    "Sharpie",
+    "beachball",
+    "horse_buggy",
+    "locker"
+   ],
+   "seconds": 59.27,
+   "detections": [
+    {
+     "category": "potato",
+     "confidence": 0.4457,
+     "box": [
+      129.8,
+      0.1,
+      318.9,
+      107.3
+     ]
+    },
+    {
+     "category": "potato",
+     "confidence": 0.4434,
+     "box": [
+      1.6,
+      64.1,
+      223.3,
+      212.6
+     ]
+    },
+    {
+     "category": "carrot",
+     "confidence": 0.3919,
+     "box": [
+      0.2,
+      307.9,
+      112.2,
+      452.6
+     ]
+    },
+    {
+     "category": "carrot",
+     "confidence": 0.3476,
+     "box": [
+      98.7,
+      403.0,
+      233.1,
+      479.5
+     ]
+    },
+    {
+     "category": "beachball",
+     "confidence": 0.3376,
+     "box": [
+      129.2,
+      0.2,
+      319.6,
+      107.4
+     ]
+    },
+    {
+     "category": "carrot",
+     "confidence": 0.3312,
+     "box": [
+      345.3,
+      257.0,
+      423.2,
+      303.5
+     ]
+    },
+    {
+     "category": "beachball",
+     "confidence": 0.3276,
+     "box": [
+      1.7,
+      63.7,
+      231.6,
+      212.9
+     ]
+    },
+    {
+     "category": "carrot",
+     "confidence": 0.3196,
+     "box": [
+      192.6,
+      317.4,
+      286.6,
+      400.0
+     ]
+    },
+    {
+     "category": "carrot",
+     "confidence": 0.2806,
+     "box": [
+      24.6,
+      220.1,
+      151.4,
+      384.1
+     ]
+    }
+   ]
+  }
+ ]
+}

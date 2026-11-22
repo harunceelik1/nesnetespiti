@@ -54,7 +54,27 @@ Hassasiyet her adımda **Dengeli** (varsayılan).
   (Hassasiyet: Sıkı / Dengeli / Geniş seçeneklerini burada göster.)
 
 ## 7. Hiç görülmeyen nesneler (ödevin ana iddiası)
-- LVIS nadir nesne seti kurulunca buraya 2–3 örnek eklenecek. Rapor tablosu: sık nesnelerde F1 ↔ nadir nesnelerde F1.
+LVIS'in **nadir (r)** kategorileri: eğitim kümesinde ≤ 10 görselde geçen nesneler. Model makaleleri "görülmemiş nesne"
+başarısını bu ölçütle raporluyor. Örnekleri İngilizce yaz (ölçüm İngilizce adlarla yapıldı, çeviri karışmasın).
+- **Görsel:** `gorseller/nadir_kibrit_kutusu.jpg` · **Sorgu:** `matchbox` · **Model:** Üç modeli karşılaştır
+  - **Sonuç:** OWLv2 kibrit kutusunu buluyor (0.52) · Grounding DINO yanlış nesneye kutu çiziyor · YOLO-World 0
+- **Görsel:** `gorseller/nadir_bozuk_para.jpg` · **Sorgu:** `penny` · **Model:** Üç modeli karşılaştır
+  - **Sonuç:** yalnızca OWLv2 buluyor (0.78); DINO ve YOLO-World 0
+- **Görsel:** `gorseller/nadir_kelepce.jpg` · **Sorgu:** `handcuff` · **Model:** Üç modeli karşılaştır
+  - **Sonuç:** üçü de bulamıyor (sınır örneği: nadir nesnede en iyi model de her zaman başaramıyor)
+- **Tablo** (`outputs/lvis_olcum/siklik_karsilastirma.md`, Dengeli eşik, 100 LVIS görseli):
+
+  | Model | Sık nesne F1 | Nadir nesne F1 | Düşüş | Olmayan nesneye kutu |
+  |---|---|---|---|---|
+  | OWLv2 | 0.55 | 0.50 | %10 | %4–7 |
+  | Grounding DINO | 0.48 | 0.21 | %57 | %20–22 |
+  | YOLO-World | 0.39 | 0.08 | %80 | %2–7 |
+
+- **Söyle:** "Asıl soru buydu: eğitimde neredeyse hiç görülmemiş nesnede ne oluyor? OWLv2 sık nesnedeki başarısının
+  %90'ını koruyor; YOLO-World nadir nesnelerin yalnızca %10'unda nesneyi bir kez bulabiliyor. Grounding DINO arada,
+  ama olmayan nesneye de kutu uydurma eğilimi her sınıfta ~%20. Sebep eğitim verisi: OWLv2 web ölçeğinde görsel–metin
+  çiftleriyle (kendi ürettiği sözde etiketlerle) eğitildi; DINO ve YOLO-World daha dar, insan etiketli verilerle (Objects365, GoldG vb.) eğitildi. Not: nadir soru sayısı 51;
+  yüzdeler birkaç soruyla oynayabilir, ama sıralama ve fark net."
 
 ## 8. Sınırlar: kelime baskınlığı ve düzeltme
 - **Görsel:** `gorseller/otel_odasi_lvis.jpg` · **Sorgu:** `televizyon ünitesi` · **Model:** Üç modeli karşılaştır
@@ -76,4 +96,4 @@ Hassasiyet her adımda **Dengeli** (varsayılan).
 - `outputs/lvis_olcum/temel_olcum.md`: LVIS 50 görsel, üç model, Sıkı/Dengeli/Geniş · precision / recall / F1 /
   olmayan nesneye kutu oranı
 - `outputs/ceviri/karsilastirma.md`: çeviri yöntemlerinin karşılaştırması (Marian + bağlam %93)
-- (eklenecek) nadir nesne tablosu
+- `outputs/lvis_olcum/siklik_karsilastirma.md`: sık / ara / nadir LVIS kategorilerinde üç model (ödevin ana tablosu)
