@@ -11,6 +11,8 @@ from backend.app import config
 
 _patchers = []
 LEGACY_YOLO_WORLD = (0.25, 0.15, 0.10, 0.05)
+# Kalibrasyondan önceki kademeli Grounding DINO box eşikleri (eski davranış).
+LEGACY_GROUNDING_DINO = (0.35, 0.30, 0.25)
 
 
 def start():
@@ -18,6 +20,7 @@ def start():
               for key, policy in config.ADAPTIVE_THRESHOLDS.items()}
     # Kalibrasyondan önceki kademeli YOLO-World eşikleri (eski davranış).
     legacy["yolo-world"] = dataclasses.replace(legacy["yolo-world"], thresholds=LEGACY_YOLO_WORLD)
+    legacy["grounding-dino"] = dataclasses.replace(legacy["grounding-dino"], thresholds=LEGACY_GROUNDING_DINO)
     _patchers[:] = [patch.dict(config.ADAPTIVE_THRESHOLDS, legacy),
                     patch.object(config, "SYNONYM_FALLBACK_ENABLED", True)]
     for patcher in _patchers:

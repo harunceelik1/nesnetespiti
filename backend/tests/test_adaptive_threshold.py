@@ -119,7 +119,8 @@ class AdaptiveThresholdTests(unittest.TestCase):
         detector = FakeDetector({0.30: boxes(1, 0.7)}, model_id="grounding-dino")
         result = run_detection(detector, None, PLAN)
         policy = ADAPTIVE_THRESHOLDS["grounding-dino"]
-        self.assertEqual(policy.thresholds[0], GROUNDING_DINO.box_threshold)
+        # Bu dosya eski kademeli davranışı sınar (legacy_adaptive): 0.35 → 0.30 → 0.25.
+        self.assertEqual(policy.thresholds, legacy_adaptive.LEGACY_GROUNDING_DINO)
         self.assertEqual([call[1] for call in detector.calls], [0.35, 0.30])
         self.assertTrue(all(call[2] == GROUNDING_DINO.text_threshold for call in detector.calls))
         self.assertEqual(result["adaptive_threshold_used"], 0.30)

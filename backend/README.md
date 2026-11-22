@@ -15,7 +15,7 @@ Yanıtta `translation_source` alanı `lexicon` veya `model` değerini taşır.
 | Model | Eşik | Var olan (18) | Olmayan boş (16) | Envanter "ürün" F1 | CPU süre/görsel |
 |---|---|---|---|---|---|
 | OWLv2 | 0.13 | 16 | 16 | 0.79 | ~5.5 sn |
-| Grounding DINO (tiny) | 0.35 | 13 | 16 | 0.84 | ~6–15 sn |
+| Grounding DINO (tiny) | 0.30 | 15 | 16 | 0.89 | ~6–15 sn |
 | YOLO-World (s, v2) | 0.10 | 13 | 16 | ~0 ("product"u anlamıyor) | ~0.7 sn |
 
 "Var olan" yalnızca kutu çizilip çizilmediğini sayar, kutunun yerini doğrulamaz;
@@ -126,17 +126,19 @@ seviyeler aynı kalibrasyon tablolarından seçildi (`evaluation/calibrate_thres
 | Model | Sıkı | Dengeli | Geniş | Geniş'te ne değişir |
 |---|---|---|---|---|
 | OWLv2 | 0.17 | 0.13 | 0.10 | envanter recall 0.81 → 0.85, precision 0.76 → 0.65 |
-| Grounding DINO | 0.40 | 0.35 | 0.28 | recall 0.75 → 0.88, precision 0.97 → 0.95 |
+| Grounding DINO | 0.35 | 0.30 | 0.27 | recall 0.84 → 0.91, precision 0.95 → 0.95 |
 | YOLO-World | 0.25 | 0.10 | 0.05 | var olan vakalar 13 → 14 / 18 |
 | Örnekle arama (benzerlik) | 0.92 | 0.88 | 0.84 | test kümesi recall 0.66 → 0.77, precision 0.54 → 0.40 |
 
 Kalibrasyon verisinde Geniş seviyede de olmayan nesnelerde sahte kutu çıkmadı, ama
 sınır yakındır (OWLv2 ≤ 0.07, DINO ≤ 0.26, YOLO ≤ 0.04'te sahte kutu başlar) ve 16 vaka
-azdır; arayüz Geniş seçilince bu yüzden uyarı gösterir. Sıkı seviye DINO'da precision'ı
-neredeyse artırmaz (0.97 zaten), yalnızca kutu sayısını azaltır.
+azdır; arayüz Geniş seçilince bu yüzden uyarı gösterir.
 
-Bulgu: DINO tablosuna göre varsayılan 0.35 gereğinden sıkıdır; 0.28–0.30 aynı sıfır
-sahte kutuyla daha yüksek recall verir. Varsayılan değiştirilmedi (ayrı karar).
+DINO varsayılanı 0.35'ten 0.30'a indirildi: aynı tabloda olmayan nesnelerde sahte kutu
+yine 0, envanter recall 0.75 → 0.84 (precision 0.97 → 0.95), var olan vakalar 13 → 15.
+Yeni bulunan iki vaka (el, yüz) gözle doğrulandı. "fare" vakası iki eşikte de yanlış
+nesneye (kulaklık kutusu, bardak kapağı) kutu çizer; 0.30 buna ikinci bir yanlış kutu
+ekler. Eski 0.35 artık "Sıkı" seviyedir.
 
 ## Örnekle arama (OWLv2, görsel sorgu)
 
@@ -344,7 +346,7 @@ Remove-Item Env:RUN_TRANSLATION_SMOKE
   AutoModelForZeroShotObjectDetection, IDEA-Research/grounding-dino-tiny.
 - app/models/detector_registry.py: süreç başına tek model örnekleri ve model
   bazında kullanılabilirlik; yükleme başarısızlığı diğer modeli durdurmaz.
-- app/config.py: GroundingDinoSettings; box_threshold=0.35, text_threshold=0.25.
+- app/config.py: GroundingDinoSettings; box_threshold=0.30, text_threshold=0.25.
 
 Grounding DINO CUDA varsa otomatik CUDA, yoksa CPU kullanır. Ağırlıkları proje
 kökündeki .cache/grounding-dino içinde tutulur. İlk backend başlangıcında modelin
@@ -423,7 +425,7 @@ Her faz mevcut NMS (IoU 0.60) kullanır.
 Merkezi `app/config.py` ayarları:
 
 - OWL-ViT: 0.05 → 0.03 → 0.02 → 0.01.
-- Grounding DINO box: 0.35 → 0.30 → 0.25; text: sabit 0.25.
+- Grounding DINO box: 0.35 → 0.30 → 0.25 (eski kademeli davranış; üretimde tek 0.30); text: sabit 0.25.
   Bunlar DINO'ya ait ayrı ayarlardır, OWL-ViT skorlarıyla kıyaslanmaz.
 
 İlk makul non-empty sonuç bulunduğunda durulur; daha düşük eşik denenmez.

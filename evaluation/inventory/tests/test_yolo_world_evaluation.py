@@ -13,7 +13,9 @@ from evaluation.inventory.tests.test_evaluate_inventory import annotation
 class YoloWorldEvaluationTests(unittest.TestCase):
     def test_fixed_baseline_threshold_comes_from_production_config(self):
         settings = evaluation.threshold_settings("yolo-world")
-        self.assertEqual(settings, {"strategy": "fixed_smoke_baseline", "confidence_threshold": 0.25})
+        from backend.app.config import ADAPTIVE_THRESHOLDS
+        self.assertEqual(settings, {"strategy": "fixed_smoke_baseline",
+                                    "confidence_threshold": ADAPTIVE_THRESHOLDS["yolo-world"].thresholds[0]})
 
     def test_all_runs_three_models_and_both_is_unchanged(self):
         self.assertEqual(evaluation.MODEL_GROUPS["both"], ("owlvit", "grounding-dino"))

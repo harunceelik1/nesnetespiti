@@ -51,7 +51,7 @@ mevcut class-aware NMS (IoU 0.60) yeniden kullanılır; containment eklenmez.
 
 Bu kontrollü ilk baseline, production adaptive/synonym pipeline'ını çalıştırmaz
 ve onu değiştirmez. OWL-ViT sabit confidence 0.05; DINO mevcut merkezi config'deki
-box/text eşiklerini (şu anda 0.35/0.25) kullanır. Bunlar veri başarısına bakılarak
+box/text eşiklerini (şu anda 0.30/0.25) kullanır. Bunlar veri başarısına bakılarak
 seçilmez. Threshold stratejisi her kayıt ve raporda açıkça yazılır. Bu sonuçlar
 production tek-sorgu adaptive endpoint performansı ile aynı deney değildir.
 Çoklu prompt bağlamı da tek-sorgu bağlamından farklı sonuç üretebilir.

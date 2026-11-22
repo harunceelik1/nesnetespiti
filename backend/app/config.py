@@ -6,7 +6,10 @@ class GroundingDinoSettings:
     """Deneylerde yalnızca buradan değiştirilecek Grounding DINO ayarları."""
 
     model_name: str = "IDEA-Research/grounding-dino-tiny"
-    box_threshold: float = 0.35
+    # 0.35'ten indirildi: kalibrasyonda (outputs/hassasiyet/grounding-dino.txt) olmayan
+    # nesnelerde sahte kutu ancak <= 0.26'da başlıyor; 0.30 aynı sıfır sahteyle envanter
+    # recall'unu 0.75 → 0.84, var olan vakaları 13 → 15 / 18 yapıyor.
+    box_threshold: float = 0.30
     text_threshold: float = 0.25
 
     def __post_init__(self):
@@ -205,15 +208,15 @@ SENSITIVITY_LEVELS = ("strict", "balanced", "loose")
 #   OWLv2  sıkı   0.17  0.84 / 0.68    0           15/18
 #          denge  0.13  0.76 / 0.81    0           16/18
 #          geniş  0.10  0.65 / 0.85    0           17/18   (≤ 0.07'de 3 sahte)
-#   DINO   sıkı   0.40  0.97 / 0.63    0           12/18
-#          denge  0.35  0.97 / 0.75    0           13/18
-#          geniş  0.28  0.95 / 0.88    0           15/18   (≤ 0.26'da 1 sahte)
+#   DINO   sıkı   0.35  0.97 / 0.75    0           13/18   (eski varsayılan)
+#          denge  0.30  0.95 / 0.84    0           15/18
+#          geniş  0.27  0.95 / 0.91    0           15/18   (≤ 0.26'da 1 sahte)
 #   YOLO   sıkı   0.25  —              0           12/18   (envanter "ürün"ü anlamıyor)
 #          denge  0.10  —              0           13/18
 #          geniş  0.05  —              0           14/18   (≤ 0.04'te 1 sahte)
 SENSITIVITY_THRESHOLDS = {
     "owlv2": {"strict": 0.17, "loose": 0.10},
-    "grounding-dino": {"strict": 0.40, "loose": 0.28},
+    "grounding-dino": {"strict": 0.35, "loose": 0.27},
     "yolo-world": {"strict": 0.25, "loose": 0.05},
 }
 # Örnekle arama, RPC test kümesi (60 görsel): sıkı P 0.76 / R 0.48, denge 0.54 / 0.66, geniş 0.40 / 0.77.
@@ -227,10 +230,9 @@ ADAPTIVE_THRESHOLDS = {
     # 16 olmayan nesne vakasında seçildi. 0.13: envanter F1 0.78 (P 0.76, R 0.81),
     # sahte kutu 0; < 0.08'de sahte kutu başlar, > 0.14'te recall hızla düşer.
     "owlv2": AdaptiveThresholdSettings(thresholds=(0.13,)),
-    # OWL-ViT skor ölçeği kullanılmaz. İlk deneme mevcut DINO ayarlarıdır;
-    # yalnızca sonuç yoksa/şüpheliyse box eşiği düşer, text eşiği sabit kalır.
+    # Grounding DINO: tek sabit box eşiği (GROUNDING_DINO.box_threshold); text eşiği sabit.
     "grounding-dino": AdaptiveThresholdSettings(
-        thresholds=(GROUNDING_DINO.box_threshold, 0.30, 0.25),
+        thresholds=(GROUNDING_DINO.box_threshold,),
         text_threshold=GROUNDING_DINO.text_threshold,
     ),
     # YOLO-World: 36 var/yok vakasıyla seçildi (envanter "ürün" sorgusunu anlamadığı
