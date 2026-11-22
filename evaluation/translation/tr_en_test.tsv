@@ -1,0 +1,189 @@
+# Türkçe nesne sorgusu → kabul edilen İngilizce karşılıklar (| ile ayrılır).
+# grup: tek = sözlükte olan tek kelime, belirsiz = çok anlamlı kelime (nesne anlamı beklenir),
+#       ascii = Türkçe karaktersiz yazım, cogul = çoğul, tamlama = isim tamlaması,
+#       sifat = sıfat + isim, yeni = sözlükte OLMAYAN nesne (genelleme testi).
+# Çoğul sorgularda tekil ve çoğul biçim, tamlamalarda yaygın eş anlamlılar kabul edilir.
+turkce	kabul	grup
+şişe	bottle	tek
+bardak	cup|glass	tek
+sandalye	chair	tek
+masa	table|desk	tek
+kedi	cat	tek
+köpek	dog	tek
+araba	car|automobile	tek
+bisiklet	bicycle|bike	tek
+uçak	airplane|plane|aircraft|aeroplane	tek
+kamyon	truck|lorry	tek
+otobüs	bus	tek
+çanta	bag|handbag	tek
+cüzdan	wallet|purse	tek
+şemsiye	umbrella	tek
+gözlük	glasses|eyeglasses|spectacles	tek
+ayakkabı	shoe|shoes	tek
+eldiven	glove|gloves	tek
+şapka	hat|cap	tek
+kumanda	remote|remote control|controller	tek
+klavye	keyboard	tek
+telefon	phone|telephone	tek
+televizyon	television|tv	tek
+kulaklık	headphones|headphone|earphones|headset	tek
+kitap	book	tek
+makas	scissors	tek
+kaşık	spoon	tek
+çatal	fork	tek
+bıçak	knife	tek
+tabak	plate|dish	tek
+tencere	pot|saucepan	tek
+tava	pan|frying pan|skillet	tek
+yastık	pillow|cushion	tek
+halı	carpet|rug	tek
+perde	curtain|curtains	tek
+ayna	mirror	tek
+lamba	lamp|light	tek
+saksı	flower pot|flowerpot|pot|plant pot	tek
+vazo	vase	tek
+buzdolabı	refrigerator|fridge	tek
+havlu	towel	tek
+kova	bucket|pail	tek
+mum	candle	tek
+anahtar	key|keys	tek
+zımba	stapler	tek
+silgi	eraser|rubber	tek
+cetvel	ruler	tek
+sünger	sponge	tek
+tarak	comb	tek
+çakmak	lighter	tek
+termos	thermos|flask|vacuum flask	tek
+poşet	plastic bag|bag	tek
+kavanoz	jar	tek
+sakız	chewing gum|gum	tek
+cips	chips|crisps	tek
+deterjan	detergent	tek
+peçete	napkin|tissue|serviette	tek
+zarf	envelope	tek
+valiz	suitcase|luggage	tek
+yüz	face	belirsiz
+el	hand	belirsiz
+at	horse	belirsiz
+bank	bench	belirsiz
+top	ball	belirsiz
+fare	mouse	belirsiz
+bot	boot|boots|boat	belirsiz
+saat	clock|watch	belirsiz
+çay	tea	belirsiz
+bebek	baby|doll	belirsiz
+yüzük	ring	belirsiz
+kalem	pen|pencil	belirsiz
+motor	motorcycle|motorbike|engine|motor	belirsiz
+ekran	screen|monitor|display	belirsiz
+dolap	cabinet|cupboard|wardrobe|closet	belirsiz
+kase	bowl	belirsiz
+kupa	mug|cup|trophy	belirsiz
+kravat	tie|necktie	belirsiz
+tabela	sign|signboard	belirsiz
+kaya	rock	belirsiz
+canta	bag|handbag	ascii
+sise	bottle	ascii
+kopek	dog	ascii
+cuzdan	wallet|purse	ascii
+cop kutusu	trash can|garbage can|bin|trash bin|dustbin|rubbish bin|waste bin	ascii
+kasik	spoon	ascii
+catal	fork	ascii
+bicak	knife	ascii
+gozluk	glasses|eyeglasses|spectacles	ascii
+semsiye	umbrella	ascii
+sapka	hat|cap	ascii
+kulaklik	headphones|headphone|earphones|headset	ascii
+şişeler	bottle|bottles	cogul
+kediler	cat|cats	cogul
+sandalyeler	chair|chairs	cogul
+kitaplar	book|books	cogul
+arabalar	car|cars	cogul
+kutular	box|boxes	cogul
+anahtarlar	key|keys	cogul
+bardaklar	cup|cups|glass|glasses	cogul
+su şişesi	water bottle	tamlama
+ilaç kutusu	medicine box|pill box|pillbox	tamlama
+gözlük kılıfı	glasses case|spectacle case|eyeglass case	tamlama
+diş fırçası	toothbrush	tamlama
+kahve fincanı	coffee cup|coffee mug	tamlama
+çöp kutusu	trash can|garbage can|bin|trash bin|dustbin|rubbish bin|waste bin	tamlama
+süt kutusu	milk carton|milk box	tamlama
+kalem kutusu	pencil case|pen case|pencil box	tamlama
+sırt çantası	backpack|rucksack	tamlama
+telefon kılıfı	phone case	tamlama
+şarj aleti	charger	tamlama
+hesap makinesi	calculator	tamlama
+trafik ışığı	traffic light|traffic lights	tamlama
+diş macunu	toothpaste	tamlama
+kırmızı araba	red car	sifat
+mavi şişe	blue bottle	sifat
+siyah çanta	black bag	sifat
+beyaz bardak	white cup|white glass|white mug	sifat
+ahşap sandalye	wooden chair	sifat
+plastik kutu	plastic box|plastic container	sifat
+küçük kutu	small box	sifat
+sarı kask	yellow helmet|yellow hard hat	sifat
+baret	hard hat|helmet|safety helmet	yeni
+koli	box|cardboard box|parcel|package|carton	yeni
+palet	pallet	yeni
+forklift	forklift	yeni
+transpalet	pallet jack|pallet truck	yeni
+yangın söndürücü	fire extinguisher	yeni
+reflektif yelek	reflective vest|safety vest|high-visibility vest|hi-vis vest	yeni
+yelek	vest	yeni
+matkap	drill	yeni
+tornavida	screwdriver	yeni
+çekiç	hammer	yeni
+pense	pliers	yeni
+anahtar takımı	wrench set|spanner set|tool set	yeni
+el feneri	flashlight|torch	yeni
+priz	socket|outlet|power outlet|electrical outlet|plug	yeni
+merdiven	ladder|stairs|staircase	yeni
+el arabası	wheelbarrow	yeni
+trafik konisi	traffic cone|cone	yeni
+güvenlik kamerası	security camera|surveillance camera|cctv camera	yeni
+ütü	iron	yeni
+süpürge	broom|vacuum cleaner|vacuum	yeni
+paspas	mop|doormat|mat	yeni
+kürek	shovel|spade|oar	yeni
+musluk	faucet|tap	yeni
+kapı kolu	door handle|doorknob|door knob	yeni
+etiket	label|tag|sticker	yeni
+barkod	barcode	yeni
+kasa	crate|cash register|safe|case|box	yeni
+raf	shelf|shelves|rack	yeni
+konteyner	container	yeni
+bidon	jerrycan|canister|drum|can|container	yeni
+hortum	hose	yeni
+halat	rope	yeni
+zincir	chain	yeni
+vida	screw	yeni
+çivi	nail	yeni
+kilit	lock|padlock	yeni
+asma kilit	padlock	yeni
+tel	wire	yeni
+ampul	light bulb|bulb|lightbulb	yeni
+pil	battery|batteries	yeni
+şarj kablosu	charging cable|charger cable|charge cable	yeni
+uzatma kablosu	extension cord|extension cable|power strip	tamlama
+kask	helmet|hard hat	tek
+emniyet kemeri	seat belt|seatbelt|safety belt	yeni
+sırt çantalı adam	man with a backpack|man with backpack	yeni
+bıçaklı adam	man with a knife|man with knife	yeni
+silah	gun|weapon|firearm	yeni
+tabanca	pistol|gun|handgun	yeni
+duman	smoke	yeni
+alev	flame|fire|flames	yeni
+yangın	fire	yeni
+alkollü içecek	alcoholic beverage|alcoholic drink|alcohol	yeni
+gazlı içecek	soda|soft drink|carbonated drink|fizzy drink	tamlama
+konserve kutusu	can|tin|canned food|tin can	yeni
+ilaç	medicine|medication|drug|pill|pills	tek
+bebek bezi	diaper|nappy|diapers	yeni
+şampuan	shampoo|shampoo bottle	tek
+sabun	soap	tek
+diş ipi	dental floss|floss	yeni
+oyuncak	toy	yeni
+oyuncak araba	toy car	yeni
+kumbara	piggy bank|money box	yeni
