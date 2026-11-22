@@ -362,6 +362,30 @@ test("Compare üç modeli çağırır; biri tamamlanınca ortak loading diğerle
   assert.match(document.querySelectorAll(".technical-details")[1].textContent!, /Seçilen eşik \(box\)0\.30/);
 });
 
+test("karşılaştırmada tek model büyük gösterilir; sekme ve Yan yana düzeni değiştirir", async () => {
+  globalThis.fetch = async (_url, options) => {
+    const model = (options!.body as FormData).get("model");
+    return Response.json({ ...responseBody, model_id: model, filtered_detection_count: model === "owlvit" ? 2 : 1 });
+  };
+  await upload();
+  await query("çanta");
+  await selectModel("compare");
+  await submit();
+  const visible = () => [...document.querySelectorAll<HTMLElement>(".model-canvas")]
+    .filter((figure) => !figure.classList.contains("hidden")).map((figure) => figure.dataset.modelImage);
+  assert.deepEqual(visible(), ["owlvit"]);
+  assert.match(element("#model-tab-owlvit").textContent!, /OWLv22/);
+  await act(async () => { element<HTMLButtonElement>("#model-tab-grounding-dino").click(); });
+  assert.deepEqual(visible(), ["grounding-dino"]);
+  assert.equal(element("#model-tab-grounding-dino").getAttribute("aria-selected"), "true");
+  await act(async () => { element<HTMLButtonElement>(".layout-toggle [role='radio']:last-child").click(); });
+  assert.deepEqual(visible(), ["owlvit", "grounding-dino", "yolo-world"]);
+  assert.equal(document.querySelector("[role='tablist'].model-tabs"), null);
+  // Yan yana düzende bir görsele tıklamak onu büyük gösterir.
+  await act(async () => { element<HTMLButtonElement>('[data-model-image="yolo-world"] button').click(); });
+  assert.deepEqual(visible(), ["yolo-world"]);
+});
+
 test("adaptive metadata yoksa sabit threshold uydurulmaz", async () => {
   globalThis.fetch = async () => Response.json({ ...responseBody,
     adaptive_threshold_used: undefined, threshold_attempts: undefined, threshold_selection_reason: undefined,
@@ -385,7 +409,7 @@ test("Compare içinde bir model hata verirse başarılı modelin sonucu korunur"
     await query("çanta");
     await selectModel("compare");
     await submit();
-    assert.ok(element('[data-model="' + successful + '"] img'));
+    assert.ok(element('[data-model-image="' + successful + '"] img'));
     assert.match(element('[data-model="' + successful + '"] .result-summary').textContent!, /2 nesne bulundu/);
     assert.match(element('[data-model="' + failed + '"] [role="alert"]').textContent!, /kullanılamıyor/);
     assert.equal(element<HTMLButtonElement>("button[type='submit']").disabled, false);
