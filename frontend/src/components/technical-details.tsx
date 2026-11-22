@@ -52,9 +52,10 @@ export default function TechnicalDetails({ details, loading, warning, elapsedMs,
               <div className="table-scroll">
                 <table className="detections-table">
                   <caption>Tespit edilen kutular</caption>
-                  <thead><tr><th scope="col">Nesne</th><th scope="col">Modele giden ifade</th><th scope="col">Güven</th></tr></thead>
+                  <thead><tr><th scope="col">Nesne</th><th scope="col">Modele giden ifade</th><th scope="col">Güven</th><th scope="col">Durum</th></tr></thead>
                   <tbody>{details.detections.map((detection, index) => (
-                    <tr key={index}><td>{detection.label}</td><td>{detection.model_query || "—"}</td><td className="numeric">{detection.confidence.toFixed(3)}</td></tr>
+                    <tr key={index}><td>{detection.label}</td><td>{detection.model_query || "—"}</td><td className="numeric">{detection.confidence.toFixed(3)}</td>
+                      <td className={detection.uncertain ? "text-warning-foreground" : "text-muted-foreground"}>{detection.uncertain ? "emin değil" : "—"}</td></tr>
                   ))}</tbody>
                 </table>
               </div>

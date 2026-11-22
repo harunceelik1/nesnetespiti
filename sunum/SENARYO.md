@@ -38,11 +38,13 @@ Hassasiyet her adımda **Dengeli** (varsayılan).
 
 ## 5. Eğitimde nadir görülen nesne
 - **Görsel:** `gorseller/masa_12.jpeg` · **Sorgu:** `saç spreyi` · **Model:** Üç modeli karşılaştır
-- **Sonuç:** OWLv2 şişeyi 0.44 ile buluyor (+ 0.19'luk iki yanlış kutu: tıraş makinesi ve pil);
-  Grounding DINO ve YOLO-World hiçbir şey bulamıyor
+- **Sonuç:** OWLv2 şişeyi 0.44 ile buluyor (düz kırmızı kutu); tıraş makinesi ve pil 0.19 ile
+  **kesikli turuncu "?"** kutu olarak gösteriliyor ("3 nesne bulundu · 2 tanesi emin değil").
+  Grounding DINO ve YOLO-World hiçbir şey bulamıyor.
 - **Söyle:** "Saç spreyi standart veri setlerinde neredeyse yok. OWLv2 web ölçeğinde eğitildiği için genelleyebiliyor,
-  diğer ikisi bu nesnede kalıyor. Doğru kutu en yüksek puanlı; yanlışlar çok daha düşük puanlı. Bunu filtrelemek
-  için göreli puan filtresini ölçüyoruz."
+  diğer ikisi bu nesnede kalıyor. En iyi eşleşmenin yarısından düşük puanlı kutuları silmiyoruz, kesikli gösteriyoruz:
+  ölçümde bu kutuların LVIS'te %87'si yanlış çıktı, ama market görsellerinde silmek doğru ürünlerin beşte birini
+  kaybettiriyordu (F1 0.84 → 0.77). İşaretlemek ikisinin ortası."
 
 ## 6. Olmayan nesneye kutu çiziyor mu?
 - **Görsel:** `gorseller/masa_12.jpeg` · **Sorgu:** `kedi` · **Model:** Üç modeli karşılaştır

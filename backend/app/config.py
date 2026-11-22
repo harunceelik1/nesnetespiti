@@ -259,3 +259,11 @@ ADAPTIVE_THRESHOLDS = {
 # Backend başlarken TRANSLATION_STRATEGY ortam değişkeniyle değiştirilebilir.
 TRANSLATION_STRATEGIES = ("context", "lexicon")
 TRANSLATION_STRATEGY = os.environ.get("TRANSLATION_STRATEGY", "context").strip().lower()
+
+
+# "Emin değil" işareti: aynı görselde aynı sorgunun en iyi kutusunun bu oranından düşük
+# puanlı kutular silinmez, kesikli çizilir ve arayüzde ayrıca sayılır.
+# Ölçüm (evaluation/lvis/relative_filter*.py, OWLv2): bu kutuların LVIS'te %87'si,
+# RPC market testinde %35'i yanlış (oranın üstündekilerde %34 ve %9). Silmek RPC'de
+# doğru ürünlerin beşte birini kaybettirdiği (F1 0.84 → 0.77) için yalnızca işaretlenir.
+UNCERTAIN_RELATIVE_RATIO = 0.5

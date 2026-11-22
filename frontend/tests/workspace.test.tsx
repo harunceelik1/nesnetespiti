@@ -431,6 +431,30 @@ test("karşılaştırmada tek model büyük gösterilir; sekme ve Yan yana düze
   assert.deepEqual(visible(), ["yolo-world"]);
 });
 
+test("emin olunmayan kutular silinmez; sayısı, envanterde ve detayda ayrıca gösterilir", async () => {
+  globalThis.fetch = async () => Response.json({ ...responseBody,
+    detections: [{ ...responseBody.detections[0], canonical_query: "bag" },
+      { ...responseBody.detections[1], confidence: 0.3, canonical_query: "bag", uncertain: true }],
+    inventory_summary: { bag: 2 }, total_detected_objects: 2,
+  });
+  await upload();
+  await query("çanta");
+  await submit();
+  assert.match(element(".result-summary").textContent!, /2 nesne bulundu.*1 tanesi emin değil/);
+  assert.match(element(".inventory-summary").textContent!, /2\(1 emin değil\)/);
+  assert.match(element(".detections-table").textContent!, /0\.300emin değil/);
+});
+
+test("uncertain alanı boolean değilse yanıt reddedilir", async () => {
+  globalThis.fetch = async () => Response.json({ ...responseBody,
+    detections: [{ ...responseBody.detections[0], uncertain: "evet" }] });
+  await upload();
+  await query("çanta");
+  await submit();
+  assert.equal(document.querySelector(".uncertain-count"), null);
+  assert.ok(document.querySelector("[role='alert']"));
+});
+
 test("adaptive metadata yoksa sabit threshold uydurulmaz", async () => {
   globalThis.fetch = async () => Response.json({ ...responseBody,
     adaptive_threshold_used: undefined, threshold_attempts: undefined, threshold_selection_reason: undefined,

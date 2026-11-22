@@ -10,6 +10,8 @@ export interface Detection {
   model_query?: string;
   canonical_query?: string;
   confidence: number;
+  /** Aynı sorgunun en iyi kutusunun yarısından düşük puan: silinmez, kesikli çizilir. */
+  uncertain?: boolean;
   box: { xmin: number; ymin: number; xmax: number; ymax: number };
 }
 
@@ -176,6 +178,7 @@ function isDetection(value: unknown): value is Detection {
     && typeof detection.confidence === "number" && Number.isFinite(detection.confidence)
     && (detection.model_query === undefined || typeof detection.model_query === "string")
     && (detection.canonical_query === undefined || typeof detection.canonical_query === "string")
+    && (detection.uncertain === undefined || typeof detection.uncertain === "boolean")
     && !!box && [box.xmin, box.ymin, box.xmax, box.ymax].every((n) => typeof n === "number" && Number.isFinite(n));
 }
 

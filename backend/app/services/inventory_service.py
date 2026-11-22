@@ -2,9 +2,24 @@
 
 from time import perf_counter
 
+from .. import config
 from ..models.base_detector import BaseDetector, DetectorError
 from ..utils.contrastive import contrastive_queries
 from ..utils.nms import class_aware_nms
+
+
+def mark_uncertain(detections: list[dict], ratio: float | None = None) -> list[dict]:
+    """Aynı sorgunun en iyi kutusunun `ratio` katından düşük puanlı kutulara uncertain=True.
+
+    Kutular silinmez; çizimde kesikli gösterilir (bkz. config.UNCERTAIN_RELATIVE_RATIO).
+    """
+    ratio = config.UNCERTAIN_RELATIVE_RATIO if ratio is None else ratio
+    best: dict[str, float] = {}
+    for detection in detections:
+        key = detection.get("canonical_query", detection["label"])
+        best[key] = max(best.get(key, 0.0), detection["confidence"])
+    return [{**d, "uncertain": d["confidence"] < ratio * best[d.get("canonical_query", d["label"])]}
+            for d in detections]
 
 
 def add_inventory(result: dict, primary_queries: list[str]) -> dict:
@@ -12,7 +27,7 @@ def add_inventory(result: dict, primary_queries: list[str]) -> dict:
     for detection in result["detections"]:
         canonical = detection["canonical_query"]
         counts[canonical] += 1
-    return {**result, "inventory_summary": counts,
+    return {**result, "detections": mark_uncertain(result["detections"]), "inventory_summary": counts,
             "total_detected_objects": len(result["detections"])}
 
 
