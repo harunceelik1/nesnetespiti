@@ -48,11 +48,20 @@ class OwlViTService(BaseDetector):
             text_labels=text_labels,
         )[0]
 
+        # OWLv2'nin objectness başlığı: "bu kutuda gerçekten bir nesne var mı" (0-1).
+        # Post-process ile aynı maske (en iyi sınıf puanı > eşik) aynı sırayı verir.
+        objectness = [None] * len(result["scores"])
+        if isinstance(getattr(outputs, "objectness_logits", None), torch.Tensor):
+            keep = torch.sigmoid(outputs.logits[0].max(dim=-1).values) > threshold
+            kept = torch.sigmoid(outputs.objectness_logits[0])[keep].tolist()
+            if len(kept) == len(objectness):
+                objectness = kept
+
         detections = []
         # Aynı kullanıcı niyetinin adayları ortak label alır; mevcut class-aware NMS
         # farklı İngilizce adaylardan gelen örtüşen kutuları da karşılaştırabilir.
-        for box, label, score in zip(
-            result["boxes"], result["text_labels"], result["scores"]
+        for box, label, score, object_score in zip(
+            result["boxes"], result["text_labels"], result["scores"], objectness
         ):
             xmin, ymin, xmax, ymax = box.tolist()
             detections.append(
@@ -60,6 +69,7 @@ class OwlViTService(BaseDetector):
                     "label": label,
                     "model_query": label,
                     "confidence": score.item(),
+                    **({"objectness": object_score} if object_score is not None else {}),
                     "box": {
                         "xmin": xmin,
                         "ymin": ymin,

@@ -1,0 +1,28 @@
+rpc-validation-00001-000278.jpg 'product': bölge 1 (puan [0.31], kapsadığı [7]), doğru 7
+rpc-validation-00002-000093.jpg 'product': bölge 1 (puan [0.34], kapsadığı [18]), doğru 11
+rpc-validation-00002-000348.jpg 'product': bölge 1 (puan [0.51], kapsadığı [11]), doğru 8
+rpc-validation-00003-000008.jpg 'product': bölge 1 (puan [0.37], kapsadığı [14]), doğru 10
+rpc-validation-00002-000475.jpg 'product': bölge 1 (puan [0.58], kapsadığı [15]), doğru 2
+rpc-validation-00002-000077.jpg 'product': bölge 1 (puan [0.4], kapsadığı [8]), doğru 8
+rpc-validation-00002-000186.jpg 'instant drink': bölge 1 (puan [0.32], kapsadığı [2]), doğru 2
+rpc-validation-00002-000135.jpg 'product': bölge 1 (puan [0.43], kapsadığı [10]), doğru 10
+
+model=grounding-dino  görsel=20
+
+[ürün] sorgu=20  GT=195  bulunan kutu=189
+  doğru         152  (80%)
+  bölge           7  (4%)
+  yanlış ürün     0  (0%)
+  diğer          30  (16%)
+  bölge kutusu çıkan sorgu: 7/20
+  bölge, içindeki doğru kutudan yüksek puanlı: 2/7
+  bölge yalnızca sorulan kategoriyi sarıyor (grup): 0/7
+
+[kategori] sorgu=89  GT=195  bulunan kutu=73
+  doğru          32  (44%)
+  bölge           1  (1%)
+  yanlış ürün    22  (30%)
+  diğer          18  (25%)
+  bölge kutusu çıkan sorgu: 1/89
+  bölge, içindeki doğru kutudan yüksek puanlı: 1/1
+  bölge yalnızca sorulan kategoriyi sarıyor (grup): 0/1

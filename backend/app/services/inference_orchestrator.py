@@ -6,6 +6,7 @@ from time import perf_counter
 from .. import config
 from ..config import ADAPTIVE_THRESHOLDS, AdaptiveThresholdSettings
 from ..models.base_detector import BaseDetector, DetectorResult
+from ..utils.box_filters import clean_boxes
 from ..utils.scene_box_filter import apply_scene_box_filter, attach_scene_box_diagnostics
 from .query_processor import ProcessedQuery
 
@@ -61,6 +62,16 @@ def evaluate_result(result: DetectorResult, threshold: float, policy: AdaptiveTh
     }
 
 
+def _clean_parts(result: DetectorResult) -> DetectorResult:
+    """Parça kutusu temizliği: NMS, büyük kutunun içinde kalan küçük kutuyu elemez
+    (IoU düşük). Sahne kutusu süzgecinden SONRA çalışır; yoksa görselin tamamını
+    saran tek bir kutu içindeki gerçek kutuları silerdi. Bkz. utils/box_filters.py."""
+    if config.PART_BOX_CONTAINMENT is None:
+        return result
+    detections = clean_boxes(result["detections"], max_containment=config.PART_BOX_CONTAINMENT)
+    return {**result, "detections": detections, "filtered_detection_count": len(detections)}
+
+
 def _run_thresholds(
     detector: BaseDetector,
     image,
@@ -83,7 +94,7 @@ def _run_thresholds(
         result = detector.detect_result(image, query, threshold, **options)
         # detect_result zaten mevcut class-aware NMS'i uygular. Kalite/eşik
         # seçimi yalnızca bu ek sanity kontrolünden geçen final kutulara bakar.
-        result = apply_scene_box_filter(result, image.size if image is not None else None)
+        result = _clean_parts(apply_scene_box_filter(result, image.size if image is not None else None))
         attempt = evaluate_result(result, threshold, policy)
         attempt["phase"] = "primary" if inference_queries is None else "fallback"
         attempt["queries"] = [query["primary_query"]] if inference_queries is None else list(inference_queries)

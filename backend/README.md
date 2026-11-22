@@ -115,6 +115,37 @@ curl.exe -s http://127.0.0.1:8000/models
 curl.exe -s -F "image=@images/test.jpg" -F "query=cüzdan" -F "model=yolo-world" http://127.0.0.1:8000/detect
 ~~~
 
+## Parça kutuları ve bölge kutuları (ölçüm + temizlik)
+
+`evaluation/region_boxes.py` (20 RPC kalibrasyon görseli, "ürün" + görseldeki her
+kategori) kutuları sınıflar. Büyük "bölge kutusu" (birkaç ürünü saran) sanılandan
+nadirdir: OWLv2'de kutuların %1'i, DINO'da %3'ü. Asıl sorun OWLv2'nin **parça kutuları**:
+"ürün" sorgusunda 295 kutunun %26'sı bir ürünün içinde kalan küçük kutu, %20'si iki
+ürün arası/boşluk. NMS bunları elemez; küçük kutunun büyük kutuyla IoU'su düşüktür.
+
+Temizlik (`utils/box_filters.py`, `config.PART_BOX_CONTAINMENT = 0.70`): bir kutunun
+alanının %70'i daha yüksek puanlı aynı etiketli bir kutunun içindeyse atılır. Sahne
+kutusu süzgecinden **sonra** çalışır; yoksa görselin tamamını saran tek bir kutu içindeki
+gerçek kutuları sildirirdi.
+
+| OWLv2, 20 görsel | Kutu | Precision | Recall | Var olan (18) | Olmayan boş (16) |
+|---|---|---|---|---|---|
+| "ürün", temizlik yok | 295 | 0.52 | 0.78 | 16 | 16 |
+| "ürün", temizlik 0.70 | 257 | 0.59 | 0.77 | 16 | 16 |
+| kategori sorguları, temizlik yok | 681 | 0.13 | 0.44 | | |
+| kategori sorguları, temizlik 0.70 | 491 | 0.17 | 0.43 | | |
+
+Örnek (5. envanter görseli, "atıştırmalık", OWLv2 Sıkı): 19 kutu → 7 kutu; 3 gerçek
+paketin 3'ü de kalır (`outputs/parca_kutusu/`). Kalan 4 yanlış kutu konserve ve bira
+kutusudur: OWLv2 paketli her yiyeceği "snack" sayar. Bu kutu temizliğiyle değil model
+seçimiyle ilgilidir: kategori sorgularında precision OWLv2'de 0.17, DINO'da 0.44.
+
+Denenip **kapatılanlar**: OWLv2 objectness eşiği (0.2'de var olan vakalar 16 → 9) ve
+bölge kutusu atma (kategori recall'unu düşürüyor, kazancı yok).
+
+Sonuç görsellerinde etiket fontu Türkçe karakterli DejaVu Sans'tır ve görsel boyutuyla
+ölçeklenir (önceki yerleşik font ı/ş/ğ harflerini kutucuk olarak çiziyordu).
+
 ## Hassasiyet (Sıkı / Dengeli / Geniş)
 
 Arayüzün sol panelinde üç seviye vardır; form alanı `sensitivity` (`strict`, `balanced`,

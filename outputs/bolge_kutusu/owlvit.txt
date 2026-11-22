@@ -1,0 +1,29 @@
+rpc-validation-00001-000278.jpg 'dried food': bölge 1 (puan [0.26], kapsadığı [5]), doğru 2
+rpc-validation-00000-000132.jpg 'canned food': bölge 1 (puan [0.15], kapsadığı [6]), doğru 3
+rpc-validation-00002-000475.jpg 'dried food': bölge 2 (puan [0.19, 0.13], kapsadığı [8, 3]), doğru 3
+rpc-validation-00002-000181.jpg 'instant drink': bölge 1 (puan [0.15], kapsadığı [2]), doğru 0
+rpc-validation-00002-000186.jpg 'product': bölge 1 (puan [0.21], kapsadığı [2]), doğru 14
+rpc-validation-00002-000186.jpg 'dried food': bölge 1 (puan [0.18], kapsadığı [3]), doğru 4
+rpc-validation-00002-000186.jpg 'instant drink': bölge 1 (puan [0.14], kapsadığı [2]), doğru 2
+rpc-validation-00000-000027.jpg 'personal hygiene': bölge 1 (puan [0.19], kapsadığı [2]), doğru 1
+rpc-validation-00002-000135.jpg 'dried food': bölge 1 (puan [0.19], kapsadığı [4]), doğru 1
+
+model=owlvit  görsel=20
+
+[ürün] sorgu=20  GT=195  bulunan kutu=295
+  doğru         153  (52%)
+  bölge           1  (0%)
+  yanlış ürün     0  (0%)
+  diğer         141  (48%)
+  bölge kutusu çıkan sorgu: 1/20
+  bölge, içindeki doğru kutudan yüksek puanlı: 0/1
+  bölge yalnızca sorulan kategoriyi sarıyor (grup): 0/1
+
+[kategori] sorgu=89  GT=195  bulunan kutu=681
+  doğru          86  (13%)
+  bölge           9  (1%)
+  yanlış ürün   166  (24%)
+  diğer         420  (62%)
+  bölge kutusu çıkan sorgu: 8/89
+  bölge, içindeki doğru kutudan yüksek puanlı: 3/9
+  bölge yalnızca sorulan kategoriyi sarıyor (grup): 0/9

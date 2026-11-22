@@ -130,6 +130,13 @@ class ContrastiveQuerySettings:
 
 CONTRASTIVE_QUERIES = ContrastiveQuerySettings()
 
+# Parça kutusu temizliği (NMS sonrası, tüm modeller): kutunun alanının bu kadarı
+# daha yüksek puanlı aynı etiketli bir kutunun içindeyse atılır. 20 RPC görseli +
+# 34 var/yok vakasıyla seçildi (README "Parça kutuları"): OWLv2 "ürün" precision
+# 0.52 → 0.59, recall 0.78 → 0.77, var olan vakalar 16/18 değişmedi. None: kapalı.
+# Objectness eşiği ve bölge kutusu atma da denendi; gerçek nesneleri sildiği için kapalı.
+PART_BOX_CONTAINMENT: float | None = 0.70
+
 # Primary sorgu hiçbir şey bulamazsa eş anlamlıları (bag → handbag, backpack) dene.
 # Kapalı: bu faz tam olarak nesne yokken çalıştığı için uydurmayı artırıyordu
 # (adamın eli "handbag", uzaktaki adam "backpack").

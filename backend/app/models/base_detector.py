@@ -83,7 +83,8 @@ class BaseDetector(ABC):
 
     def detect_result(self, image: Image.Image, query: ProcessedQuery, threshold: float, *, text_threshold: float | None = None, inference_queries: list[str] | None = None) -> DetectorResult:
         result = self._detect_raw_result(image, query, threshold, text_threshold=text_threshold, inference_queries=inference_queries)
-        # Mevcut class-aware IoU NMS (0.60) ve devre dışı custom filtreler korunur.
+        # Mevcut class-aware IoU NMS (0.60); parça kutusu temizliği orchestrator'da
+        # sahne kutusu süzgecinden sonra yapılır (bkz. inference_orchestrator._clean_parts).
         detections = class_aware_nms(result["detections"])
         return {**result, "detections": detections, "filtered_detection_count": len(detections)}
 
