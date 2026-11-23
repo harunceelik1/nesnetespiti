@@ -40,7 +40,25 @@ IMAGE_DIR = ROOT / ".cache" / "lvis" / "images"
 OUT_DIR = ROOT / "outputs" / "lvis_olcum"
 QUERY_NAMES = Path(__file__).with_name("query_names.json")
 MODELS = ("owlvit", "grounding-dino", "yolo-world")
-MODEL_LABELS = {"owlvit": "OWLv2", "grounding-dino": "Grounding DINO", "yolo-world": "YOLO-World"}
+MODEL_LABELS = {"owlvit": "OWLv2", "grounding-dino": "Grounding DINO", "yolo-world": "YOLO-World",
+                "owlv2-large": "OWLv2 large", "llmdet": "LLMDet (base)"}
+# Üretimde olmayan, "en iyi yöntem" seçimi için ölçülen adaylar: (eşik politikası, kayıt tabanı).
+# Eşikler küçük modellerde kalibre edildi; adayların puan ölçeği farklı olabileceği için
+# kayıt daha düşük bir tabandan alınır ve eşik sonradan kayıttan seçilir (candidate_report.py).
+CANDIDATES = {"owlv2-large": ("owlv2", 0.05), "llmdet": ("grounding-dino", 0.15)}
+
+
+def candidate_detector(model: str):
+    from backend.app.config import GroundingDinoSettings
+    from backend.app.models.grounding_dino_service import GroundingDinoService
+    from backend.app.models.owlv2_service import Owlv2Service
+    if model == "owlv2-large":
+        class Owlv2Large(Owlv2Service):
+            model_name = "google/owlv2-large-patch14-ensemble"
+        return Owlv2Large()
+    if model == "llmdet":
+        return GroundingDinoService(GroundingDinoSettings(model_name="iSEE-Laboratory/llmdet_base"))
+    raise ValueError(model)
 MAX_POSITIVES = 6
 MAX_NEGATIVES = 4
 IOU_MATCH = 0.5
@@ -94,10 +112,20 @@ def run_model(model: str, limit: int | None, tag: str = "temel") -> None:
 
     subset = json.loads(subset_path(tag).read_text(encoding="utf-8"))[:limit]
     names = query_names(json.loads(subset_path(tag).read_text(encoding="utf-8")))
-    detector = DetectorRegistry().get(model)
-    key = detector.policy_key or detector.model_id
-    floor = config.SENSITIVITY_THRESHOLDS[key]["loose"]
-    policy = dataclasses.replace(config.ADAPTIVE_THRESHOLDS[key], thresholds=(floor,), allow_lowering=False)
+    if model in CANDIDATES:
+        detector = candidate_detector(model)
+        key, floor = CANDIDATES[model]
+        policy = dataclasses.replace(config.ADAPTIVE_THRESHOLDS[key], thresholds=(floor,), allow_lowering=False)
+        if policy.text_threshold is not None:
+            policy = dataclasses.replace(policy, text_threshold=floor)
+        # Düşük tabanda kutu sayısı sınırları sonucu boşaltmasın; eşik kayıttan sonra uygulanır.
+        policy = dataclasses.replace(policy, max_raw_detections=100_000, max_filtered_detections=100_000,
+                                     max_duplicate_fraction=1.0)
+    else:
+        detector = DetectorRegistry().get(model)
+        key = detector.policy_key or detector.model_id
+        floor = config.SENSITIVITY_THRESHOLDS[key]["loose"]
+        policy = dataclasses.replace(config.ADAPTIVE_THRESHOLDS[key], thresholds=(floor,), allow_lowering=False)
     translation = TranslationService.__new__(TranslationService)  # english_query verildiği için çeviri yapılmaz
     records = []
     started = time.perf_counter()
@@ -221,7 +249,7 @@ def report() -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", choices=MODELS)
+    parser.add_argument("--model", choices=(*MODELS, *CANDIDATES))
     parser.add_argument("--limit", type=int, default=None, help="yalnızca ilk N görsel (deneme)")
     parser.add_argument("--report", action="store_true")
     parser.add_argument("--subset", default="temel", help="temel (subset_50.json) veya nadir (subset_nadir_50.json)")

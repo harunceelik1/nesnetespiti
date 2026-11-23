@@ -1,0 +1,1016 @@
+{
+ "model": "grounding-dino",
+ "floor": 0.27,
+ "records": [
+  {
+   "image": "2.jpeg",
+   "seconds": 164.4,
+   "detections": [
+    {
+     "category": "water bottle",
+     "confidence": 0.8548,
+     "box": [
+      417.9,
+      438.9,
+      605.3,
+      967.9
+     ]
+    },
+    {
+     "category": "notebook",
+     "confidence": 0.7796,
+     "box": [
+      629.8,
+      710.7,
+      1524.3,
+      1285.8
+     ]
+    },
+    {
+     "category": "headphones",
+     "confidence": 0.7497,
+     "box": [
+      599.1,
+      1142.3,
+      1087.5,
+      1597.7
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.6985,
+     "box": [
+      417.8,
+      439.0,
+      605.0,
+      967.5
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.6855,
+     "box": [
+      170.1,
+      1137.4,
+      362.0,
+      1389.6
+     ]
+    },
+    {
+     "category": "electric shaver",
+     "confidence": 0.5798,
+     "box": [
+      598.3,
+      1141.0,
+      1088.4,
+      1598.2
+     ]
+    },
+    {
+     "category": "deodorant",
+     "confidence": 0.5426,
+     "box": [
+      108.6,
+      849.9,
+      350.7,
+      1086.2
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.4826,
+     "box": [
+      169.9,
+      1136.9,
+      362.6,
+      1390.3
+     ]
+    },
+    {
+     "category": "perfume",
+     "confidence": 0.4737,
+     "box": [
+      108.8,
+      850.3,
+      350.4,
+      1086.2
+     ]
+    },
+    {
+     "category": "tic-tac-toe game",
+     "confidence": 0.4704,
+     "box": [
+      170.3,
+      1137.6,
+      362.0,
+      1389.6
+     ]
+    },
+    {
+     "category": "wet wipes",
+     "confidence": 0.4661,
+     "box": [
+      628.4,
+      709.7,
+      1521.9,
+      1317.6
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.4651,
+     "box": [
+      462.1,
+      1090.1,
+      535.4,
+      1210.0
+     ]
+    },
+    {
+     "category": "perfume",
+     "confidence": 0.4396,
+     "box": [
+      417.6,
+      438.7,
+      605.1,
+      967.8
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.433,
+     "box": [
+      108.7,
+      850.2,
+      350.5,
+      1086.1
+     ]
+    },
+    {
+     "category": "hair spray",
+     "confidence": 0.4163,
+     "box": [
+      461.7,
+      1089.6,
+      535.9,
+      1210.1
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.3853,
+     "box": [
+      109.2,
+      850.6,
+      350.0,
+      1085.8
+     ]
+    },
+    {
+     "category": "tic-tac-toe game",
+     "confidence": 0.3791,
+     "box": [
+      108.7,
+      850.2,
+      350.5,
+      1086.1
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.3676,
+     "box": [
+      461.9,
+      1089.7,
+      535.7,
+      1210.0
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.352,
+     "box": [
+      461.8,
+      1089.6,
+      535.7,
+      1209.8
+     ]
+    }
+   ]
+  },
+  {
+   "image": "5.jpeg",
+   "seconds": 168.4,
+   "detections": [
+    {
+     "category": "headphones",
+     "confidence": 0.9005,
+     "box": [
+      522.7,
+      1025.3,
+      890.8,
+      1460.0
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.8403,
+     "box": [
+      601.2,
+      238.0,
+      799.9,
+      646.5
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.8317,
+     "box": [
+      600.9,
+      237.9,
+      800.1,
+      646.6
+     ]
+    },
+    {
+     "category": "notebook",
+     "confidence": 0.7878,
+     "box": [
+      855.7,
+      435.3,
+      1496.8,
+      1252.8
+     ]
+    },
+    {
+     "category": "electric shaver",
+     "confidence": 0.7192,
+     "box": [
+      522.1,
+      1024.0,
+      892.4,
+      1460.8
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.6697,
+     "box": [
+      557.9,
+      817.0,
+      602.4,
+      940.7
+     ]
+    },
+    {
+     "category": "tic-tac-toe game",
+     "confidence": 0.5863,
+     "box": [
+      250.9,
+      839.9,
+      515.1,
+      1014.5
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.5639,
+     "box": [
+      556.8,
+      815.9,
+      603.1,
+      941.6
+     ]
+    },
+    {
+     "category": "perfume",
+     "confidence": 0.4924,
+     "box": [
+      600.8,
+      238.4,
+      800.1,
+      646.1
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.4477,
+     "box": [
+      311.4,
+      996.7,
+      545.1,
+      1180.5
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.4165,
+     "box": [
+      557.9,
+      817.0,
+      602.6,
+      940.7
+     ]
+    },
+    {
+     "category": "deodorant",
+     "confidence": 0.3756,
+     "box": [
+      299.3,
+      478.0,
+      523.4,
+      711.5
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.363,
+     "box": [
+      644.3,
+      712.7,
+      823.2,
+      943.4
+     ]
+    },
+    {
+     "category": "wet wipes",
+     "confidence": 0.3342,
+     "box": [
+      643.8,
+      711.0,
+      823.2,
+      943.8
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.3314,
+     "box": [
+      299.5,
+      478.4,
+      523.3,
+      711.6
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.3221,
+     "box": [
+      251.2,
+      840.3,
+      515.0,
+      1014.7
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.3162,
+     "box": [
+      602.0,
+      239.0,
+      799.4,
+      646.4
+     ]
+    },
+    {
+     "category": "hair spray",
+     "confidence": 0.2922,
+     "box": [
+      601.3,
+      238.5,
+      799.9,
+      645.5
+     ]
+    },
+    {
+     "category": "wet wipes",
+     "confidence": 0.2712,
+     "box": [
+      847.0,
+      433.7,
+      1497.1,
+      1254.8
+     ]
+    }
+   ]
+  },
+  {
+   "image": "9.jpeg",
+   "seconds": 166.4,
+   "detections": [
+    {
+     "category": "water bottle",
+     "confidence": 0.856,
+     "box": [
+      400.1,
+      474.3,
+      569.6,
+      906.3
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.7564,
+     "box": [
+      400.3,
+      474.3,
+      569.7,
+      905.7
+     ]
+    },
+    {
+     "category": "notebook",
+     "confidence": 0.7463,
+     "box": [
+      603.5,
+      633.2,
+      1354.0,
+      1242.1
+     ]
+    },
+    {
+     "category": "headphones",
+     "confidence": 0.7399,
+     "box": [
+      577.8,
+      1097.8,
+      954.3,
+      1482.4
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.7391,
+     "box": [
+      284.9,
+      1020.1,
+      583.5,
+      1353.9
+     ]
+    },
+    {
+     "category": "electric shaver",
+     "confidence": 0.7197,
+     "box": [
+      285.0,
+      1020.1,
+      584.0,
+      1354.5
+     ]
+    },
+    {
+     "category": "laptop",
+     "confidence": 0.6089,
+     "box": [
+      603.4,
+      634.3,
+      1353.9,
+      1244.6
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.5984,
+     "box": [
+      296.7,
+      1275.5,
+      571.4,
+      1699.9
+     ]
+    },
+    {
+     "category": "scissors",
+     "confidence": 0.5771,
+     "box": [
+      285.7,
+      1020.6,
+      583.1,
+      1353.6
+     ]
+    },
+    {
+     "category": "tic-tac-toe game",
+     "confidence": 0.574,
+     "box": [
+      953.9,
+      1102.4,
+      1502.1,
+      1573.9
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.5401,
+     "box": [
+      285.3,
+      1020.8,
+      582.9,
+      1353.6
+     ]
+    },
+    {
+     "category": "wet wipes",
+     "confidence": 0.509,
+     "box": [
+      285.1,
+      1019.1,
+      583.6,
+      1354.1
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.5068,
+     "box": [
+      297.3,
+      1275.7,
+      571.0,
+      1699.8
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.4879,
+     "box": [
+      284.7,
+      1019.5,
+      583.7,
+      1354.2
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.4723,
+     "box": [
+      284.9,
+      1020.0,
+      583.5,
+      1354.1
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.4402,
+     "box": [
+      298.4,
+      1276.4,
+      570.4,
+      1699.2
+     ]
+    },
+    {
+     "category": "hair spray",
+     "confidence": 0.4012,
+     "box": [
+      285.1,
+      1019.5,
+      583.6,
+      1354.1
+     ]
+    },
+    {
+     "category": "deodorant",
+     "confidence": 0.394,
+     "box": [
+      148.6,
+      820.4,
+      355.5,
+      1024.6
+     ]
+    },
+    {
+     "category": "perfume",
+     "confidence": 0.3902,
+     "box": [
+      400.1,
+      474.7,
+      569.6,
+      905.9
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.3862,
+     "box": [
+      503.9,
+      775.5,
+      681.5,
+      1088.9
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.3351,
+     "box": [
+      148.9,
+      820.7,
+      355.2,
+      1024.9
+     ]
+    }
+   ]
+  },
+  {
+   "image": "11.jpeg",
+   "seconds": 165.4,
+   "detections": [
+    {
+     "category": "water bottle",
+     "confidence": 0.8446,
+     "box": [
+      598.9,
+      92.3,
+      788.8,
+      519.0
+     ]
+    },
+    {
+     "category": "headphones",
+     "confidence": 0.813,
+     "box": [
+      522.5,
+      887.4,
+      881.8,
+      1295.6
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.8039,
+     "box": [
+      598.8,
+      92.2,
+      789.0,
+      519.1
+     ]
+    },
+    {
+     "category": "notebook",
+     "confidence": 0.6851,
+     "box": [
+      832.8,
+      331.1,
+      1469.2,
+      1105.8
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.6554,
+     "box": [
+      291.5,
+      934.6,
+      437.1,
+      1352.9
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.5861,
+     "box": [
+      292.8,
+      935.1,
+      435.9,
+      1352.8
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.5666,
+     "box": [
+      422.4,
+      624.3,
+      531.6,
+      1063.8
+     ]
+    },
+    {
+     "category": "perfume",
+     "confidence": 0.5242,
+     "box": [
+      598.5,
+      92.1,
+      788.9,
+      518.9
+     ]
+    },
+    {
+     "category": "electric shaver",
+     "confidence": 0.4964,
+     "box": [
+      422.4,
+      624.0,
+      531.8,
+      1063.9
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.4477,
+     "box": [
+      594.3,
+      523.6,
+      819.9,
+      810.4
+     ]
+    },
+    {
+     "category": "tic-tac-toe game",
+     "confidence": 0.4211,
+     "box": [
+      848.4,
+      1091.6,
+      1418.7,
+      1495.7
+     ]
+    },
+    {
+     "category": "hair spray",
+     "confidence": 0.3755,
+     "box": [
+      564.4,
+      689.9,
+      629.2,
+      813.7
+     ]
+    },
+    {
+     "category": "wet wipes",
+     "confidence": 0.3605,
+     "box": [
+      593.7,
+      523.7,
+      819.8,
+      810.0
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.3542,
+     "box": [
+      293.9,
+      936.4,
+      435.5,
+      1352.0
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.3501,
+     "box": [
+      280.3,
+      771.1,
+      416.1,
+      909.1
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.3463,
+     "box": [
+      423.4,
+      625.0,
+      531.1,
+      1063.5
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.3162,
+     "box": [
+      565.1,
+      690.7,
+      628.5,
+      813.1
+     ]
+    }
+   ]
+  },
+  {
+   "image": "13.jpeg",
+   "seconds": 166.5,
+   "detections": [
+    {
+     "category": "scissors",
+     "confidence": 0.9149,
+     "box": [
+      845.2,
+      1294.5,
+      1127.0,
+      1583.9
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.7976,
+     "box": [
+      505.2,
+      368.4,
+      665.8,
+      754.8
+     ]
+    },
+    {
+     "category": "notebook",
+     "confidence": 0.7088,
+     "box": [
+      677.6,
+      391.1,
+      1429.9,
+      1091.6
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.6997,
+     "box": [
+      844.5,
+      1294.0,
+      1127.2,
+      1584.3
+     ]
+    },
+    {
+     "category": "headphones",
+     "confidence": 0.6964,
+     "box": [
+      747.1,
+      972.8,
+      1088.0,
+      1359.9
+     ]
+    },
+    {
+     "category": "deodorant",
+     "confidence": 0.673,
+     "box": [
+      360.6,
+      565.8,
+      622.9,
+      922.8
+     ]
+    },
+    {
+     "category": "tic-tac-toe game",
+     "confidence": 0.6402,
+     "box": [
+      360.6,
+      565.9,
+      622.8,
+      923.5
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.6286,
+     "box": [
+      496.3,
+      1177.0,
+      785.1,
+      1553.5
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.624,
+     "box": [
+      505.4,
+      368.6,
+      666.0,
+      754.5
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.6088,
+     "box": [
+      844.1,
+      1293.3,
+      1127.8,
+      1584.8
+     ]
+    },
+    {
+     "category": "perfume",
+     "confidence": 0.5703,
+     "box": [
+      361.1,
+      566.0,
+      622.5,
+      923.0
+     ]
+    },
+    {
+     "category": "electric shaver",
+     "confidence": 0.566,
+     "box": [
+      472.5,
+      893.6,
+      698.0,
+      1259.7
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.548,
+     "box": [
+      472.4,
+      893.8,
+      697.5,
+      1259.5
+     ]
+    },
+    {
+     "category": "hair spray",
+     "confidence": 0.5474,
+     "box": [
+      360.9,
+      565.7,
+      622.7,
+      923.1
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.5208,
+     "box": [
+      361.4,
+      566.2,
+      622.7,
+      923.0
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.4277,
+     "box": [
+      634.1,
+      756.0,
+      794.5,
+      950.3
+     ]
+    },
+    {
+     "category": "electric shaver",
+     "confidence": 0.345,
+     "box": [
+      843.8,
+      1292.9,
+      1128.2,
+      1584.9
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.3405,
+     "box": [
+      498.5,
+      1177.8,
+      784.0,
+      1552.7
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.3254,
+     "box": [
+      497.3,
+      1177.0,
+      784.6,
+      1553.2
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.2964,
+     "box": [
+      0.3,
+      1734.6,
+      141.2,
+      1922.5
+     ]
+    },
+    {
+     "category": "hair spray",
+     "confidence": 0.2857,
+     "box": [
+      598.0,
+      912.3,
+      695.5,
+      1002.5
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.2835,
+     "box": [
+      599.1,
+      912.9,
+      694.4,
+      1002.1
+     ]
+    }
+   ]
+  }
+ ]
+}

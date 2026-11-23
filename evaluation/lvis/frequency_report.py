@@ -25,8 +25,9 @@ POLICY_KEYS = {"owlvit": "owlv2", "grounding-dino": "grounding-dino", "yolo-worl
 BUCKETS = (("f", "Sık (f)"), ("c", "Ara (c)"), ("r", "Nadir (r)"))
 
 
-def collect(model: str) -> dict | None:
-    threshold = config.ADAPTIVE_THRESHOLDS[POLICY_KEYS[model]].thresholds[0]
+def collect(model: str, threshold: float | None = None) -> dict | None:
+    if threshold is None:
+        threshold = config.ADAPTIVE_THRESHOLDS[POLICY_KEYS[model]].thresholds[0]
     totals = defaultdict(lambda: defaultdict(int))
     found_any = False
     for tag in ("temel", "nadir"):

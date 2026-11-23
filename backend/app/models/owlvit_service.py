@@ -27,18 +27,18 @@ class OwlViTService(BaseDetector):
     def _target_sizes(self, image: Image.Image) -> torch.Tensor:
         return torch.tensor([[image.height, image.width]])
 
+    def _forward(self, image: Image.Image, text_labels: list[list[str]]):
+        inputs = self.processor(text=text_labels, images=image, return_tensors="pt")
+        if self.device != "cpu":
+            inputs = inputs.to(self.device)
+        # Eğitim yapılmadığından gradyan hesaplamaya gerek yoktur.
+        with torch.inference_mode():
+            return self.model(**inputs)
+
     def _infer_raw(self, image: Image.Image, queries: list[str], threshold: float) -> list[dict]:
         # Primary tek başına; gerektiğinde fallback adayları ayrı inference'a verilir.
         text_labels = [queries]
-        inputs = self.processor(
-            text=text_labels, images=image, return_tensors="pt"
-        )
-        if self.device != "cpu":
-            inputs = inputs.to(self.device)
-
-        # Eğitim yapılmadığından gradyan hesaplamaya gerek yoktur.
-        with torch.inference_mode():
-            outputs = self.model(**inputs)
+        outputs = self._forward(image, text_labels)
 
         # Kutuları orijinal görüntünün piksel boyutlarına dönüştür.
         result = self.processor.post_process_grounded_object_detection(

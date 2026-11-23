@@ -1,0 +1,12 @@
+{
+ "_aciklama": "Kullanıcının masa fotoğrafları (C:/Users/Harun/Desktop/gorseller). Kutular [xmin, ymin, xmax, ymax], 1536x2048 piksel; elle işaretlendi. Listede olup görselde olmayan nesne 'yok' sorusudur.",
+ "nesneler": ["water bottle", "cream jar", "battery", "bottle opener", "headphones", "notebook", "perfume", "deodorant", "hair spray", "electric shaver", "tic-tac-toe game", "tv remote", "scissors", "wet wipes"],
+ "ek_yok": ["cat", "laptop", "mobile phone", "cup", "keys"],
+ "gorseller": {
+  "2.jpeg": {"water bottle": [[420,443,598,965]], "cream jar": [[108,838,342,1083]], "battery": [[462,1093,537,1215]], "bottle opener": [[172,1138,362,1390]], "headphones": [[600,1145,1085,1595]], "notebook": [[630,715,1505,1320]]},
+  "5.jpeg": {"water bottle": [[605,243,800,640]], "cream jar": [[300,480,522,713]], "battery": [[555,818,615,940]], "bottle opener": [[250,813,517,1013]], "perfume": [[640,708,822,948]], "deodorant": [[312,1005,545,1180]], "headphones": [[527,1005,890,1462]], "notebook": [[838,430,1495,1250]]},
+  "9.jpeg": {"water bottle": [[405,478,563,905]], "cream jar": [[150,818,355,1023]], "perfume": [[505,778,682,1087]], "electric shaver": [[285,1020,582,1352]], "battery": [[412,1060,498,1160]], "headphones": [[580,1100,950,1472]], "notebook": [[607,638,1355,1243]], "tv remote": [[300,1275,568,1670]], "wet wipes": [[955,1105,1500,1575]]},
+  "11.jpeg": {"water bottle": [[600,95,790,515]], "cream jar": [[290,345,507,578]], "perfume": [[597,527,815,810]], "battery": [[562,693,630,807]], "electric shaver": [[425,625,528,1062]], "tic-tac-toe game": [[280,772,418,908]], "tv remote": [[292,937,437,1352]], "headphones": [[525,890,870,1300]], "notebook": [[822,335,1468,1103]], "wet wipes": [[848,1095,1415,1492]]},
+  "13.jpeg": {"water bottle": [[505,372,662,752]], "cream jar": [[268,708,465,905]], "hair spray": [[362,568,620,920]], "perfume": [[637,688,790,955]], "battery": [[596,913,695,1003]], "electric shaver": [[473,895,697,1258]], "tic-tac-toe game": [[403,1062,560,1213]], "tv remote": [[498,1178,782,1552]], "headphones": [[750,975,1085,1360]], "notebook": [[680,395,1435,1088]], "scissors": [[846,1295,1125,1595]], "wet wipes": [[1078,930,1505,1390]]}
+ }
+}

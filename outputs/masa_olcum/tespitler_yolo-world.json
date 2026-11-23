@@ -1,0 +1,936 @@
+{
+ "model": "yolo-world",
+ "floor": 0.05,
+ "records": [
+  {
+   "image": "2.jpeg",
+   "seconds": 19.8,
+   "detections": [
+    {
+     "category": "tv remote",
+     "confidence": 0.7722,
+     "box": [
+      172.2,
+      1137.4,
+      362.0,
+      1390.0
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.6535,
+     "box": [
+      416.9,
+      442.4,
+      605.5,
+      968.5
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.4698,
+     "box": [
+      462.1,
+      1090.8,
+      535.5,
+      1210.7
+     ]
+    },
+    {
+     "category": "headphones",
+     "confidence": 0.292,
+     "box": [
+      602.0,
+      1143.7,
+      1087.3,
+      1588.6
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.2472,
+     "box": [
+      109.4,
+      850.9,
+      348.4,
+      1083.6
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.2392,
+     "box": [
+      600.9,
+      1143.5,
+      1087.9,
+      1588.4
+     ]
+    },
+    {
+     "category": "notebook",
+     "confidence": 0.2247,
+     "box": [
+      620.0,
+      715.1,
+      1525.4,
+      1256.3
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.2143,
+     "box": [
+      462.2,
+      1090.8,
+      535.5,
+      1210.7
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.1683,
+     "box": [
+      462.0,
+      1090.7,
+      535.5,
+      1210.8
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.1551,
+     "box": [
+      111.0,
+      852.0,
+      348.8,
+      1083.2
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.1372,
+     "box": [
+      107.9,
+      851.7,
+      348.8,
+      1082.3
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.1278,
+     "box": [
+      171.9,
+      1137.9,
+      361.8,
+      1390.5
+     ]
+    }
+   ]
+  },
+  {
+   "image": "5.jpeg",
+   "seconds": 20.0,
+   "detections": [
+    {
+     "category": "headphones",
+     "confidence": 0.816,
+     "box": [
+      524.7,
+      1022.0,
+      885.7,
+      1452.2
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.6161,
+     "box": [
+      602.9,
+      240.8,
+      799.9,
+      647.8
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.4473,
+     "box": [
+      558.2,
+      815.2,
+      604.6,
+      941.9
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.3974,
+     "box": [
+      253.4,
+      840.9,
+      514.2,
+      1013.5
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.3267,
+     "box": [
+      557.3,
+      816.1,
+      604.4,
+      941.6
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.2564,
+     "box": [
+      644.9,
+      711.1,
+      820.5,
+      939.8
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.1591,
+     "box": [
+      300.8,
+      478.9,
+      520.1,
+      711.6
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.1518,
+     "box": [
+      311.1,
+      995.5,
+      543.9,
+      1177.4
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.1465,
+     "box": [
+      253.4,
+      841.0,
+      514.2,
+      1013.5
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.1274,
+     "box": [
+      645.3,
+      710.6,
+      821.2,
+      939.5
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.1001,
+     "box": [
+      300.4,
+      480.9,
+      520.4,
+      711.2
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.0995,
+     "box": [
+      300.8,
+      478.9,
+      520.1,
+      711.6
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.0874,
+     "box": [
+      557.3,
+      816.1,
+      604.4,
+      941.6
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.0864,
+     "box": [
+      252.4,
+      840.9,
+      514.7,
+      1013.5
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.0799,
+     "box": [
+      603.4,
+      240.6,
+      800.7,
+      647.8
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.0755,
+     "box": [
+      645.5,
+      710.1,
+      821.9,
+      936.9
+     ]
+    },
+    {
+     "category": "notebook",
+     "confidence": 0.0692,
+     "box": [
+      851.8,
+      437.2,
+      1491.9,
+      1254.7
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.0601,
+     "box": [
+      558.0,
+      816.1,
+      606.0,
+      941.9
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.0587,
+     "box": [
+      311.5,
+      995.9,
+      544.4,
+      1176.5
+     ]
+    }
+   ]
+  },
+  {
+   "image": "9.jpeg",
+   "seconds": 20.0,
+   "detections": [
+    {
+     "category": "tv remote",
+     "confidence": 0.8234,
+     "box": [
+      299.5,
+      1277.9,
+      567.6,
+      1698.3
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.6707,
+     "box": [
+      402.5,
+      474.1,
+      564.2,
+      904.6
+     ]
+    },
+    {
+     "category": "scissors",
+     "confidence": 0.3814,
+     "box": [
+      292.5,
+      1023.8,
+      582.8,
+      1352.7
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.323,
+     "box": [
+      289.9,
+      1022.8,
+      582.9,
+      1352.8
+     ]
+    },
+    {
+     "category": "headphones",
+     "confidence": 0.2704,
+     "box": [
+      580.0,
+      1099.0,
+      954.6,
+      1481.0
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.266,
+     "box": [
+      300.1,
+      1276.3,
+      568.8,
+      1698.8
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.1742,
+     "box": [
+      317.3,
+      1026.8,
+      582.6,
+      1352.3
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.1706,
+     "box": [
+      578.7,
+      1098.2,
+      955.0,
+      1480.0
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.1601,
+     "box": [
+      503.2,
+      779.4,
+      680.0,
+      1084.7
+     ]
+    },
+    {
+     "category": "notebook",
+     "confidence": 0.1527,
+     "box": [
+      605.6,
+      635.4,
+      1364.1,
+      1227.8
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.1506,
+     "box": [
+      149.6,
+      822.1,
+      354.0,
+      1021.6
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.1402,
+     "box": [
+      150.8,
+      821.2,
+      353.5,
+      1022.0
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.128,
+     "box": [
+      286.5,
+      1022.9,
+      582.1,
+      1353.0
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.1169,
+     "box": [
+      504.6,
+      781.2,
+      681.7,
+      1085.8
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.0706,
+     "box": [
+      149.8,
+      821.6,
+      353.2,
+      1022.1
+     ]
+    }
+   ]
+  },
+  {
+   "image": "11.jpeg",
+   "seconds": 20.1,
+   "detections": [
+    {
+     "category": "tv remote",
+     "confidence": 0.9295,
+     "box": [
+      296.4,
+      935.8,
+      435.9,
+      1352.0
+     ]
+    },
+    {
+     "category": "headphones",
+     "confidence": 0.7345,
+     "box": [
+      522.4,
+      888.4,
+      875.5,
+      1293.9
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.6113,
+     "box": [
+      599.6,
+      92.9,
+      788.5,
+      521.6
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.4672,
+     "box": [
+      423.9,
+      629.3,
+      528.5,
+      1063.1
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.3636,
+     "box": [
+      564.5,
+      688.7,
+      625.9,
+      812.7
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.2506,
+     "box": [
+      564.5,
+      688.8,
+      626.0,
+      812.7
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.204,
+     "box": [
+      280.0,
+      771.6,
+      414.5,
+      908.5
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.1888,
+     "box": [
+      291.0,
+      347.0,
+      506.2,
+      584.1
+     ]
+    },
+    {
+     "category": "notebook",
+     "confidence": 0.1694,
+     "box": [
+      839.4,
+      332.3,
+      1468.0,
+      1105.3
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.1429,
+     "box": [
+      564.2,
+      688.3,
+      628.5,
+      811.3
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.1215,
+     "box": [
+      294.5,
+      935.5,
+      436.5,
+      1353.2
+     ]
+    },
+    {
+     "category": "scissors",
+     "confidence": 0.1191,
+     "box": [
+      423.3,
+      627.0,
+      530.1,
+      1057.5
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.1027,
+     "box": [
+      290.0,
+      346.0,
+      505.2,
+      583.4
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.0992,
+     "box": [
+      595.0,
+      528.3,
+      817.1,
+      809.2
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.0945,
+     "box": [
+      289.4,
+      345.7,
+      506.1,
+      583.9
+     ]
+    },
+    {
+     "category": "tic-tac-toe game",
+     "confidence": 0.0923,
+     "box": [
+      281.0,
+      772.1,
+      414.1,
+      908.5
+     ]
+    },
+    {
+     "category": "cream jar",
+     "confidence": 0.0814,
+     "box": [
+      600.5,
+      93.2,
+      788.8,
+      520.4
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.081,
+     "box": [
+      595.5,
+      526.8,
+      817.6,
+      807.3
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.0583,
+     "box": [
+      281.4,
+      774.3,
+      415.4,
+      909.2
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.0578,
+     "box": [
+      424.2,
+      629.3,
+      528.5,
+      1063.1
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.0527,
+     "box": [
+      423.4,
+      626.8,
+      530.4,
+      1055.8
+     ]
+    }
+   ]
+  },
+  {
+   "image": "13.jpeg",
+   "seconds": 21.0,
+   "detections": [
+    {
+     "category": "headphones",
+     "confidence": 0.6428,
+     "box": [
+      748.2,
+      971.4,
+      1085.6,
+      1355.9
+     ]
+    },
+    {
+     "category": "scissors",
+     "confidence": 0.6239,
+     "box": [
+      844.0,
+      1295.6,
+      1129.0,
+      1582.5
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.6228,
+     "box": [
+      507.6,
+      369.9,
+      665.9,
+      754.6
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.5237,
+     "box": [
+      398.6,
+      1054.2,
+      786.4,
+      1553.3
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.3149,
+     "box": [
+      473.2,
+      894.5,
+      697.0,
+      1265.6
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.2861,
+     "box": [
+      362.7,
+      572.0,
+      617.0,
+      926.1
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.2595,
+     "box": [
+      633.9,
+      693.1,
+      792.0,
+      948.7
+     ]
+    },
+    {
+     "category": "scissors",
+     "confidence": 0.2577,
+     "box": [
+      474.9,
+      891.1,
+      695.7,
+      1260.2
+     ]
+    },
+    {
+     "category": "notebook",
+     "confidence": 0.2153,
+     "box": [
+      677.6,
+      394.9,
+      1428.2,
+      1098.5
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.1803,
+     "box": [
+      634.8,
+      692.5,
+      793.0,
+      948.3
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.1242,
+     "box": [
+      748.1,
+      971.6,
+      1085.8,
+      1352.8
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.1179,
+     "box": [
+      475.2,
+      890.4,
+      695.3,
+      1263.0
+     ]
+    },
+    {
+     "category": "bottle opener",
+     "confidence": 0.0931,
+     "box": [
+      842.7,
+      1295.9,
+      1129.5,
+      1582.1
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.092,
+     "box": [
+      268.3,
+      707.3,
+      465.6,
+      913.7
+     ]
+    },
+    {
+     "category": "cup",
+     "confidence": 0.0899,
+     "box": [
+      749.1,
+      972.4,
+      1086.0,
+      1340.4
+     ]
+    },
+    {
+     "category": "scissors",
+     "confidence": 0.0871,
+     "box": [
+      401.5,
+      1055.9,
+      782.0,
+      1548.5
+     ]
+    },
+    {
+     "category": "water bottle",
+     "confidence": 0.0828,
+     "box": [
+      266.6,
+      709.8,
+      466.3,
+      914.8
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.0827,
+     "box": [
+      0.1,
+      1735.2,
+      141.2,
+      1932.4
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.0769,
+     "box": [
+      400.5,
+      1058.4,
+      561.5,
+      1213.5
+     ]
+    },
+    {
+     "category": "tv remote",
+     "confidence": 0.0759,
+     "box": [
+      634.5,
+      691.0,
+      791.9,
+      947.2
+     ]
+    },
+    {
+     "category": "keys",
+     "confidence": 0.0703,
+     "box": [
+      844.0,
+      1297.6,
+      1129.0,
+      1582.6
+     ]
+    },
+    {
+     "category": "battery",
+     "confidence": 0.0587,
+     "box": [
+      475.1,
+      891.5,
+      695.2,
+      1262.8
+     ]
+    },
+    {
+     "category": "mobile phone",
+     "confidence": 0.0537,
+     "box": [
+      475.3,
+      891.3,
+      695.7,
+      1260.1
+     ]
+    }
+   ]
+  }
+ ]
+}
