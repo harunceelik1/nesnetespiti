@@ -21,7 +21,7 @@ import time
 import warnings
 from pathlib import Path
 
-from evaluation.lvis.evaluate_subset import CANDIDATES, MODEL_LABELS, MODELS, OUT_DIR as LVIS_OUT, candidate_detector, iou
+from evaluation.lvis.evaluate_subset import CANDIDATES, MODEL_LABELS, MODELS, OUT_DIR as LVIS_OUT, baseline_detector, candidate_detector, iou
 
 HERE = Path(__file__).resolve().parent
 LABELS = json.loads((HERE / "etiketler.json").read_text(encoding="utf-8"))
@@ -38,7 +38,6 @@ def run(model: str) -> None:
     import dataclasses
     from PIL import Image
     from backend.app import config
-    from backend.app.models.detector_registry import DetectorRegistry
     from backend.app.services.inference_orchestrator import run_detection
     from backend.app.services.query_processor import process_query
     from backend.app.services.translation_service import TranslationService
@@ -47,7 +46,7 @@ def run(model: str) -> None:
         detector = candidate_detector(model)
         key, floor = CANDIDATES[model]
     else:
-        detector = DetectorRegistry().get(model)
+        detector = baseline_detector(model)
         key = detector.policy_key or detector.model_id
         floor = config.SENSITIVITY_THRESHOLDS[key]["loose"]
     policy = dataclasses.replace(config.ADAPTIVE_THRESHOLDS[key], thresholds=(floor,), allow_lowering=False,

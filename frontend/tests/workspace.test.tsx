@@ -66,14 +66,6 @@ async function query(value: string) {
   });
 }
 
-async function selectModel(model: "owlvit" | "grounding-dino" | "yolo-world" | "compare") {
-  const select = element<HTMLSelectElement>("#detector-model");
-  await act(async () => {
-    select.value = model;
-    select.dispatchEvent(new dom.window.Event("change", { bubbles: true }));
-  });
-}
-
 async function submit() {
   await act(async () => {
     element<HTMLFormElement>("form").dispatchEvent(new dom.window.Event("submit", { bubbles: true, cancelable: true }));
@@ -135,42 +127,47 @@ test("rule_c eksen oranları Teknik Detaylar içinde görünür", async () => {
   assert.match(element(".technical-content").textContent!, /width_coverage=0\.9960.*height_coverage=0\.8636.*kaldırıldı.*rule_c/);
 });
 
-test("çoklu envanter Compare model panellerinde ayrı gösterilir ve yeni query ile temizlenir", async () => {
+test("çoklu envanter tek istekte gider, envanter özeti gösterilir ve yeni query ile temizlenir", async () => {
   const calls: string[] = [];
   globalThis.fetch = async (_url, options) => {
     const form = options!.body as FormData;
-    const model = String(form.get("model"));
-    calls.push(model);
+    calls.push(String(form.get("model")));
     assert.equal(form.get("query"), "çantalar, şişeler");
     assert.equal(form.has("threshold"), false);
-    const count = model === "owlvit" ? 2 : 1;
     return Response.json({
-      ...responseBody, model_id: model, model,
+      ...responseBody,
       query: "çantalar, şişeler", original_query: "çantalar, şişeler", primary_query: "bag, bottle",
-      filtered_detection_count: count, total_detected_objects: count,
-      inventory_summary: { bag: count, bottle: 0 },
+      filtered_detection_count: 2, total_detected_objects: 2,
+      inventory_summary: { bag: 2, bottle: 0 },
       processed_query_items: ["bag", "bottle"].map((primary, index) => ({
         original_query: index === 0 ? "çantalar" : "şişeler", primary_query: primary,
         detected_language: "tr", translated_query: primary, processed_queries: [primary],
         fallback_triggered: false, fallback_queries_used: [], adaptive_threshold_used: .03,
         threshold_attempts: responseBody.threshold_attempts, threshold_selection_reason: "first_valid_result",
       })),
-      detections: responseBody.detections.slice(0, count).map((d) => ({ ...d, canonical_query: "bag" })),
+      detections: responseBody.detections.map((d) => ({ ...d, canonical_query: "bag" })),
     });
   };
   await upload();
   await query("çantalar, şişeler");
-  await selectModel("compare");
   await submit();
-  assert.deepEqual(calls.sort(), ["grounding-dino", "owlvit", "yolo-world"]);
-  const owl = element('[data-model="owlvit"] .inventory-summary');
-  const dino = element('[data-model="grounding-dino"] .inventory-summary');
-  const yolo = element('[data-model="yolo-world"] .inventory-summary');
-  assert.match(owl.textContent!, /Envanter Özetiçantalar2şişeler0Toplam2/);
-  assert.match(dino.textContent!, /Envanter Özetiçantalar1şişeler0Toplam1/);
-  assert.match(yolo.textContent!, /Envanter Özetiçantalar1şişeler0Toplam1/);
+  assert.deepEqual(calls, ["owlvit"]);
+  assert.match(element(".inventory-summary").textContent!, /Envanter Özetiçantalar2şişeler0Toplam2/);
   await query("bag");
   assert.equal(document.querySelectorAll(".inventory-summary").length, 0);
+});
+
+test("tek yöntem: model seçimi ve karşılaştırma ekranı yok, sonuçta OWLv2 large yazar", async () => {
+  globalThis.fetch = async () => Response.json(responseBody);
+  assert.equal(document.querySelector("#detector-model"), null);
+  assert.doesNotMatch(document.body.textContent!, /Grounding DINO|YOLO-World|karşılaştır/);
+  await upload();
+  await query("çanta");
+  await submit();
+  assert.equal(document.querySelector(".model-comparison"), null);
+  assert.equal(document.querySelectorAll(".technical-details").length, 1);
+  assert.match(element(".result-summary").textContent!, /686 ms.*OWLv2 large.*CPU/);
+  assert.match(element(".technical-content").textContent!, /ModelOWLv2 large/);
 });
 
 test("sadece virgül ve boşluk olan sorguda istek gönderilmez", async () => {
@@ -306,131 +303,6 @@ test("geçersiz dosya backend'e gönderilmez", async () => {
   assert.equal(document.querySelectorAll(".viewer-pane img").length, 0);
 });
 
-test("tek Grounding DINO seçimi yalnızca o modeli çağırır ve gerçek metrikleri gösterir", async () => {
-  const calls: string[] = [];
-  globalThis.fetch = async (url, options) => {
-    const form = options!.body as FormData;
-    assert.equal(form.get("model"), "grounding-dino");
-    assert.equal(form.has("threshold"), false);
-    calls.push(new URL(String(url)).pathname);
-    return Response.json({ ...responseBody, model: "grounding-dino", model_id: "grounding-dino", inference_time_ms: 10097, device: "cuda",
-      adaptive_threshold_used: 0.30,
-      threshold_attempts: [
-        { threshold: 0.35, text_threshold: 0.25, raw_detection_count: 0, filtered_detection_count: 0 },
-        { threshold: 0.30, text_threshold: 0.25, raw_detection_count: 3, filtered_detection_count: 2 },
-      ],
-    });
-  };
-  await enableDebug();
-  await upload();
-  await query("çanta");
-  await selectModel("grounding-dino");
-  await submit();
-  assert.deepEqual(calls, ["/detect"]);
-  assert.match(element(".result-summary").textContent!, /10\.097 ms.*Grounding DINO.*CUDA/);
-  assert.match(element(".technical-content").textContent!, /Seçilen eşik \(kutu\)0\.30/);
-  assert.match(element(".technical-content").textContent!, /0\.350\.25/);
-});
-
-test("tek YOLO-World seçimi yalnızca o modeli çağırır ve kendi eşiğini gösterir", async () => {
-  const models: string[] = [];
-  globalThis.fetch = async (_url, options) => {
-    const form = options!.body as FormData;
-    models.push(String(form.get("model")));
-    assert.equal(form.has("threshold"), false);
-    return Response.json({ ...responseBody, model: "yolo-world", model_id: "yolo-world", inference_time_ms: 412, device: "cpu",
-      adaptive_threshold_used: 0.15,
-      threshold_attempts: [
-        { threshold: 0.25, raw_detection_count: 0, filtered_detection_count: 0 },
-        { threshold: 0.15, raw_detection_count: 2, filtered_detection_count: 2 },
-      ],
-    });
-  };
-  await upload();
-  await query("cüzdan");
-  await selectModel("yolo-world");
-  await submit();
-  assert.deepEqual(models, ["yolo-world"]);
-  assert.match(element(".result-summary").textContent!, /412 ms.*YOLO-World.*CPU/);
-  assert.match(element(".technical-content").textContent!, /Seçilen eşik0\.15/);
-  assert.doesNotMatch(element(".technical-content").textContent!, /\(kutu\)/);
-});
-
-test("Compare üç modeli çağırır; biri tamamlanınca ortak loading diğerlerini bekler", async () => {
-  const calls: { model: string; path: string }[] = [];
-  let releaseDino!: (response: Response) => void;
-  let owlFinished!: () => void;
-  const owlDone = new Promise<void>((resolve) => { owlFinished = resolve; });
-  globalThis.fetch = async (url, options) => {
-    const form = options!.body as FormData;
-    const model = String(form.get("model"));
-    const path = new URL(String(url)).pathname;
-    calls.push({ model, path });
-    assert.equal(form.get("query"), "çanta");
-    assert.equal((form.get("image") as File).name, file.name);
-    assert.equal(path, "/detect");
-    assert.equal(form.has("threshold"), false);
-    if (model === "grounding-dino") return new Promise<Response>((resolve) => { releaseDino = resolve; });
-    if (model === "owlvit") owlFinished();
-    return Response.json({
-      ...responseBody, model: model === "owlvit" ? "OWL-ViT" : model, model_id: model,
-      filtered_detection_count: model === "owlvit" ? 2 : 1,
-      inference_time_ms: model === "owlvit" ? 686 : 412, device: "cpu",
-    });
-  };
-  await upload();
-  await query("çanta");
-  await selectModel("compare");
-  await submit();
-  await act(async () => { await owlDone; });
-  assert.equal(element<HTMLButtonElement>("button[type='submit']").disabled, true);
-  assert.match(element('[data-model="owlvit"] .result-summary').textContent!, /2 nesne bulundu.*686 ms.*CPU/);
-  await act(async () => {
-    releaseDino(Response.json({ ...responseBody, model: "grounding-dino", model_id: "grounding-dino", filtered_detection_count: 1, inference_time_ms: 10097,
-      adaptive_threshold_used: 0.30,
-      threshold_attempts: [{ threshold: 0.30, text_threshold: 0.25, raw_detection_count: 1, filtered_detection_count: 1 }],
-    }));
-    // Blob gövdesi asenkron okunurken event loop'un tamamlanmasına izin ver.
-    await new Promise<void>((resolve) => setImmediate(resolve));
-  });
-  assert.equal(element<HTMLButtonElement>("button[type='submit']").disabled, false);
-  assert.equal(calls.filter((call) => call.model === "owlvit").length, 1);
-  assert.equal(calls.filter((call) => call.model === "grounding-dino").length, 1);
-  assert.equal(calls.filter((call) => call.model === "yolo-world").length, 1);
-  assert.match(element('[data-model="grounding-dino"] .result-summary').textContent!, /1 nesne bulundu.*10\.097 ms.*CPU/);
-  assert.match(element('[data-model="yolo-world"] .result-summary').textContent!, /1 nesne bulundu.*412 ms.*YOLO-World/);
-  assert.equal(document.querySelectorAll(".model-canvas img").length, 3);
-  assert.equal(document.querySelectorAll(".technical-details").length, 3);
-  assert.match(document.querySelectorAll(".technical-details")[2].textContent!, /Teknik detaylar · YOLO-World/);
-  assert.match(document.querySelectorAll(".technical-details")[1].textContent!, /Model süresi10\.097 ms/);
-  assert.match(document.querySelectorAll(".technical-details")[0].textContent!, /Seçilen eşik0\.03/);
-  assert.match(document.querySelectorAll(".technical-details")[1].textContent!, /Seçilen eşik \(kutu\)0\.30/);
-});
-
-test("karşılaştırmada tek model büyük gösterilir; sekme ve Yan yana düzeni değiştirir", async () => {
-  globalThis.fetch = async (_url, options) => {
-    const model = (options!.body as FormData).get("model");
-    return Response.json({ ...responseBody, model_id: model, filtered_detection_count: model === "owlvit" ? 2 : 1 });
-  };
-  await upload();
-  await query("çanta");
-  await selectModel("compare");
-  await submit();
-  const visible = () => [...document.querySelectorAll<HTMLElement>(".model-canvas")]
-    .filter((figure) => !figure.classList.contains("hidden")).map((figure) => figure.dataset.modelImage);
-  assert.deepEqual(visible(), ["owlvit"]);
-  assert.match(element("#model-tab-owlvit").textContent!, /OWLv22/);
-  await act(async () => { element<HTMLButtonElement>("#model-tab-grounding-dino").click(); });
-  assert.deepEqual(visible(), ["grounding-dino"]);
-  assert.equal(element("#model-tab-grounding-dino").getAttribute("aria-selected"), "true");
-  await act(async () => { element<HTMLButtonElement>(".layout-toggle [role='radio']:last-child").click(); });
-  assert.deepEqual(visible(), ["owlvit", "grounding-dino", "yolo-world"]);
-  assert.equal(document.querySelector("[role='tablist'].model-tabs"), null);
-  // Yan yana düzende bir görsele tıklamak onu büyük gösterir.
-  await act(async () => { element<HTMLButtonElement>('[data-model-image="yolo-world"] button').click(); });
-  assert.deepEqual(visible(), ["yolo-world"]);
-});
-
 test("emin olunmayan kutular silinmez; sayısı, envanterde ve detayda ayrıca gösterilir", async () => {
   globalThis.fetch = async () => Response.json({ ...responseBody,
     detections: [{ ...responseBody.detections[0], canonical_query: "bag" },
@@ -464,25 +336,6 @@ test("adaptive metadata yoksa sabit threshold uydurulmaz", async () => {
   await submit();
   assert.match(element(".technical-content").textContent!, /Seçilen eşikBackend bildirmedi/);
   assert.doesNotMatch(element(".technical-content").textContent!, /0\.20/);
-});
-
-test("Compare içinde bir model hata verirse başarılı modelin sonucu korunur", async () => {
-  for (const failed of ["owlvit", "grounding-dino", "yolo-world"]) {
-    const successful = failed === "owlvit" ? "grounding-dino" : "owlvit";
-    globalThis.fetch = async (_url, options) => {
-      const model = (options!.body as FormData).get("model");
-      if (model === failed) return Response.json({ detail: "Bu model şu anda kullanılamıyor." }, { status: 503 });
-      return Response.json({ ...responseBody, model_id: model, model: model === "owlvit" ? "OWL-ViT" : model });
-    };
-    await upload();
-    await query("çanta");
-    await selectModel("compare");
-    await submit();
-    assert.ok(element('[data-model-image="' + successful + '"] img'));
-    assert.match(element('[data-model="' + successful + '"] .result-summary').textContent!, /2 nesne bulundu/);
-    assert.match(element('[data-model="' + failed + '"] [role="alert"]').textContent!, /kullanılamıyor/);
-    assert.equal(element<HTMLButtonElement>("button[type='submit']").disabled, false);
-  }
 });
 
 test("bağlamla çeviri sakin etiketle gösterilir, uyarı verilmez", async () => {

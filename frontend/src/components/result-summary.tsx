@@ -1,5 +1,5 @@
 import { CheckCircle2, CircleAlert, Clock, Cpu, Loader2 } from "lucide-react";
-import { MODEL_NAMES, type DetectionDetails } from "@/lib/detection-api";
+import { MODEL_NAME, type DetectionDetails } from "@/lib/detection-api";
 
 interface Props {
   details: DetectionDetails | null;
@@ -27,7 +27,7 @@ export default function ResultSummary({ details, hasResult, phase, failed = fals
               </span>}
               <Dot />
               <span className="inline-flex items-center gap-1" title="Backend inference süresi"><Clock aria-hidden="true" className="size-3.5" />{Math.round(details.inference_time_ms).toLocaleString("tr-TR")} ms</span>
-              <Dot /><span>{MODEL_NAMES[details.model_id]}</span>
+              <Dot /><span>{MODEL_NAME}</span>
               <Dot /><span className="inline-flex items-center gap-1"><Cpu aria-hidden="true" className="size-3.5" />{details.device.toUpperCase()}</span>
             </> : <span>{hasResult ? "Görsel hazır; nesne sayısı alınamadı." : "Analiz sonucu bekleniyor."}</span>}
     </div>

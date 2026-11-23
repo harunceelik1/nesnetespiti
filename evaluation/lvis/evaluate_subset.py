@@ -51,14 +51,26 @@ CANDIDATES = {"owlv2-large": ("owlv2", 0.05), "llmdet": ("grounding-dino", 0.15)
 def candidate_detector(model: str):
     from backend.app.config import GroundingDinoSettings
     from backend.app.models.grounding_dino_service import GroundingDinoService
-    from backend.app.models.owlv2_service import Owlv2Service
     if model == "owlv2-large":
-        class Owlv2Large(Owlv2Service):
-            model_name = "google/owlv2-large-patch14-ensemble"
-        return Owlv2Large()
+        # Kayıtlar 0.05 tabanında ve base eşik politikasıyla alındı (CANDIDATES); uygulamadaki
+        # Owlv2LargeService ile aynı ağırlıklar.
+        from backend.app.models.owlv2_service import Owlv2LargeService
+        return Owlv2LargeService()
     if model == "llmdet":
         return GroundingDinoService(GroundingDinoSettings(model_name="iSEE-Laboratory/llmdet_base"))
     raise ValueError(model)
+
+
+def baseline_detector(model: str):
+    """MODELS kayıtları: "owlvit" burada OWLv2 *base*'dir (eski kayıtlar böyle alındı).
+    Uygulamadaki "owlvit" yuvası artık OWLv2 large; o, "owlv2-large" adayıyla ölçülür."""
+    from backend.app.models.detector_registry import DetectorRegistry
+    from backend.app.models.owlv2_service import Owlv2Service
+    if model == "owlvit":
+        return Owlv2Service()
+    return DetectorRegistry(model_ids=(model,)).get(model)
+
+
 MAX_POSITIVES = 6
 MAX_NEGATIVES = 4
 IOU_MATCH = 0.5
@@ -105,7 +117,6 @@ def run_model(model: str, limit: int | None, tag: str = "temel") -> None:
     import dataclasses
     from PIL import Image
     from backend.app import config
-    from backend.app.models.detector_registry import DetectorRegistry
     from backend.app.services.inference_orchestrator import run_detection
     from backend.app.services.query_processor import process_query
     from backend.app.services.translation_service import TranslationService
@@ -122,7 +133,7 @@ def run_model(model: str, limit: int | None, tag: str = "temel") -> None:
         policy = dataclasses.replace(policy, max_raw_detections=100_000, max_filtered_detections=100_000,
                                      max_duplicate_fraction=1.0)
     else:
-        detector = DetectorRegistry().get(model)
+        detector = baseline_detector(model)
         key = detector.policy_key or detector.model_id
         floor = config.SENSITIVITY_THRESHOLDS[key]["loose"]
         policy = dataclasses.replace(config.ADAPTIVE_THRESHOLDS[key], thresholds=(floor,), allow_lowering=False)

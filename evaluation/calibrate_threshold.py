@@ -47,7 +47,7 @@ def main():
     from quick_product_eval import ANNOTATIONS, SAMPLE_IDS, SAMPLES
     from sanity_cases import CASES
 
-    detector = DetectorRegistry().get(args.model)
+    detector = DetectorRegistry(model_ids=(args.model,)).get(args.model)
     key = detector.policy_key or detector.model_id
     base = config.ADAPTIVE_THRESHOLDS[key]
     policy = dataclasses.replace(base, thresholds=(args.floor,), allow_lowering=False)

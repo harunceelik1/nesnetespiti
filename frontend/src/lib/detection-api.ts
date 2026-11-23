@@ -1,6 +1,8 @@
-export const MODEL_NAMES = { owlvit: "OWLv2", "grounding-dino": "Grounding DINO", "yolo-world": "YOLO-World" } as const;
-export type DetectorModel = keyof typeof MODEL_NAMES;
-export type ModelSelection = DetectorModel | "compare";
+// Uygulama tek yöntemle çalışır: OWLv2 large (backend'deki "owlvit" yuvası).
+// Seçim ölçümle yapıldı; bkz. outputs/lvis_olcum/yontem_secimi.md.
+export const MODEL_ID = "owlvit";
+export const MODEL_NAME = "OWLv2 large";
+export type DetectorModel = typeof MODEL_ID;
 export type Sensitivity = "strict" | "balanced" | "loose";
 export const SENSITIVITY_LABELS: Record<Sensitivity, string> = { strict: "Sıkı", balanced: "Dengeli", loose: "Geniş" };
 const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000").replace(/\/+$/, "");
@@ -110,11 +112,11 @@ export interface DetectionAnalysis {
   image: Blob;
 }
 
-async function postImage(path: string, image: File, query: string, signal: AbortSignal, model: DetectorModel, includeImage = false, englishQuery?: string, sensitivity: Sensitivity = "balanced"): Promise<Response> {
+async function postImage(path: string, image: File, query: string, signal: AbortSignal, includeImage = false, englishQuery?: string, sensitivity: Sensitivity = "balanced"): Promise<Response> {
   const form = new FormData();
   form.append("image", image);
   form.append("query", query);
-  form.append("model", model);
+  form.append("model", MODEL_ID);
   // Kullanıcının düzelttiği İngilizce ifade: backend çeviriyi atlar, etiket Türkçe kalır.
   if (englishQuery?.trim()) form.append("english_query", englishQuery.trim());
   // Confidence eşiğini backend model bazında seçer; frontend sayı göndermez.
@@ -156,8 +158,8 @@ async function sendForm(path: string, form: FormData, signal: AbortSignal): Prom
   return response;
 }
 
-export async function detectImage(image: File, query: string, signal: AbortSignal, model: DetectorModel = "owlvit"): Promise<Blob> {
-  const response = await postImage("/detect-image", image, query, signal, model);
+export async function detectImage(image: File, query: string, signal: AbortSignal): Promise<Blob> {
+  const response = await postImage("/detect-image", image, query, signal);
   if (!response.headers.get("content-type")?.includes("image/jpeg")) {
     throw new Error("Backend beklenen JPEG görüntüsünü döndürmedi.");
   }
@@ -182,9 +184,9 @@ function isDetection(value: unknown): value is Detection {
     && !!box && [box.xmin, box.ymin, box.xmax, box.ymax].every((n) => typeof n === "number" && Number.isFinite(n));
 }
 
-export async function getDetectionDetails(image: File, query: string, signal: AbortSignal, model: DetectorModel = "owlvit"): Promise<DetectionDetails> {
-  const response = await postImage("/detect", image, query, signal, model);
-  return readDetectionDetails(response, model);
+export async function getDetectionDetails(image: File, query: string, signal: AbortSignal): Promise<DetectionDetails> {
+  const response = await postImage("/detect", image, query, signal);
+  return readDetectionDetails(response);
 }
 
 function isThreshold(value: unknown): value is number {
@@ -263,7 +265,7 @@ function validInventory(details: Partial<DetectionDetails>): boolean {
   return entries.every(([query, count]) => actual.get(query) === count);
 }
 
-async function readDetectionDetails(response: Response, model: DetectorModel): Promise<DetectionDetails> {
+async function readDetectionDetails(response: Response): Promise<DetectionDetails> {
   let data: unknown;
   try {
     data = await response.json();
@@ -274,7 +276,7 @@ async function readDetectionDetails(response: Response, model: DetectorModel): P
   const details = data as Partial<DetectionDetails>;
   if (
     typeof details.model !== "string"
-    || details.model_id !== model
+    || details.model_id !== MODEL_ID
     || typeof details.inference_time_ms !== "number" || !Number.isFinite(details.inference_time_ms) || details.inference_time_ms < 0
     || typeof details.device !== "string"
     || typeof details.query !== "string"
@@ -318,10 +320,10 @@ function withAnnotatedImage(data: DetectionDetails & { annotated_image?: { media
   return { details, image: new Blob([bytes], { type: "image/jpeg" }) };
 }
 
-export async function getDetectionAnalysis(image: File, query: string, signal: AbortSignal, model: DetectorModel = "owlvit", englishQuery?: string, sensitivity: Sensitivity = "balanced"): Promise<DetectionAnalysis> {
+export async function getDetectionAnalysis(image: File, query: string, signal: AbortSignal, englishQuery?: string, sensitivity: Sensitivity = "balanced"): Promise<DetectionAnalysis> {
   // Tek orchestration çalışması hem metadata hem annotate edilmiş JPEG üretir.
-  const response = await postImage("/detect", image, query, signal, model, true, englishQuery, sensitivity);
-  return withAnnotatedImage(await readDetectionDetails(response, model));
+  const response = await postImage("/detect", image, query, signal, true, englishQuery, sensitivity);
+  return withAnnotatedImage(await readDetectionDetails(response));
 }
 
 /** Görselde çizilen kutuya benzeyen nesneleri bulur; kutu orijinal piksel koordinatlarındadır. */
@@ -330,9 +332,9 @@ export async function getExampleAnalysis(image: File, box: Box, label: string, s
   form.append("image", image);
   for (const key of ["xmin", "ymin", "xmax", "ymax"] as const) form.append(key, String(Math.round(box[key])));
   if (label.trim()) form.append("label", label.trim());
-  form.append("model", "owlvit");
+  form.append("model", MODEL_ID);
   form.append("include_image", "true");
   if (sensitivity !== "balanced") form.append("sensitivity", sensitivity);
   const response = await sendForm("/detect-by-example", form, signal);
-  return withAnnotatedImage(await readDetectionDetails(response, "owlvit"));
+  return withAnnotatedImage(await readDetectionDetails(response));
 }

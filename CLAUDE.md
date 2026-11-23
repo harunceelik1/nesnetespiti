@@ -1,13 +1,13 @@
 # CLAUDE.md: proje durumu
 
-Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-23.
+Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-23 (uygulama OWLv2 large'a geçirildi).
 
 ## 1. Amaç
 - Ödev: **Açık Sözlük Nesne Tespiti**. Senaryolar: robotik, envanter, güvenlik.
 - Ana soru: modeller eğitimde **nadir / hiç görülmemiş** nesneleri ne kadar iyi buluyor? Ödevin en önemli kısmı bu.
 - Amaç kusursuz bir dedektör değil. Amaç genellemeyi **ölçüp** dürüstçe raporlamak; uygulama ölçüm ve gösterim aracı.
 - Hocanın kararı: başta istenen üç modeli (Grounding DINO, OWLv2, YOLO-World) kullanmak zorunlu değil, **model karşılaştırması da gerekmiyor**. En iyi tek yöntem kullanılacak.
-- Ölçümle seçilen yöntem: **OWLv2 large**. Uygulama henüz bu modele geçirilmedi (bkz. §7).
+- Ölçümle seçilen yöntem: **OWLv2 large**. Uygulama yalnızca bu modelle çalışıyor (model seçimi ve karşılaştırma ekranı kaldırıldı).
 
 ## 2. Kullanıcının kuralları
 - **LLM/AI entegrasyonu yok.** Çeviri için LLM önerildi, kullanıcı reddetti; yerel model seçildi.
@@ -29,7 +29,7 @@ Windows, PowerShell + Git Bash. Python `.venv` içinde: 3.14, torch 2.14 CPU, tr
 # Frontend → http://127.0.0.1:3000   (?debug=1 → ham tanılar)
 cd frontend; npm run dev
 # Testler (pytest kurulu değil)
-.\.venv\Scripts\python.exe -m unittest discover -s backend/tests     # 143 test, proje kökünden
+.\.venv\Scripts\python.exe -m unittest discover -s backend/tests     # 147 test, proje kökünden
 cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run lint
 ```
 
@@ -52,7 +52,8 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
 ## 4. Mimari
 **Backend** (`backend/app/`, FastAPI)
 - `config.py`: tüm eşikler ve ayarlar; her değerin yanında ölçüm gerekçesi yorum olarak yazılı.
-- `models/`: `owlv2_service.py` (API'de "owlvit" yuvası), `grounding_dino_service.py`, `yoloworld_service.py`, `detector_registry.py`.
+- `models/`: `owlv2_service.py` (`Owlv2LargeService` = API'deki "owlvit" yuvası, eşik anahtarı `owlv2-large`; `Owlv2Service` base), `grounding_dino_service.py`, `yoloworld_service.py`, `detector_registry.py`.
+- Uygulama yalnızca `config.APP_MODELS = ("owlvit",)` yükler; başka model kimliği 400 döner. DINO/YOLO yalnızca ölçüm betikleri için kayıtlı (`DetectorRegistry(model_ids=...)`).
 - `services/inference_orchestrator.py`: `run_detection(detector, image, plan, policy)`. Eşik politikası ve sahne/parça kutusu filtreleri burada. Çok nesneli sorgu tek forward'da çalışır.
 - `services/inventory_service.py`: envanter sayımı ve `mark_uncertain()`.
 - `services/translation_service.py`, `query_processor.py`: Türkçe → İngilizce çeviri.
@@ -64,10 +65,11 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
   - `TRANSLATION_STRATEGY=lexicon` elle yazılmış sözlüğe döner (yedek).
   - Dil tespiti lingua ile; güven ≥ 0.60 ise İngilizce sayılır.
   - Bilinen sorunlar: "fare", "bank" gibi kelimeler İngilizce sanılıyor; "tavuk bulyonu" → "chicken cloud". Kullanıcı Düzenle ile modele giden ifadeyi düzeltebiliyor.
-- **Hassasiyet eşikleri** (base/tiny modeller için kalibre; **large için değil**):
+- **Hassasiyet eşikleri.** Uygulamada geçerli olan OWLv2 large satırı; gerekçe tablosu `config.py` içinde, market kalibrasyonu `outputs/hassasiyet/owlv2-large.txt`:
 
   | Model | Sıkı | Dengeli | Geniş |
   |---|---|---|---|
+  | **OWLv2 large** | 0.17 | 0.14 | 0.10 |
   | OWLv2 base | 0.17 | 0.13 | 0.10 |
   | Grounding DINO | 0.35 | 0.30 | 0.27 |
   | YOLO-World | 0.25 | 0.10 | 0.05 |
@@ -80,7 +82,6 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
 
 **Frontend** (`frontend/src/`, Next 16.4.3, Tailwind 4, shadcn tarzı)
 - `detection-workspace.tsx`: ana ekran.
-- `model-comparison.tsx`: üç model karşılaştırması (sekmeler, "Yan yana").
 - `technical-details.tsx`: 3 katman; ham tanılar yalnızca `?debug=1` ile görünür.
 - `query-interpretation.tsx`: "Aranan ifade" ve Düzenle.
 - Testler node:test + jsdom ile yazılı.
@@ -123,23 +124,21 @@ $env:PYTHONIOENCODING="utf-8"
 ```
 - Modeller: `owlvit`, `grounding-dino`, `yolo-world`. Adaylar (`evaluate_subset.CANDIDATES`): `owlv2-large`, `llmdet`.
 - Model düşük bir tabanda bir kez çalışır, kutular `outputs/lvis_olcum/tespitler_*.json` dosyalarına kaydedilir. Eşikler sonradan uygulanır.
+- **Ölçümde "owlvit" = OWLv2 base** (`evaluate_subset.baseline_detector`; eski kayıtlar böyle). Large `owlv2-large` adayıyla ölçülür. `calibrate_threshold.py --model owlvit` ise uygulamadaki large'ı kalibre eder.
 - Masa fotoğrafları repoda değil: `C:\Users\Harun\Desktop\gorseller`. Cevap anahtarı: `evaluation/masa/etiketler.json` (2, 5, 9, 11, 13.jpeg).
 - Görsel başına süre: YOLO ~1 sn · OWLv2 base ~8 sn · large ~28 sn · DINO tiny ~80 sn · LLMDet ~110 sn.
 
 ## 7. Açık işler (sırayla)
-1. **Uygulamayı tek model OWLv2 large'a geçir** (kullanıcının onayını bekliyor):
-   - `Owlv2Service.model_name` → `google/owlv2-large-patch14-ensemble`.
-   - Large için Sıkı/Dengeli/Geniş eşiklerini `evaluation/calibrate_threshold.py` yöntemiyle yeniden seç. LVIS'te en iyi eşik 0.14, masa fotoğraflarında 0.17 çıktı.
-   - Karşılaştırma ekranını ve model seçimini kaldır; frontend testlerini güncelle.
-2. **Sunum:** `sunum/SENARYO.md` hâlâ üç model karşılaştırmasına göre yazılı.
+1. **Sunum:** `sunum/SENARYO.md` hâlâ üç model karşılaştırmasına göre yazılı.
+   - `hazirla.py` hâlâ `grounding-dino`/`yolo-world` gönderiyor; backend bunları artık 400 ile reddediyor.
    - Karşılaştırma cümlelerini çıkar; nadir nesne ve "sınırlar" adımlarını tut.
    - `sunum/hazirla.py` ile görselleri yeniden üret (`hazirla.py 7` yalnızca 7. adımı çalıştırır).
-3. **Rapor:** ana tablo seçilen yöntemin sık/nadir sonuçları; ardından masa fotoğrafları, yöntemin sınırları ve "neden OWLv2 large" gerekçesi.
-4. **Bekleyen silme önerisi** (kullanıcı yanıt vermedi; onaysız silme):
+2. **Rapor:** ana tablo seçilen yöntemin sık/nadir sonuçları; ardından masa fotoğrafları, yöntemin sınırları ve "neden OWLv2 large" gerekçesi.
+3. **Bekleyen silme önerisi** (kullanıcı yanıt vermedi; onaysız silme):
    - Silinecek eski deneme çıktıları (~186 görsel): `outputs/sanity`, `evaluation/inventory/preview`, `ornek_envanter/dogru_kutular`, `outputs/bolge_kutusu`, `outputs/ornekle_arama`, `outputs/parca_kutusu`, `outputs/result.jpg`, `evaluation/inventory/results/debug`.
    - **Silinmeyecekler:** `sunum/`, `.cache/lvis`, `evaluation/inventory/data`, `images/`, `ornek_envanter/*.jpg`, `veri_toplama/`.
    - Kullanılmayan modeller de silinebilir: opus-big, NLLB, LLMDet.
-5. **İsteğe bağlı** (istenmedi): küçük nesne modu (SAHI), "Türkçe olarak çevir" düğmesi.
+4. **İsteğe bağlı** (istenmedi): küçük nesne modu (SAHI), "Türkçe olarak çevir" düğmesi.
 
 ## 8. Sunum klasörü
 - `sunum/SENARYO.md`: sunumda adım adım ne gösterileceği ve ne söyleneceği. Sayılar `sunum/sonuclar/ozet.json` dosyasından gelir.

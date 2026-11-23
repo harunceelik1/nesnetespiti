@@ -3,20 +3,18 @@
 import InventorySummary from "./inventory-summary";
 
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
-import { getDetectionAnalysis, getExampleAnalysis, MODEL_NAMES, type Box, type DetectorModel, type ModelSelection, type Sensitivity } from "@/lib/detection-api";
-import { DETECTOR_MODELS, emptyResults, type ModelResult, type ModelResults } from "@/lib/model-result";
+import { getDetectionAnalysis, getExampleAnalysis, type Box, type Sensitivity } from "@/lib/detection-api";
+import { emptyResult, type ModelResult } from "@/lib/model-result";
 import { Card } from "@/components/ui/card";
 import ControlPanel, { type SearchMode } from "./control-panel";
 import ImageViewer, { type ViewerMode } from "./image-viewer";
-import ModelComparison from "./model-comparison";
 import ResultSummary from "./result-summary";
 import QueryInterpretation from "./query-interpretation";
 import TechnicalDetails from "./technical-details";
 
 export default function DetectionWorkspace() {
-  const [selection, setSelection] = useState<ModelSelection>("owlvit");
   const [sensitivity, setSensitivity] = useState<Sensitivity>("balanced");
-  const [results, setResults] = useState<ModelResults>(emptyResults);
+  const [result, setResult] = useState<ModelResult>(emptyResult);
   const [view, setView] = useState<ViewerMode>("original");
   const [compare, setCompare] = useState(false);
   const [image, setImage] = useState<File | null>(null);
@@ -26,25 +24,25 @@ export default function DetectionWorkspace() {
   const [loading, setLoading] = useState(false);
   const [checkingFile, setCheckingFile] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // "example": kullanıcı orijinal görselde bir kutu çizer, benzerleri aranır (yalnızca OWLv2).
+  // "example": kullanıcı orijinal görselde bir kutu çizer, benzerleri aranır.
   const [mode, setMode] = useState<SearchMode>("text");
   const [exampleBox, setExampleBox] = useState<Box | null>(null);
   const activeRequest = useRef<AbortController | null>(null);
   const fileSelection = useRef(0);
-  const resultUrls = useRef<Partial<Record<DetectorModel, string>>>({});
+  const resultUrl = useRef<string | null>(null);
   const busy = loading || checkingFile;
 
   useEffect(() => () => { if (previewUrl) URL.revokeObjectURL(previewUrl); }, [previewUrl]);
   useEffect(() => () => {
     activeRequest.current?.abort();
     fileSelection.current += 1;
-    Object.values(resultUrls.current).forEach(URL.revokeObjectURL);
+    if (resultUrl.current) URL.revokeObjectURL(resultUrl.current);
   }, []);
 
   function clearResult() {
-    Object.values(resultUrls.current).forEach(URL.revokeObjectURL);
-    resultUrls.current = {};
-    setResults(emptyResults());
+    if (resultUrl.current) URL.revokeObjectURL(resultUrl.current);
+    resultUrl.current = null;
+    setResult(emptyResult());
     setView("original");
     setCompare(false);
     setResultQuery("");
@@ -80,8 +78,8 @@ export default function DetectionWorkspace() {
     }
   }
 
-  function updateResult(model: DetectorModel, update: Partial<ModelResult>) {
-    setResults((current) => ({ ...current, [model]: { ...current[model], ...update } }));
+  function updateResult(update: Partial<ModelResult>) {
+    setResult((current) => ({ ...current, ...update }));
   }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -104,35 +102,27 @@ export default function DetectionWorkspace() {
     const controller = new AbortController();
     activeRequest.current = controller;
     const submittedQuery = query.trim();
-    const models: DetectorModel[] = selection === "compare" ? DETECTOR_MODELS : [selection];
     setResultQuery(submittedQuery);
     setLoading(true);
-
-    async function runModel(model: DetectorModel) {
-      const startedAt = performance.now();
-      updateResult(model, { phase: "image" });
-      try {
-        const analysis = await getDetectionAnalysis(image!, submittedQuery, controller.signal, model, englishQuery, sensitivity);
-        if (controller.signal.aborted) return;
-        const url = URL.createObjectURL(analysis.image);
-        resultUrls.current[model] = url;
-        updateResult(model, { imageUrl: url, details: analysis.details, phase: "done" });
-        setView("result");
-      } catch (requestError) {
-        if (!controller.signal.aborted) updateResult(model, {
-          phase: "error",
-          error: requestError instanceof Error ? requestError.message : "Tespit sırasında bir hata oluştu.",
-        });
-      } finally {
-        if (!controller.signal.aborted) updateResult(model, { elapsedMs: performance.now() - startedAt });
-      }
-    }
-
-    // Her görev kendi hatasını yakalar; erken gelen başarılı sonuç hemen gösterilir.
+    const startedAt = performance.now();
+    updateResult({ phase: "image" });
     try {
-      await Promise.all(models.map(runModel));
+      const analysis = await getDetectionAnalysis(image, submittedQuery, controller.signal, englishQuery, sensitivity);
+      if (controller.signal.aborted) return;
+      const url = URL.createObjectURL(analysis.image);
+      resultUrl.current = url;
+      updateResult({ imageUrl: url, details: analysis.details, phase: "done" });
+      setView("result");
+    } catch (requestError) {
+      if (!controller.signal.aborted) updateResult({
+        phase: "error",
+        error: requestError instanceof Error ? requestError.message : "Tespit sırasında bir hata oluştu.",
+      });
     } finally {
-      if (!controller.signal.aborted) setLoading(false);
+      if (!controller.signal.aborted) {
+        updateResult({ elapsedMs: performance.now() - startedAt });
+        setLoading(false);
+      }
     }
   }
 
@@ -148,79 +138,56 @@ export default function DetectionWorkspace() {
     setResultQuery(label + " (örnekle)");
     setLoading(true);
     const startedAt = performance.now();
-    updateResult("owlvit", { phase: "image" });
+    updateResult({ phase: "image" });
     try {
       const analysis = await getExampleAnalysis(image, exampleBox, label, controller.signal, sensitivity);
       if (controller.signal.aborted) return;
       const url = URL.createObjectURL(analysis.image);
-      resultUrls.current.owlvit = url;
-      updateResult("owlvit", { imageUrl: url, details: analysis.details, phase: "done" });
+      resultUrl.current = url;
+      updateResult({ imageUrl: url, details: analysis.details, phase: "done" });
       setView("result");
     } catch (requestError) {
-      if (!controller.signal.aborted) updateResult("owlvit", {
+      if (!controller.signal.aborted) updateResult({
         phase: "error",
         error: requestError instanceof Error ? requestError.message : "Örnekle arama sırasında bir hata oluştu.",
       });
     } finally {
       if (!controller.signal.aborted) {
-        updateResult("owlvit", { elapsedMs: performance.now() - startedAt });
+        updateResult({ elapsedMs: performance.now() - startedAt });
         setLoading(false);
       }
     }
   }
 
-  // Örnekle arama her zaman OWLv2 ile tek sonuç gösterir; karşılaştırma yalnızca metin aramasında.
-  const activeModel: DetectorModel = mode === "example" || selection === "compare" ? "owlvit" : selection;
-  const comparing = mode === "text" && selection === "compare";
-  const singleResult = results[activeModel];
-  // Çeviri tüm modellerde ortaktır; ilk gelen sonucun planı gösterilir.
-  const interpretedDetails = comparing
-    ? DETECTOR_MODELS.map((model) => results[model].details).find(Boolean) ?? null
-    : singleResult.details;
-  const interpretation = <QueryInterpretation key={interpretedDetails?.primary_query ?? "none"} details={interpretedDetails} busy={busy} onRetry={(value) => { void runDetection(value); }} />;
-  const phase = singleResult.phase === "image" || singleResult.phase === "details" ? singleResult.phase : "idle";
+  const phase = result.phase === "image" || result.phase === "details" ? result.phase : "idle";
 
   return (
     <div className="workspace-shell grid items-start gap-6 lg:grid-cols-[minmax(300px,360px)_minmax(0,1fr)]">
       <ControlPanel
         image={image} query={query} busy={busy} loading={loading} checkingFile={checkingFile}
         mode={mode} onModeChange={changeMode} exampleReady={!!exampleBox}
-        model={selection}
-        error={error || (comparing ? null : singleResult.error)}
-        warning={comparing ? null : singleResult.warning}
+        error={error || result.error}
+        warning={result.warning}
         onChooseImage={chooseImage}
         onQueryChange={(value) => { setQuery(value); clearResult(); }}
-        onModelChange={(model) => { setSelection(model); clearResult(); }}
         sensitivity={sensitivity}
         onSensitivityChange={(level) => { setSensitivity(level); clearResult(); }}
         onSubmit={submit}
       />
       <section className="analysis-area flex min-w-0 flex-col gap-4" aria-label="Görüntü analiz alanı">
-        {comparing ? <>
-          {interpretedDetails && <Card className="px-5 py-4">{interpretation}</Card>}
-          <ModelComparison results={results} previewUrl={previewUrl} query={resultQuery} loading={loading} />
-          <div className="flex flex-col gap-2">
-            {DETECTOR_MODELS.map((model) => <TechnicalDetails key={model}
-              modelName={MODEL_NAMES[model]} details={results[model].details}
-              loading={results[model].phase === "image" || results[model].phase === "details"}
-              warning={results[model].error || results[model].warning} elapsedMs={results[model].elapsedMs}
-            />)}
-          </div>
-        </> : <>
-          <ImageViewer previewUrl={previewUrl} resultUrl={singleResult.imageUrl} filename={image?.name ?? null}
-            resultQuery={resultQuery} view={view} compare={compare} loading={phase === "image"}
-            onViewChange={setView} onCompareChange={setCompare}
-            example={{ active: mode === "example", box: exampleBox, onBoxChange: setExampleBox }}
-          />
-          <Card className="gap-4 px-5 py-4">
-            <ResultSummary details={singleResult.details} hasResult={!!singleResult.imageUrl} phase={phase} failed={!!singleResult.error} />
-            {interpretation}
-            <InventorySummary details={singleResult.details} />
-          </Card>
-          <TechnicalDetails details={singleResult.details} loading={loading}
-            warning={singleResult.warning || singleResult.error} elapsedMs={singleResult.elapsedMs}
-          />
-        </>}
+        <ImageViewer previewUrl={previewUrl} resultUrl={result.imageUrl} filename={image?.name ?? null}
+          resultQuery={resultQuery} view={view} compare={compare} loading={phase === "image"}
+          onViewChange={setView} onCompareChange={setCompare}
+          example={{ active: mode === "example", box: exampleBox, onBoxChange: setExampleBox }}
+        />
+        <Card className="gap-4 px-5 py-4">
+          <ResultSummary details={result.details} hasResult={!!result.imageUrl} phase={phase} failed={!!result.error} />
+          <QueryInterpretation key={result.details?.primary_query ?? "none"} details={result.details} busy={busy} onRetry={(value) => { void runDetection(value); }} />
+          <InventorySummary details={result.details} />
+        </Card>
+        <TechnicalDetails details={result.details} loading={loading}
+          warning={result.warning || result.error} elapsedMs={result.elapsedMs}
+        />
       </section>
     </div>
   );

@@ -1,8 +1,8 @@
 import { ChevronRight } from "lucide-react";
-import { MODEL_NAMES, SENSITIVITY_LABELS, type DetectionDetails } from "@/lib/detection-api";
+import { MODEL_NAME, SENSITIVITY_LABELS, type DetectionDetails } from "@/lib/detection-api";
 import { useDebugMode } from "@/lib/debug-mode";
 
-interface Props { details: DetectionDetails | null; loading: boolean; warning: string | null; elapsedMs: number | null; modelName?: string }
+interface Props { details: DetectionDetails | null; loading: boolean; warning: string | null; elapsedMs: number | null }
 
 const ms = (value: number) => Math.round(value).toLocaleString("tr-TR") + " ms";
 
@@ -11,14 +11,13 @@ const ms = (value: number) => Math.round(value).toLocaleString("tr-TR") + " ms";
  * Katman 3: yalnızca ?debug=1 ile görünen ham tanılar (backend alan adları, eşik denemeleri,
  * scene-box ölçümleri). Kullanıcının asıl sonucu (katman 1) sonuç kartındadır.
  */
-export default function TechnicalDetails({ details, loading, warning, elapsedMs, modelName }: Props) {
+export default function TechnicalDetails({ details, loading, warning, elapsedMs }: Props) {
   const debug = useDebugMode();
-  const dino = details?.model_id === "grounding-dino";
   return (
     <details className="technical-details group rounded-xl border bg-card text-sm shadow-sm">
       <summary className="flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-muted-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">
         <ChevronRight aria-hidden="true" className="size-4 transition-transform group-open:rotate-90" />
-        <span className="font-medium">Teknik detaylar{modelName ? " · " + modelName : ""}</span>
+        <span className="font-medium">Teknik detaylar</span>
         {debug && <span className="ml-auto rounded bg-warning px-1.5 text-[11px] text-warning-foreground">geliştirici modu</span>}
       </summary>
       <div className="technical-content border-t px-4 py-4">
@@ -26,9 +25,9 @@ export default function TechnicalDetails({ details, loading, warning, elapsedMs,
         {details && (
           <>
             <dl className="debug-grid">
-              <div><dt>Model</dt><dd>{MODEL_NAMES[details.model_id] ?? details.model}</dd></div>
+              <div><dt>Model</dt><dd>{MODEL_NAME}</dd></div>
               <div><dt>Hassasiyet</dt><dd>{SENSITIVITY_LABELS[details.sensitivity ?? "balanced"]}</dd></div>
-              <div><dt>Seçilen eşik{dino ? " (kutu)" : ""}</dt><dd>{details.adaptive_thresholds_by_query
+              <div><dt>Seçilen eşik</dt><dd>{details.adaptive_thresholds_by_query
                 ? Object.entries(details.adaptive_thresholds_by_query).map(([query, threshold]) => `${query}: ${threshold.toFixed(2)}`).join(" · ")
                 : details.adaptive_threshold_used?.toFixed(2) ?? "Backend bildirmedi"}</dd></div>
               <div><dt>Kutular</dt><dd>{details.raw_detection_count} aday → {details.filtered_detection_count} kutu kaldı</dd></div>
@@ -60,7 +59,7 @@ export default function TechnicalDetails({ details, loading, warning, elapsedMs,
                 </table>
               </div>
             ) : <p className="muted">Bu sorgu için eşik değerini geçen bir nesne bulunamadı.</p>}
-            <p className="technical-note">Model süresi backend&apos;in ölçtüğü çalışma süresi, toplam bekleme tarayıcının beklediği süredir. Güven puanları modeller arasında aynı ölçekte değildir; yalnızca aynı modelin kutularını birbiriyle karşılaştır.</p>
+            <p className="technical-note">Model süresi backend&apos;in ölçtüğü çalışma süresi, toplam bekleme tarayıcının beklediği süredir. Güven puanı bir olasılık değildir; yalnızca aynı görseldeki kutuları birbiriyle karşılaştır.</p>
             {debug && <RawDiagnostics details={details} />}
           </>
         )}
@@ -71,16 +70,15 @@ export default function TechnicalDetails({ details, loading, warning, elapsedMs,
 
 /** Katman 3: ham backend alanları. Yalnızca geliştirici modunda render edilir. */
 function RawDiagnostics({ details }: { details: DetectionDetails }) {
-  const dino = details.model_id === "grounding-dino";
   return (
     <section className="raw-diagnostics flex flex-col gap-4 border-t border-dashed pt-4" aria-label="Ham tanılar">
       <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wide text-warning-foreground">Ham tanılar · ?debug=1</h3>
       <dl className="debug-grid">
         <div><dt>threshold_selection_reason</dt><dd>{details.threshold_selection_reason ?? "Backend bildirmedi"}</dd></div>
-        <div className="wide"><dt>threshold_attempts{dino ? " (box / text)" : ""}</dt>
+        <div className="wide"><dt>threshold_attempts</dt>
           <dd>{details.threshold_attempts?.length ? <div className="table-scroll"><table className="attempts-table">
             <caption>Eşik denemeleri</caption>
-            <thead><tr><th scope="col">Eşik{dino ? " (box)" : ""}</th><th scope="col">Text</th><th scope="col">Faz / sorgu</th><th scope="col">Ham kutu</th><th scope="col">Final kutu</th></tr></thead>
+            <thead><tr><th scope="col">Eşik</th><th scope="col">Text</th><th scope="col">Faz / sorgu</th><th scope="col">Ham kutu</th><th scope="col">Final kutu</th></tr></thead>
             <tbody>{details.threshold_attempts.map((attempt, index) => <tr key={index}>
               <td>{attempt.threshold.toFixed(2)}</td><td>{attempt.text_threshold?.toFixed(2) ?? "—"}</td>
               <td>{[attempt.phase, attempt.queries?.join(", ")].filter(Boolean).join(" / ") || "—"}</td>

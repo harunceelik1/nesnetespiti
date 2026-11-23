@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from PIL import Image, UnidentifiedImageError
 
+from . import config
 from .models.base_detector import DetectorError
 from .models.detector_registry import DetectorRegistry
 from .services import sensitivity as sensitivity_levels
@@ -22,7 +23,8 @@ from .utils.visualization import annotate_image
 async def lifespan(app: FastAPI):
     # Her sunucu süreci için bir kez yüklenir; istekler aynı servisi kullanır.
     app.state.translation_service = TranslationService()
-    app.state.detector_registry = DetectorRegistry()
+    # Uygulama tek yöntemle (OWLv2 large) çalışır; karşılaştırma modelleri yüklenmez.
+    app.state.detector_registry = DetectorRegistry(model_ids=config.APP_MODELS)
     yield
     del app.state.detector_registry
     del app.state.translation_service

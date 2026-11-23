@@ -72,11 +72,9 @@ test("rule_c ve eksen coverage metadata desteklenir", async () => {
   await assert.rejects(api.getDetectionDetails(file, query, new AbortController().signal), /beklenen formatta değil/);
 });
 
-test("çoklu query model başına tek istekte gider ve NMS sonrası inventory doğrulanır", async () => {
-  for (const model of ["owlvit", "grounding-dino", "yolo-world"]) {
+test("çoklu query tek istekte gider ve NMS sonrası inventory doğrulanır", async () => {
+  {
     const body = makeDetails();
-    body.model_id = model;
-    body.model = model;
     body.query = body.original_query = "bag, bottle";
     body.primary_query = "bag, bottle";
     body.processed_queries = ["bag", "bottle"];
@@ -87,16 +85,16 @@ test("çoklu query model başına tek istekte gider ve NMS sonrası inventory do
     globalThis.fetch = async (_url, options) => {
       requests++;
       assert.equal(options.body.get("query"), "bag, bottle");
-      assert.equal(options.body.get("model"), model);
+      assert.equal(options.body.get("model"), "owlvit");
       assert.equal(options.body.has("threshold"), false);
       return Response.json({ ...body, annotated_image: { media_type: "image/jpeg", data_base64: "/9j/2Q==" } });
     };
-    const result = await api.getDetectionAnalysis(file, "bag, bottle", new AbortController().signal, model);
+    const result = await api.getDetectionAnalysis(file, "bag, bottle", new AbortController().signal);
     assert.deepEqual(result.details.inventory_summary, { bag: 1, bottle: 0 });
     assert.equal(result.details.total_detected_objects, 1);
     assert.equal(requests, 1);
     globalThis.fetch = async () => Response.json({ ...body, inventory_summary: { bag: 2, bottle: 0 } });
-    await assert.rejects(api.getDetectionDetails(file, "bag, bottle", new AbortController().signal, model), /beklenen formatta değil/);
+    await assert.rejects(api.getDetectionDetails(file, "bag, bottle", new AbortController().signal), /beklenen formatta değil/);
   }
 });
 
@@ -178,26 +176,10 @@ test("çeviri 503 mesajı kullanıcıya aktarılır ve İngilizce null çeviri k
   assert.equal(result.translated_query, null);
 });
 
-test("Grounding DINO her iki endpoint'e model parametresi gönderir", async () => {
-  const paths = [];
-  globalThis.fetch = async (url, options) => {
-    paths.push(new URL(url).pathname);
-    assert.equal(options.body.get("model"), "grounding-dino");
-    return paths.at(-1) === "/detect-image"
-      ? new Response(new Blob(["jpeg"], { type: "image/jpeg" }))
-      : Response.json({ ...makeDetails(), model: "grounding-dino", model_id: "grounding-dino", inference_time_ms: 10097, device: "cuda" });
-  };
-  const signal = new AbortController().signal;
-  await api.detectImage(file, query, signal, "grounding-dino");
-  const details = await api.getDetectionDetails(file, query, signal, "grounding-dino");
-  assert.equal(details.inference_time_ms, 10097);
-  assert.equal(details.device, "cuda");
-  assert.deepEqual(paths, ["/detect-image", "/detect"]);
-});
-
 test("yanlış model metadatası ve geçersiz inference süresi reddedilir", async () => {
-  globalThis.fetch = async () => Response.json(makeDetails());
-  await assert.rejects(api.getDetectionDetails(file, query, new AbortController().signal, "grounding-dino"), /beklenen formatta değil/);
+  // Uygulama yalnızca OWL yuvasını kullanır; başka model kimliği dönerse yanıt reddedilir.
+  globalThis.fetch = async () => Response.json({ ...makeDetails(), model_id: "grounding-dino" });
+  await assert.rejects(api.getDetectionDetails(file, query, new AbortController().signal), /beklenen formatta değil/);
   globalThis.fetch = async () => Response.json({ ...makeDetails(), inference_time_ms: -1 });
   await assert.rejects(api.getDetectionDetails(file, query, new AbortController().signal), /beklenen formatta değil/);
 });

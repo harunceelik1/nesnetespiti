@@ -1,12 +1,11 @@
 import type { ChangeEvent, FormEvent, ReactNode } from "react";
 import { AlertTriangle, ImageUp, Loader2, MousePointerSquareDashed, Search, Type } from "lucide-react";
-import { SENSITIVITY_LABELS, type ModelSelection, type Sensitivity } from "@/lib/detection-api";
+import { SENSITIVITY_LABELS, type Sensitivity } from "@/lib/detection-api";
 import { cn } from "@/lib/utils";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { NativeSelect } from "@/components/ui/native-select";
 import { Segmented, segmentClass } from "@/components/ui/segmented";
 
 export type SearchMode = "text" | "example";
@@ -27,8 +26,6 @@ interface Props {
   onModeChange: (mode: SearchMode) => void;
   /** Örnekle aramada görselde kutu çizildi mi. */
   exampleReady: boolean;
-  model: ModelSelection;
-  onModelChange: (model: ModelSelection) => void;
   sensitivity: Sensitivity;
   onSensitivityChange: (sensitivity: Sensitivity) => void;
   error: string | null;
@@ -101,17 +98,6 @@ export default function ControlPanel(props: Props) {
               <p className="text-xs text-muted-foreground" id="query-helper">
                 {example ? "Yazdığın ad yalnızca sonuçta etiket olarak görünür." : "Birden fazla nesne için virgülle ayır: şişe, kutu, çanta"}
               </p>
-            </Step>
-
-            <Step number={3} title="Model" htmlFor={example ? undefined : "detector-model"}>
-              {example
-                ? <p className="text-xs text-muted-foreground">Örnekle arama yalnızca OWLv2 ile çalışır.</p>
-                : <NativeSelect id="detector-model" value={props.model} disabled={busy} onChange={(event) => props.onModelChange(event.target.value as ModelSelection)}>
-                  <option value="owlvit">OWLv2</option>
-                  <option value="grounding-dino">Grounding DINO</option>
-                  <option value="yolo-world">YOLO-World</option>
-                  <option value="compare">Üç modeli karşılaştır</option>
-                </NativeSelect>}
             </Step>
 
             <fieldset className="sensitivity-group flex min-w-0 flex-col gap-2.5" disabled={busy}>

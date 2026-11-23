@@ -77,3 +77,14 @@ class Owlv2Service(OwlViTService):
             logits, class_embeds = self.model.class_predictor(image_feats, query_embeds, query_mask)
         return Owlv2ObjectDetectionOutput(logits=logits, pred_boxes=pred_boxes, objectness_logits=objectness_logits,
                                           class_embeds=class_embeds, text_embeds=query_embeds)
+
+
+class Owlv2LargeService(Owlv2Service):
+    """Uygulamanın tek yöntemi: OWLv2 large (ViT-L/14). LVIS nadir ve masa fotoğraflarında
+    en iyi ölçülen model (outputs/lvis_olcum/yontem_secimi.md, outputs/masa_olcum/masa_olcum.md).
+    Puan ölçeği base modelden farklı olduğu için eşikleri ayrı anahtardadır."""
+
+    policy_key = "owlv2-large"
+    name = "OWLv2 large"
+    response_model = "OWLv2 large"
+    model_name = "google/owlv2-large-patch14-ensemble"

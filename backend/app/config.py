@@ -24,6 +24,10 @@ GROUNDING_DINO = GroundingDinoSettings()
 # API'deki "owlvit" yuvasında hangi model çalışır: "v2" (OWLv2, varsayılan) veya "v1".
 OWL_VERSION = "v2"
 
+# Uygulamanın yüklediği modeller. Tek yöntem: OWLv2 large ("owlvit" yuvası). Grounding DINO ve
+# YOLO-World yalnızca ölçüm betiklerinde kullanılır (bkz. outputs/lvis_olcum/yontem_secimi.md).
+APP_MODELS = ("owlvit",)
+
 
 @dataclass(frozen=True)
 class YoloWorldSettings:
@@ -222,8 +226,19 @@ SENSITIVITY_LEVELS = ("strict", "balanced", "loose")
 #   YOLO   sıkı   0.25  —              0           12/18   (envanter "ürün"ü anlamıyor)
 #          denge  0.10  —              0           13/18
 #          geniş  0.05  —              0           14/18   (≤ 0.04'te 1 sahte)
+#
+# OWLv2 large (uygulamanın tek modeli). Market kalibrasyonu (outputs/hassasiyet/owlv2-large.txt)
+# + kayıtlı LVIS ve masa fotoğrafı tespitlerinden (eşik sonradan uygulandı):
+#                 eşik  market P/R/F1        var olan  LVIS F1 (nadir)  masa F1  masada olmayana kutu
+#          sıkı   0.17  0.99 / 0.65 / 0.78   12/18     0.54 (0.53)      0.82     5/50
+#          denge  0.14  0.95 / 0.78 / 0.85   14/18     0.56 (0.55)      0.78     5/50
+#          geniş  0.10  0.90 / 0.95 / 0.93   15/18     0.53 (0.54)      0.69    11/50
+#   Dengeli = LVIS'te F1'i en yüksek eşik; masada sahte kutu oranı en düşük seviyesinde.
+#   16 olmayan nesne vakasında 0.05'e kadar hiç sahte kutu yok. Market "ürün" sorgusu
+#   daha düşük eşiği seviyor (0.08'de F1 0.94); bu yüzden Geniş market sayımına uygundur.
 SENSITIVITY_THRESHOLDS = {
     "owlv2": {"strict": 0.17, "loose": 0.10},
+    "owlv2-large": {"strict": 0.17, "loose": 0.10},
     "grounding-dino": {"strict": 0.35, "loose": 0.27},
     "yolo-world": {"strict": 0.25, "loose": 0.05},
 }
@@ -238,6 +253,8 @@ ADAPTIVE_THRESHOLDS = {
     # 16 olmayan nesne vakasında seçildi. 0.13: envanter F1 0.78 (P 0.76, R 0.81),
     # sahte kutu 0; < 0.08'de sahte kutu başlar, > 0.14'te recall hızla düşer.
     "owlv2": AdaptiveThresholdSettings(thresholds=(0.13,)),
+    # OWLv2 large: uygulamanın modeli; seçim gerekçesi SENSITIVITY_THRESHOLDS üstündeki tabloda.
+    "owlv2-large": AdaptiveThresholdSettings(thresholds=(0.14,)),
     # Grounding DINO: tek sabit box eşiği (GROUNDING_DINO.box_threshold); text eşiği sabit.
     "grounding-dino": AdaptiveThresholdSettings(
         thresholds=(GROUNDING_DINO.box_threshold,),

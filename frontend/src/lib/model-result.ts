@@ -1,4 +1,4 @@
-import type { DetectionDetails, DetectorModel } from "./detection-api";
+import type { DetectionDetails } from "./detection-api";
 
 export interface ModelResult {
   imageUrl: string | null;
@@ -9,12 +9,6 @@ export interface ModelResult {
   elapsedMs: number | null;
 }
 
-export type ModelResults = Record<DetectorModel, ModelResult>;
-export const DETECTOR_MODELS: DetectorModel[] = ["owlvit", "grounding-dino", "yolo-world"];
-
-export function emptyResults(): ModelResults {
-  const empty = (): ModelResult => ({
-    imageUrl: null, details: null, phase: "idle", error: null, warning: null, elapsedMs: null,
-  });
-  return { owlvit: empty(), "grounding-dino": empty(), "yolo-world": empty() };
+export function emptyResult(): ModelResult {
+  return { imageUrl: null, details: null, phase: "idle", error: null, warning: null, elapsedMs: null };
 }
