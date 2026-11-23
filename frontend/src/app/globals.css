@@ -2,41 +2,43 @@
 @import "tw-animate-css";
 
 /*
- * Tasarım: "vizör". Uygulama bir inceleme masası gibi davranır: açık gri kağıt üzerinde
- * koyu bir görüntü sahnesi, köşelerinde vizör işaretleri. Vurgu rengi, backend'in sonuç
- * görseline çizdiği kutu kırmızısıdır; belirsiz kutuların kesikli turuncusu da aynen
- * arayüze taşınır. Böylece ekrandaki renkler görseldeki işaretlerle aynı dili konuşur.
+ * Tasarım: "vizör" / ölçüm cihazı. Soğuk, açık bir laboratuvar zemini üzerinde lacivert bir
+ * görüntü sahnesi, köşelerinde vizör işaretleri. Arayüz vurgusu osiloskop camgöbeği;
+ * kırmızı yalnızca tespit kutusunu anlatan yerlerde (backend görsele kırmızı kutu çizer),
+ * turuncu yalnızca belirsiz kutularda. Sıcak krem/kil tonlarından bilerek kaçınıldı.
  * Renkler yalnızca buradan değişir.
  */
 :root {
   --radius: 0.25rem;
-  --paper: #ecede8;        /* kağıt: sayfa zemini */
-  --ink: #1e2321;          /* mürekkep: metin */
-  --stage: #242927;        /* sahne: görselin durduğu koyu alan */
-  --stage-line: #4a524e;   /* sahne üstündeki ince çizgiler */
-  --signal: #c8261d;       /* kutu kırmızısı: ana eylem ve tespit işareti */
+  --paper: #f2f5f7;        /* zemin: soğuk açık gri */
+  --ink: #13202b;          /* metin: lacivert-siyah */
+  --stage: #15222e;        /* sahne: görselin durduğu lacivert alan */
+  --stage-line: #2e4354;   /* sahne üstündeki ince çizgiler */
+  --signal: #0a6c7c;       /* camgöbeği: ana eylem ve vurgu */
+  --scan: #3fd0e0;         /* koyu sahne üstünde parlak camgöbeği */
+  --box: #e0241b;          /* tespit kutusu kırmızısı (backend ile aynı) */
   --caution: #f59e0b;      /* belirsiz kutu turuncusu (backend ile aynı) */
-  --rule: #c9ccc4;         /* kağıt üstündeki çizgiler */
+  --rule: #d2dae1;         /* kağıt üstündeki çizgiler */
 
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: #f6f6f3;
+  --card: #fbfcfd;
   --card-foreground: var(--ink);
   --primary: var(--signal);
   --primary-foreground: #ffffff;
-  --secondary: #dfe1da;
+  --secondary: #e3e9ee;
   --secondary-foreground: var(--ink);
-  --muted: #e2e4de;
-  --muted-foreground: #5c6560;
-  --accent: #e2e4de;
+  --muted: #e6ecf0;
+  --muted-foreground: #526271;
+  --accent: #e6ecf0;
   --accent-foreground: var(--ink);
   --destructive: #a3241c;
   --warning: #fbf0d9;
   --warning-foreground: #82500a;
   --warning-border: #ecd29b;
   --border: var(--rule);
-  --input: #b9bdb4;
-  --ring: #2f6f8f;
+  --input: #b3c0cb;
+  --ring: #0a6c7c;
 }
 
 @theme inline {
@@ -70,6 +72,8 @@
   --color-stage: var(--stage);
   --color-stage-line: var(--stage-line);
   --color-signal: var(--signal);
+  --color-scan: var(--scan);
+  --color-box: var(--box);
   --color-caution: var(--caution);
 }
 
@@ -96,13 +100,13 @@
   .viewfinder > .corners::before { bottom: 10px; left: 10px; border-bottom-width: 2px; border-left-width: 2px; }
   .viewfinder > .corners::after { bottom: 10px; right: 10px; border-bottom-width: 2px; border-right-width: 2px; }
   .viewfinder.is-scanning::before, .viewfinder.is-scanning::after,
-  .viewfinder.is-scanning > .corners::before, .viewfinder.is-scanning > .corners::after { border-color: var(--signal); }
+  .viewfinder.is-scanning > .corners::before, .viewfinder.is-scanning > .corners::after { border-color: var(--scan); }
 
   /* Analiz sürerken sahneyi yukarıdan aşağı tarayan tek çizgi (~30 sn'lik beklemeyi görünür kılar). */
   .scan-line {
     position: absolute; inset-inline: 0; top: 0; height: 2px; z-index: 4; pointer-events: none;
-    background: var(--signal);
-    box-shadow: 0 0 18px 4px color-mix(in srgb, var(--signal) 45%, transparent);
+    background: var(--scan);
+    box-shadow: 0 0 18px 4px color-mix(in srgb, var(--scan) 45%, transparent);
     animation: scan 2.6s cubic-bezier(.45, 0, .55, 1) infinite alternate;
   }
   @keyframes scan { from { top: 4%; } to { top: 96%; } }
@@ -114,8 +118,8 @@
   .stage-grid {
     background-color: var(--stage);
     background-image:
-      linear-gradient(color-mix(in srgb, #ffffff 5%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in srgb, #ffffff 5%, transparent) 1px, transparent 1px);
+      linear-gradient(color-mix(in srgb, var(--scan) 7%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--scan) 7%, transparent) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 

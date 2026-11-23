@@ -51,7 +51,7 @@ export default function ImageViewer(props: Props) {
         </div>
         <div className="flex min-w-0 items-center gap-4 pb-2">
           {resultQuery && <span className="flex min-w-0 items-center gap-2 text-sm" title={resultQuery}>
-            <span aria-hidden="true" className="size-2.5 shrink-0 border-2 border-signal" />
+            <span aria-hidden="true" className="size-2.5 shrink-0 border-2 border-box" />
             <span className="truncate font-semibold">{resultQuery}</span>
           </span>}
           <label className="compare-option hidden cursor-pointer items-center gap-2 text-xs text-muted-foreground sm:flex">
