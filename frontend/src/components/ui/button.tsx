@@ -8,8 +8,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-        outline: "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
+        default: "bg-primary text-primary-foreground disabled:bg-foreground/15 disabled:text-foreground/50 disabled:opacity-100 hover:bg-[color-mix(in_srgb,var(--signal)_86%,black)] active:translate-y-px",
+        outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "h-auto px-0 text-primary underline-offset-4 hover:underline",
@@ -17,7 +17,7 @@ const buttonVariants = cva(
       size: {
         default: "h-9 px-4 py-2",
         sm: "h-8 gap-1.5 px-3",
-        lg: "h-11 px-6 text-base",
+        lg: "h-12 px-6 text-[1.0625rem] font-semibold tracking-[0.01em]",
         icon: "size-9",
       },
     },

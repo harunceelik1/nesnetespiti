@@ -4,7 +4,6 @@ import { SENSITIVITY_LABELS, type Sensitivity } from "@/lib/detection-api";
 import { cn } from "@/lib/utils";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Segmented, segmentClass } from "@/components/ui/segmented";
 
@@ -41,14 +40,15 @@ function messageText(message: string): string {
   return message.split(/\r?\n/)[0].slice(0, 260);
 }
 
-function Step({ number, title, children, htmlFor }: { number: number; title: string; children: ReactNode; htmlFor?: string }) {
-  const heading = <><span className="flex size-5 items-center justify-center rounded-full bg-primary/10 text-[11px] font-semibold text-primary">{number}</span>{title}</>;
+/** Adımlar gerçekten sıralı (görsel → sorgu → hassasiyet); numara bu sırayı gösterir. */
+function Step({ number, title, children }: { number: number; title: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col gap-2.5">
-      {htmlFor
-        ? <label htmlFor={htmlFor} className="flex items-center gap-2 text-sm font-medium">{heading}</label>
-        : <div className="flex items-center gap-2 text-sm font-medium">{heading}</div>}
-      {children}
+    <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 border-t border-border py-5 first:border-t-0 first:pt-1">
+      <span aria-hidden="true" className="numerals -mt-1 text-[2.5rem] font-light leading-none text-foreground/30">{number}</span>
+      <div className="flex min-w-0 flex-col gap-2.5">
+        <div className="text-base font-semibold leading-tight">{title}</div>
+        {children}
+      </div>
     </div>
   );
 }
@@ -61,17 +61,17 @@ export default function ControlPanel(props: Props) {
 
   return (
     <aside className="control-panel lg:sticky lg:top-6" aria-label="Analiz kontrolleri">
-      <Card className="gap-0 py-0">
-        <CardContent className="px-5 py-5">
-          <form className="flex flex-col gap-6" onSubmit={props.onSubmit}>
+          <form className="flex flex-col" onSubmit={props.onSubmit}>
             <Step number={1} title="Görsel">
-              <input id="image-file" className="sr-only" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" disabled={busy} onChange={props.onChooseImage} />
+              <input id="image-file" className="peer sr-only" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" disabled={busy} onChange={props.onChooseImage} />
               <label htmlFor="image-file" className={cn(
-                "flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-dashed border-input bg-muted/40 px-4 py-6 text-center transition-colors hover:border-primary/40 hover:bg-accent",
+                "flex cursor-pointer items-center gap-3 rounded-md border-[1.5px] border-dashed border-foreground/40 px-4 py-4 transition-colors hover:border-foreground hover:bg-card peer-focus-visible:ring-[3px] peer-focus-visible:ring-ring/50",
                 busy && "pointer-events-none opacity-60")}>
-                {checkingFile ? <Loader2 aria-hidden="true" className="size-5 animate-spin text-muted-foreground" /> : <ImageUp aria-hidden="true" className="size-5 text-muted-foreground" />}
-                <span className="text-sm font-medium">{checkingFile ? "Görsel kontrol ediliyor…" : image ? "Görseli değiştir" : "Görsel yükle"}</span>
-                <span className="text-xs text-muted-foreground">JPG veya PNG</span>
+                {checkingFile ? <Loader2 aria-hidden="true" className="size-5 shrink-0 animate-spin" /> : <ImageUp aria-hidden="true" className="size-5 shrink-0" strokeWidth={1.5} />}
+                <span className="flex flex-col">
+                  <span className="text-sm font-semibold">{checkingFile ? "Görsel kontrol ediliyor…" : image ? "Görseli değiştir" : "Görsel yükle"}</span>
+                  <span className="text-xs text-muted-foreground">JPG veya PNG</span>
+                </span>
               </label>
               <p className="flex justify-between gap-3 text-xs text-muted-foreground">
                 <span className="file-name truncate" title={image?.name}>{image?.name || "Henüz bir dosya seçilmedi."}</span>
@@ -88,7 +88,7 @@ export default function ControlPanel(props: Props) {
                   </button>
                 ))}
               </Segmented>
-              {example && <p className="rounded-md bg-accent px-3 py-2 text-xs leading-relaxed text-accent-foreground">
+              {example && <p className="border-l-2 border-signal pl-3 text-xs leading-relaxed">
                 {props.exampleReady ? "Örnek seçildi. Benzerlerini bulmak için aşağıdaki düğmeye bas." : "Sağdaki görselde aradığın nesnelerden birinin etrafına fareyle kutu çiz."}
               </p>}
               <label htmlFor="object-query" className="sr-only">{example ? "Ad (isteğe bağlı)" : "Aranacak nesne"}</label>
@@ -100,8 +100,11 @@ export default function ControlPanel(props: Props) {
               </p>
             </Step>
 
-            <fieldset className="sensitivity-group flex min-w-0 flex-col gap-2.5" disabled={busy}>
-              <legend className="mb-2.5 text-sm font-medium">Hassasiyet</legend>
+            <fieldset className="sensitivity-group grid min-w-0 grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 border-t border-border py-5" disabled={busy}>
+              <legend className="sr-only">Hassasiyet</legend>
+              <span aria-hidden="true" className="numerals -mt-1 text-[2.5rem] font-light leading-none text-foreground/30">3</span>
+              <div className="flex min-w-0 flex-col gap-2.5">
+              <div aria-hidden="true" className="text-base font-semibold leading-tight">Hassasiyet</div>
               <Segmented className="sensitivity-control">
                 {(Object.keys(SENSITIVITY_LABELS) as Sensitivity[]).map((level) => (
                   <label key={level} className={segmentClass(props.sensitivity === level)}>
@@ -114,19 +117,19 @@ export default function ControlPanel(props: Props) {
               <p id="sensitivity-helper" className={cn("text-xs", props.sensitivity === "loose" ? "sensitivity-warning text-warning-foreground" : "text-muted-foreground")}>
                 {SENSITIVITY_HELP[props.sensitivity]}
               </p>
+              </div>
             </fieldset>
 
             <Button type="submit" size="lg" className="w-full" disabled={!canSubmit}>
               {loading ? <Loader2 aria-hidden="true" className="animate-spin" /> : <Search aria-hidden="true" />}
               {buttonText}
             </Button>
+            <p className="mt-2 text-xs leading-snug text-muted-foreground">İlk arama yaklaşık 30 saniye sürer. Aynı görselde sonraki aramalar birkaç saniyede biter.</p>
           </form>
           {(error || warning) && <div className="mt-4 flex flex-col gap-2">
             {error && <Alert variant="destructive" role="alert"><AlertTriangle aria-hidden="true" /><span>{messageText(error)}</span></Alert>}
             {warning && <Alert variant="warning" role="status"><AlertTriangle aria-hidden="true" /><span>{messageText(warning)}</span></Alert>}
           </div>}
-        </CardContent>
-      </Card>
     </aside>
   );
 }

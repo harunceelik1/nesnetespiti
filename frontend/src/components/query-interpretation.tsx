@@ -59,7 +59,7 @@ export default function QueryInterpretation({ details, busy, onRetry }: Props) {
       {!editing ? <div className="query-line flex flex-wrap items-center gap-2">
         <Languages aria-hidden="true" className="size-4 text-muted-foreground" />
         <span className="query-caption text-muted-foreground">Aranan ifade</span>
-        <code className="query-value rounded-md bg-muted px-2 py-0.5 font-mono text-[13px] text-foreground">{details.primary_query}</code>
+        <code className="query-value border-b-2 border-signal px-0.5 font-sans text-base font-semibold text-foreground">{details.primary_query}</code>
         <Badge variant={fromModel ? "warning" : "outline"} className="query-source font-normal">{sourceLabel(details)}</Badge>
         <Button type="button" variant="link" size="sm" className="h-auto gap-1 text-xs" disabled={busy} onClick={() => setEditing(true)}>
           <Pencil aria-hidden="true" className="size-3" />Düzenle

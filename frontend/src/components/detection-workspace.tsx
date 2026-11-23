@@ -5,7 +5,6 @@ import InventorySummary from "./inventory-summary";
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { getDetectionAnalysis, getExampleAnalysis, type Box, type Sensitivity } from "@/lib/detection-api";
 import { emptyResult, type ModelResult } from "@/lib/model-result";
-import { Card } from "@/components/ui/card";
 import ControlPanel, { type SearchMode } from "./control-panel";
 import ImageViewer, { type ViewerMode } from "./image-viewer";
 import ResultSummary from "./result-summary";
@@ -162,7 +161,7 @@ export default function DetectionWorkspace() {
   const phase = result.phase === "image" || result.phase === "details" ? result.phase : "idle";
 
   return (
-    <div className="workspace-shell grid items-start gap-6 lg:grid-cols-[minmax(300px,360px)_minmax(0,1fr)]">
+    <div className="workspace-shell grid items-start gap-x-10 gap-y-8 pt-6 lg:grid-cols-[minmax(290px,340px)_minmax(0,1fr)]">
       <ControlPanel
         image={image} query={query} busy={busy} loading={loading} checkingFile={checkingFile}
         mode={mode} onModeChange={changeMode} exampleReady={!!exampleBox}
@@ -174,17 +173,19 @@ export default function DetectionWorkspace() {
         onSensitivityChange={(level) => { setSensitivity(level); clearResult(); }}
         onSubmit={submit}
       />
-      <section className="analysis-area flex min-w-0 flex-col gap-4" aria-label="Görüntü analiz alanı">
+      <section className="analysis-area flex min-w-0 flex-col gap-6" aria-label="Görüntü analiz alanı">
         <ImageViewer previewUrl={previewUrl} resultUrl={result.imageUrl} filename={image?.name ?? null}
           resultQuery={resultQuery} view={view} compare={compare} loading={phase === "image"}
           onViewChange={setView} onCompareChange={setCompare}
           example={{ active: mode === "example", box: exampleBox, onBoxChange: setExampleBox }}
         />
-        <Card className="gap-4 px-5 py-4">
-          <ResultSummary details={result.details} hasResult={!!result.imageUrl} phase={phase} failed={!!result.error} />
-          <QueryInterpretation key={result.details?.primary_query ?? "none"} details={result.details} busy={busy} onRetry={(value) => { void runDetection(value); }} />
+        <div className="readout flex flex-col gap-x-10 gap-y-5 md:flex-row md:items-start">
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
+            <ResultSummary details={result.details} hasResult={!!result.imageUrl} phase={phase} failed={!!result.error} />
+            <QueryInterpretation key={result.details?.primary_query ?? "none"} details={result.details} busy={busy} onRetry={(value) => { void runDetection(value); }} />
+          </div>
           <InventorySummary details={result.details} />
-        </Card>
+        </div>
         <TechnicalDetails details={result.details} loading={loading}
           warning={result.warning || result.error} elapsedMs={result.elapsedMs}
         />

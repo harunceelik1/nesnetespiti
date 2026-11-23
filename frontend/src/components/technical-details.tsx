@@ -14,13 +14,14 @@ const ms = (value: number) => Math.round(value).toLocaleString("tr-TR") + " ms";
 export default function TechnicalDetails({ details, loading, warning, elapsedMs }: Props) {
   const debug = useDebugMode();
   return (
-    <details className="technical-details group rounded-xl border bg-card text-sm shadow-sm">
-      <summary className="flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-muted-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">
+    <details className="technical-details group border-t border-foreground/80 text-sm">
+      <summary className="flex cursor-pointer list-none items-center gap-2 py-3 text-muted-foreground outline-none hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden">
         <ChevronRight aria-hidden="true" className="size-4 transition-transform group-open:rotate-90" />
-        <span className="font-medium">Teknik detaylar</span>
+        <span className="font-semibold">Teknik detaylar</span>
+        <span className="hidden text-xs sm:inline">eşik, süre ve her kutunun güven puanı</span>
         {debug && <span className="ml-auto rounded bg-warning px-1.5 text-[11px] text-warning-foreground">geliştirici modu</span>}
       </summary>
-      <div className="technical-content border-t px-4 py-4">
+      <div className="technical-content pb-6 pt-2">
         {!details && <p className="muted">{loading ? "Teknik bilgiler alınıyor…" : warning || "Tespit tamamlandığında eşik, süre ve kutu bilgileri burada gösterilir."}</p>}
         {details && (
           <>
@@ -72,7 +73,7 @@ export default function TechnicalDetails({ details, loading, warning, elapsedMs 
 function RawDiagnostics({ details }: { details: DetectionDetails }) {
   return (
     <section className="raw-diagnostics flex flex-col gap-4 border-t border-dashed pt-4" aria-label="Ham tanılar">
-      <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wide text-warning-foreground">Ham tanılar · ?debug=1</h3>
+      <h3 className="text-xs font-semibold text-warning-foreground">Ham tanılar (?debug=1)</h3>
       <dl className="debug-grid">
         <div><dt>threshold_selection_reason</dt><dd>{details.threshold_selection_reason ?? "Backend bildirmedi"}</dd></div>
         <div className="wide"><dt>threshold_attempts</dt>
