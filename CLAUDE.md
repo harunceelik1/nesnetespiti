@@ -1,6 +1,6 @@
 # CLAUDE.md: proje durumu
 
-Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-23 (uygulama OWLv2 large'a geçirildi).
+Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-23 (OWLv2 large'a geçiş + arayüz yeniden tasarımı). Sıradaki odak: **backend ve model** (§7).
 
 ## 1. Amaç
 - Ödev: **Açık Sözlük Nesne Tespiti**. Senaryolar: robotik, envanter, güvenlik.
@@ -81,6 +81,13 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
 - **OWLv2 görsel özellik önbelleği** (son 2 görsel): aynı görselde tekrar arama ~5 sn yerine ~0.05 sn. Çıktının birebir aynı olduğu doğrulandı.
 
 **Frontend** (`frontend/src/`, Next 16.4.3, Tailwind 4, shadcn tarzı)
+- **Görsel dil "vizör / ölçüm cihazı"** (commit ae9faa5, 1381f5c). Tüm renkler `globals.css` içindeki değişkenlerde.
+  - Soğuk açık gri zemin, lacivert görsel sahnesi, camgöbeği vurgu (`--signal`, `--scan`).
+  - Kırmızı (`--box`) yalnızca tespit kutusunu, turuncu (`--caution`) yalnızca belirsiz kutuyu temsil eder.
+  - **Kullanıcı: sıcak krem/gri zemin + kırmızı/kil vurgu "Claude temasına benziyor", istemiyor.**
+  - Yazı tipi Bahnschrift (Windows'ta var, indirme yok). Kart yok; bölümleri çizgiler ayırır, adımlar numaralı.
+  - Analiz sürerken sahnede tarama çizgisi; `prefers-reduced-motion` ile durur.
+  - Testler metinlere ve sınıf adlarına bağlı (`.result-summary`, `.inventory-summary`, `.viewer-pane`, `#tab-result` vb.); tasarım değişirken bunlar korunmalı.
 - `detection-workspace.tsx`: ana ekran.
 - `technical-details.tsx`: 3 katman; ham tanılar yalnızca `?debug=1` ile görünür.
 - `query-interpretation.tsx`: "Aranan ifade" ve Düzenle.
@@ -129,6 +136,11 @@ $env:PYTHONIOENCODING="utf-8"
 - Görsel başına süre: YOLO ~1 sn · OWLv2 base ~8 sn · large ~28 sn · DINO tiny ~80 sn · LLMDet ~110 sn.
 
 ## 7. Açık işler (sırayla)
+0. **Backend / model (kullanıcının seçtiği sıradaki odak).** Kapsam henüz belirlenmedi; oturum başında kullanıcıya sor. Adaylar:
+   - Hız: CPU'da ilk arama ~28 sn (görsel özellik önbelleğiyle sonrakiler ~1.6 sn).
+   - Hiçbir modelin bulamadığı nesneler (pil, açacak, deodorant, tıraş makinesi, parfüm): küçük nesne / dilimleme (SAHI) denemesi umut verici (§5).
+   - Çeviri hataları ("fare", "bank", "tavuk bulyonu").
+   - Her değişiklik ölçümle doğrulanmalı: LVIS nadir + masa fotoğrafları + market (RPC) kalibrasyonu; sonuç `config.py` yorumuna gerekçe olarak yazılır.
 1. **Sunum:** `sunum/SENARYO.md` hâlâ üç model karşılaştırmasına göre yazılı.
    - `hazirla.py` hâlâ `grounding-dino`/`yolo-world` gönderiyor; backend bunları artık 400 ile reddediyor.
    - Karşılaştırma cümlelerini çıkar; nadir nesne ve "sınırlar" adımlarını tut.
