@@ -1,13 +1,4 @@
 {
- "01_makas_owlvit": {
-  "aranan_ifade": "scissors",
-  "kaynak": "context",
-  "kutu": 1,
-  "guven": [
-   0.75
-  ],
-  "sure_ms": 5494
- },
  "01_makas_grounding-dino": {
   "aranan_ifade": "scissors",
   "kaynak": "context",
@@ -16,6 +7,15 @@
    0.9
   ],
   "sure_ms": 8706
+ },
+ "01_makas_owlvit": {
+  "aranan_ifade": "scissors",
+  "kaynak": "context",
+  "kutu": 1,
+  "guven": [
+   0.75
+  ],
+  "sure_ms": 5494
  },
  "01_makas_yolo-world": {
   "aranan_ifade": "scissors",
@@ -58,163 +58,6 @@
   ],
   "sure_ms": 10968
  },
- "04_alkollu_icecek_owlvit": {
-  "aranan_ifade": "alcohol",
-  "kaynak": "context",
-  "kutu": 0,
-  "guven": [],
-  "sure_ms": 5497
- },
- "04_alkollu_icecek_grounding-dino": {
-  "aranan_ifade": "alcohol",
-  "kaynak": "context",
-  "kutu": 2,
-  "guven": [
-   0.39,
-   0.38
-  ],
-  "sure_ms": 6520
- },
- "04_alkollu_icecek_yolo-world": {
-  "aranan_ifade": "alcohol",
-  "kaynak": "context",
-  "kutu": 0,
-  "guven": [],
-  "sure_ms": 1063
- },
- "05_sac_spreyi_owlvit": {
-  "aranan_ifade": "hairspray",
-  "kaynak": "context",
-  "kutu": 3,
-  "guven": [
-   0.44,
-   0.19,
-   0.19
-  ],
-  "sure_ms": 5472
- },
- "05_sac_spreyi_grounding-dino": {
-  "aranan_ifade": "hairspray",
-  "kaynak": "context",
-  "kutu": 0,
-  "guven": [],
-  "sure_ms": 8561
- },
- "05_sac_spreyi_yolo-world": {
-  "aranan_ifade": "hairspray",
-  "kaynak": "context",
-  "kutu": 0,
-  "guven": [],
-  "sure_ms": 1042
- },
- "06_olmayan_kedi_owlvit": {
-  "aranan_ifade": "cat",
-  "kaynak": "context",
-  "kutu": 0,
-  "guven": [],
-  "sure_ms": 5501
- },
- "06_olmayan_kedi_grounding-dino": {
-  "aranan_ifade": "cat",
-  "kaynak": "context",
-  "kutu": 0,
-  "guven": [],
-  "sure_ms": 8291
- },
- "06_olmayan_kedi_yolo-world": {
-  "aranan_ifade": "cat",
-  "kaynak": "context",
-  "kutu": 0,
-  "guven": [],
-  "sure_ms": 976
- },
- "08_tv_unitesi_owlvit": {
-  "aranan_ifade": "tv unit",
-  "kaynak": "context",
-  "kutu": 1,
-  "guven": [
-   0.36
-  ],
-  "sure_ms": 5258
- },
- "08_tv_unitesi_grounding-dino": {
-  "aranan_ifade": "tv unit",
-  "kaynak": "context",
-  "kutu": 1,
-  "guven": [
-   0.93
-  ],
-  "sure_ms": 8399
- },
- "08_tv_unitesi_yolo-world": {
-  "aranan_ifade": "tv unit",
-  "kaynak": "context",
-  "kutu": 2,
-  "guven": [
-   0.68,
-   0.6
-  ],
-  "sure_ms": 1018
- },
- "08_tv_unitesi_duzeltilmis_owlvit": {
-  "aranan_ifade": "tv stand",
-  "kaynak": "user",
-  "kutu": 1,
-  "guven": [
-   0.41
-  ],
-  "sure_ms": 5320
- },
- "08_tv_unitesi_duzeltilmis_grounding-dino": {
-  "aranan_ifade": "tv stand",
-  "kaynak": "user",
-  "kutu": 2,
-  "guven": [
-   0.53,
-   0.39
-  ],
-  "sure_ms": 8384
- },
- "08_tv_unitesi_duzeltilmis_yolo-world": {
-  "aranan_ifade": "tv stand",
-  "kaynak": "user",
-  "kutu": 2,
-  "guven": [
-   0.63,
-   0.12
-  ],
-  "sure_ms": 1009
- },
- "09_pil_owlvit": {
-  "aranan_ifade": "battery",
-  "kaynak": "context",
-  "kutu": 2,
-  "guven": [
-   0.22,
-   0.22
-  ],
-  "sure_ms": 5458
- },
- "09_pil_grounding-dino": {
-  "aranan_ifade": "battery",
-  "kaynak": "context",
-  "kutu": 2,
-  "guven": [
-   0.39,
-   0.34
-  ],
-  "sure_ms": 8389
- },
- "09_pil_yolo-world": {
-  "aranan_ifade": "battery",
-  "kaynak": "context",
-  "kutu": 2,
-  "guven": [
-   0.16,
-   0.13
-  ],
-  "sure_ms": 1129
- },
  "03_ornekle_arama_owlvit": {
   "aranan_ifade": "sakız",
   "kaynak": null,
@@ -234,5 +77,358 @@
    "xmax": 1637,
    "ymax": 572
   }
+ },
+ "04_alkollu_icecek_grounding-dino": {
+  "aranan_ifade": "alcohol",
+  "kaynak": "context",
+  "kutu": 2,
+  "guven": [
+   0.39,
+   0.38
+  ],
+  "sure_ms": 6520
+ },
+ "04_alkollu_icecek_owlvit": {
+  "aranan_ifade": "alcohol",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 5497
+ },
+ "04_alkollu_icecek_yolo-world": {
+  "aranan_ifade": "alcohol",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 1063
+ },
+ "05_sac_spreyi_grounding-dino": {
+  "aranan_ifade": "hairspray",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 8561
+ },
+ "05_sac_spreyi_owlvit": {
+  "aranan_ifade": "hairspray",
+  "kaynak": "context",
+  "kutu": 3,
+  "guven": [
+   0.44,
+   0.19,
+   0.19
+  ],
+  "sure_ms": 5472
+ },
+ "05_sac_spreyi_yolo-world": {
+  "aranan_ifade": "hairspray",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 1042
+ },
+ "06_olmayan_kedi_grounding-dino": {
+  "aranan_ifade": "cat",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 8291
+ },
+ "06_olmayan_kedi_owlvit": {
+  "aranan_ifade": "cat",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 5501
+ },
+ "06_olmayan_kedi_yolo-world": {
+  "aranan_ifade": "cat",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 976
+ },
+ "07_nadir_bozuk_para_grounding-dino": {
+  "aranan_ifade": "penny",
+  "kaynak": null,
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 7138
+ },
+ "07_nadir_bozuk_para_owlvit": {
+  "aranan_ifade": "penny",
+  "kaynak": null,
+  "kutu": 4,
+  "guven": [
+   0.78,
+   0.42,
+   0.41,
+   0.27
+  ],
+  "sure_ms": 5603
+ },
+ "07_nadir_bozuk_para_tr_grounding-dino": {
+  "aranan_ifade": "coin",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 6545
+ },
+ "07_nadir_bozuk_para_tr_owlvit": {
+  "aranan_ifade": "coin",
+  "kaynak": "context",
+  "kutu": 4,
+  "guven": [
+   0.61,
+   0.56,
+   0.53,
+   0.44
+  ],
+  "sure_ms": 9732
+ },
+ "07_nadir_bozuk_para_tr_yolo-world": {
+  "aranan_ifade": "coin",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 1084
+ },
+ "07_nadir_bozuk_para_yolo-world": {
+  "aranan_ifade": "penny",
+  "kaynak": null,
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 1185
+ },
+ "07_nadir_kelepce_grounding-dino": {
+  "aranan_ifade": "handcuff",
+  "kaynak": null,
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 8399
+ },
+ "07_nadir_kelepce_owlvit": {
+  "aranan_ifade": "handcuff",
+  "kaynak": null,
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 5560
+ },
+ "07_nadir_kelepce_tr_grounding-dino": {
+  "aranan_ifade": "handcuffs",
+  "kaynak": "context",
+  "kutu": 1,
+  "guven": [
+   0.4
+  ],
+  "sure_ms": 14294
+ },
+ "07_nadir_kelepce_tr_owlvit": {
+  "aranan_ifade": "handcuffs",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 5658
+ },
+ "07_nadir_kelepce_tr_yolo-world": {
+  "aranan_ifade": "handcuffs",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 1742
+ },
+ "07_nadir_kelepce_yolo-world": {
+  "aranan_ifade": "handcuff",
+  "kaynak": null,
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 1116
+ },
+ "07_nadir_kibrit_kutusu_grounding-dino": {
+  "aranan_ifade": "matchbox",
+  "kaynak": null,
+  "kutu": 1,
+  "guven": [
+   0.31
+  ],
+  "sure_ms": 10120
+ },
+ "07_nadir_kibrit_kutusu_owlvit": {
+  "aranan_ifade": "matchbox",
+  "kaynak": null,
+  "kutu": 1,
+  "guven": [
+   0.52
+  ],
+  "sure_ms": 6096
+ },
+ "07_nadir_kibrit_kutusu_tr_grounding-dino": {
+  "aranan_ifade": "matchbook",
+  "kaynak": "context",
+  "kutu": 1,
+  "guven": [
+   0.36
+  ],
+  "sure_ms": 14454
+ },
+ "07_nadir_kibrit_kutusu_tr_owlvit": {
+  "aranan_ifade": "matchbook",
+  "kaynak": "context",
+  "kutu": 1,
+  "guven": [
+   0.31
+  ],
+  "sure_ms": 5467
+ },
+ "07_nadir_kibrit_kutusu_tr_yolo-world": {
+  "aranan_ifade": "matchbook",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 2010
+ },
+ "07_nadir_kibrit_kutusu_yolo-world": {
+  "aranan_ifade": "matchbox",
+  "kaynak": null,
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 1516
+ },
+ "07_nadir_omlet_grounding-dino": {
+  "aranan_ifade": "omelet",
+  "kaynak": null,
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 8165
+ },
+ "07_nadir_omlet_owlvit": {
+  "aranan_ifade": "omelet",
+  "kaynak": null,
+  "kutu": 1,
+  "guven": [
+   0.56
+  ],
+  "sure_ms": 5689
+ },
+ "07_nadir_omlet_tr_grounding-dino": {
+  "aranan_ifade": "omelet",
+  "kaynak": "context",
+  "kutu": 0,
+  "guven": [],
+  "sure_ms": 8311
+ },
+ "07_nadir_omlet_tr_owlvit": {
+  "aranan_ifade": "omelet",
+  "kaynak": "context",
+  "kutu": 1,
+  "guven": [
+   0.56
+  ],
+  "sure_ms": 5177
+ },
+ "07_nadir_omlet_tr_yolo-world": {
+  "aranan_ifade": "omelet",
+  "kaynak": "context",
+  "kutu": 1,
+  "guven": [
+   0.15
+  ],
+  "sure_ms": 133
+ },
+ "07_nadir_omlet_yolo-world": {
+  "aranan_ifade": "omelet",
+  "kaynak": null,
+  "kutu": 1,
+  "guven": [
+   0.15
+  ],
+  "sure_ms": 1031
+ },
+ "08_tv_unitesi_duzeltilmis_grounding-dino": {
+  "aranan_ifade": "tv stand",
+  "kaynak": "user",
+  "kutu": 2,
+  "guven": [
+   0.53,
+   0.39
+  ],
+  "sure_ms": 8384
+ },
+ "08_tv_unitesi_duzeltilmis_owlvit": {
+  "aranan_ifade": "tv stand",
+  "kaynak": "user",
+  "kutu": 1,
+  "guven": [
+   0.41
+  ],
+  "sure_ms": 5320
+ },
+ "08_tv_unitesi_duzeltilmis_yolo-world": {
+  "aranan_ifade": "tv stand",
+  "kaynak": "user",
+  "kutu": 2,
+  "guven": [
+   0.63,
+   0.12
+  ],
+  "sure_ms": 1009
+ },
+ "08_tv_unitesi_grounding-dino": {
+  "aranan_ifade": "tv unit",
+  "kaynak": "context",
+  "kutu": 1,
+  "guven": [
+   0.93
+  ],
+  "sure_ms": 8399
+ },
+ "08_tv_unitesi_owlvit": {
+  "aranan_ifade": "tv unit",
+  "kaynak": "context",
+  "kutu": 1,
+  "guven": [
+   0.36
+  ],
+  "sure_ms": 5258
+ },
+ "08_tv_unitesi_yolo-world": {
+  "aranan_ifade": "tv unit",
+  "kaynak": "context",
+  "kutu": 2,
+  "guven": [
+   0.68,
+   0.6
+  ],
+  "sure_ms": 1018
+ },
+ "09_pil_grounding-dino": {
+  "aranan_ifade": "battery",
+  "kaynak": "context",
+  "kutu": 2,
+  "guven": [
+   0.39,
+   0.34
+  ],
+  "sure_ms": 8389
+ },
+ "09_pil_owlvit": {
+  "aranan_ifade": "battery",
+  "kaynak": "context",
+  "kutu": 2,
+  "guven": [
+   0.22,
+   0.22
+  ],
+  "sure_ms": 5458
+ },
+ "09_pil_yolo-world": {
+  "aranan_ifade": "battery",
+  "kaynak": "context",
+  "kutu": 2,
+  "guven": [
+   0.16,
+   0.13
+  ],
+  "sure_ms": 1129
  }
 }

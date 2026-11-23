@@ -5,7 +5,7 @@ Bütün sayılar `sonuclar/ozet.json`'dan; her adımın kutulu sonuç görseli `
 ile yeniden üret: sayılar değişirse bu dosyayı ona göre güncelle.
 
 **Canlı demo önerisi:** CPU'da tek model 8–16 sn, karşılaştırma 20+ sn sürüyor. Canlı olarak yalnızca
-1, 3 ve 6. adımları yap; diğerlerinde hazır görselleri göster.
+1, 3, 6 ve 7. adımın omlet örneğini yap; diğerlerinde hazır görselleri göster.
 
 Hassasiyet her adımda **Dengeli** (varsayılan).
 
@@ -55,13 +55,21 @@ Hassasiyet her adımda **Dengeli** (varsayılan).
 
 ## 7. Hiç görülmeyen nesneler (ödevin ana iddiası)
 LVIS'in **nadir (r)** kategorileri: eğitim kümesinde ≤ 10 görselde geçen nesneler. Model makaleleri "görülmemiş nesne"
-başarısını bu ölçütle raporluyor. Örnekleri İngilizce yaz (ölçüm İngilizce adlarla yapıldı, çeviri karışmasın).
+başarısını bu ölçütle raporluyor. Aşağıdaki sonuçlar uygulamada canlı alındı (`sonuclar/07_nadir_*`);
+İngilizce sorgu ölçümdeki puanlarla birebir aynı çıktı.
+- **Görsel:** `gorseller/nadir_omlet.jpg` · **Sorgu:** `omlet` · **Model:** Üç modeli karşılaştır **(canlı göster)**
+  - **Sonuç:** OWLv2 arka tabaktaki omleti buluyor (0.56) · Grounding DINO 0 · YOLO-World portakal dilimlerini
+    omlet sanıyor (0.15, yanlış)
 - **Görsel:** `gorseller/nadir_kibrit_kutusu.jpg` · **Sorgu:** `matchbox` · **Model:** Üç modeli karşılaştır
-  - **Sonuç:** OWLv2 kibrit kutusunu buluyor (0.52) · Grounding DINO yanlış nesneye kutu çiziyor · YOLO-World 0
-- **Görsel:** `gorseller/nadir_bozuk_para.jpg` · **Sorgu:** `penny` · **Model:** Üç modeli karşılaştır
-  - **Sonuç:** yalnızca OWLv2 buluyor (0.78); DINO ve YOLO-World 0
-- **Görsel:** `gorseller/nadir_kelepce.jpg` · **Sorgu:** `handcuff` · **Model:** Üç modeli karşılaştır
-  - **Sonuç:** üçü de bulamıyor (sınır örneği: nadir nesnede en iyi model de her zaman başaramıyor)
+  - **Sonuç:** OWLv2 bıçağın yanındaki kibrit kutusunu buluyor (0.52) · Grounding DINO bıçak + kutuyu tek büyük kutuya
+    alıyor (0.31, ölçümde yanlış sayıldı) · YOLO-World 0
+  - Türkçe `kibrit kutusu` → *matchbook* çevriliyor; OWLv2 puanı 0.31'e düşüyor. Düzenle → `matchbox` ile düzelir.
+- **Görsel:** `gorseller/nadir_kelepce.jpg` · **Sorgu:** `kelepçe` · **Model:** Üç modeli karşılaştır
+  - **Sonuç (*handcuffs*):** OWLv2 ve YOLO-World 0 · Grounding DINO adamın **kol saatine** "kelepçe" diyor (0.40).
+    Tekil `handcuff` ile DINO da 0 kutu veriyor; uydurma kutu ifadeye bağlı.
+  - **Söyle:** "Nadir nesnede en iyi model de bazen bulamıyor; DINO ise bulamayınca benzer bir şeye kutu uyduruyor.
+    Tablodaki %20 uydurma oranının canlı örneği."
+- (Yedek) `gorseller/nadir_bozuk_para.jpg` · `penny`: yalnızca OWLv2 (0.78) ama paralar çok küçük, ekranda zor görünüyor.
 - **Tablo** (`outputs/lvis_olcum/siklik_karsilastirma.md`, Dengeli eşik, 100 LVIS görseli):
 
   | Model | Sık nesne F1 | Nadir nesne F1 | Düşüş | Olmayan nesneye kutu |
