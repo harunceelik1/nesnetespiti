@@ -72,8 +72,10 @@ def run(model: str) -> None:
                                                     encoding="utf-8")
 
 
-def score(model: str, threshold: float) -> dict:
-    data = json.loads((OUT_DIR / f"tespitler_{model}.json").read_text(encoding="utf-8"))
+def score(model: str, threshold: float, data: dict | None = None) -> dict:
+    """data verilirse dosya yerine o kayıtlar puanlanır (ör. dilimleme denemesi)."""
+    if data is None:
+        data = json.loads((OUT_DIR / f"tespitler_{model}.json").read_text(encoding="utf-8"))
     t = {"tp": 0, "fp": 0, "gt": 0, "var": 0, "bulunan": 0, "yok": 0, "uydurma": 0, "kacan": []}
     for record in data["records"]:
         truth = LABELS["gorseller"][record["image"]]
