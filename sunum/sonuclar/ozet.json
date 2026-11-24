@@ -3,432 +3,681 @@
   "aranan_ifade": "scissors",
   "kaynak": "context",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.9
   ],
-  "sure_ms": 8706
+  "sure_ms": 997,
+  "cihaz": "cuda"
  },
- "01_makas_owlvit": {
+ "01_makas_owlv2-base": {
   "aranan_ifade": "scissors",
   "kaynak": "context",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.75
   ],
-  "sure_ms": 5494
+  "sure_ms": 703,
+  "cihaz": "cuda"
+ },
+ "01_makas_owlv2-large": {
+  "aranan_ifade": "scissors",
+  "kaynak": "context",
+  "kutu": 1,
+  "emin_degil": 0,
+  "guven": [
+   0.54
+  ],
+  "sure_ms": 2031,
+  "cihaz": "cuda"
  },
  "01_makas_yolo-world": {
   "aranan_ifade": "scissors",
   "kaynak": "context",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.58
   ],
-  "sure_ms": 1067
+  "sure_ms": 1415,
+  "cihaz": "cuda"
  },
- "02_envanter_owlvit": {
+ "02_envanter_owlv2-large": {
   "aranan_ifade": "gum, bottle",
   "kaynak": "context",
-  "kutu": 24,
+  "kutu": 16,
+  "emin_degil": 0,
   "guven": [
-   0.44,
    0.43,
-   0.39,
-   0.37,
-   0.37,
-   0.35,
-   0.33,
-   0.31,
-   0.27,
+   0.43,
    0.27,
    0.26,
-   0.22,
+   0.26,
+   0.24,
+   0.24,
+   0.23,
    0.21,
-   0.2,
-   0.2,
+   0.19,
    0.18,
    0.17,
-   0.17,
+   0.16,
    0.15,
    0.15,
-   0.14,
-   0.14,
-   0.14,
-   0.14
+   0.15
   ],
-  "sure_ms": 10968
+  "sure_ms": 1317,
+  "cihaz": "cuda"
  },
- "03_ornekle_arama_owlvit": {
+ "03_ornekle_arama_owlv2-large": {
   "aranan_ifade": "sakız",
   "kaynak": null,
-  "kutu": 6,
+  "kutu": 5,
+  "emin_degil": 0,
   "guven": [
    1.0,
+   0.95,
    0.94,
-   0.93,
-   0.93,
-   0.91,
-   0.91
+   0.94,
+   0.93
   ],
-  "sure_ms": 5375,
+  "sure_ms": 1309,
+  "cihaz": "cuda",
   "ornek_kutu": {
-   "xmin": 1493,
-   "ymin": 374,
-   "xmax": 1637,
-   "ymax": 572
+   "xmin": 1492,
+   "ymin": 375,
+   "xmax": 1642,
+   "ymax": 571
   }
  },
  "04_alkollu_icecek_grounding-dino": {
   "aranan_ifade": "alcohol",
   "kaynak": "context",
   "kutu": 2,
+  "emin_degil": 0,
   "guven": [
    0.39,
    0.38
   ],
-  "sure_ms": 6520
+  "sure_ms": 369,
+  "cihaz": "cuda"
  },
- "04_alkollu_icecek_owlvit": {
+ "04_alkollu_icecek_owlv2-base": {
   "aranan_ifade": "alcohol",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 5497
+  "sure_ms": 553,
+  "cihaz": "cuda"
+ },
+ "04_alkollu_icecek_owlv2-large": {
+  "aranan_ifade": "alcohol",
+  "kaynak": "context",
+  "kutu": 0,
+  "emin_degil": 0,
+  "guven": [],
+  "sure_ms": 1293,
+  "cihaz": "cuda"
  },
  "04_alkollu_icecek_yolo-world": {
   "aranan_ifade": "alcohol",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 1063
+  "sure_ms": 1264,
+  "cihaz": "cuda"
  },
  "05_sac_spreyi_grounding-dino": {
   "aranan_ifade": "hairspray",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 8561
+  "sure_ms": 496,
+  "cihaz": "cuda"
  },
- "05_sac_spreyi_owlvit": {
+ "05_sac_spreyi_owlv2-base": {
   "aranan_ifade": "hairspray",
   "kaynak": "context",
   "kutu": 3,
+  "emin_degil": 2,
   "guven": [
    0.44,
    0.19,
    0.19
   ],
-  "sure_ms": 5472
+  "sure_ms": 63,
+  "cihaz": "cuda"
+ },
+ "05_sac_spreyi_owlv2-large": {
+  "aranan_ifade": "hairspray",
+  "kaynak": "context",
+  "kutu": 3,
+  "emin_degil": 2,
+  "guven": [
+   0.52,
+   0.25,
+   0.22
+  ],
+  "sure_ms": 1272,
+  "cihaz": "cuda"
  },
  "05_sac_spreyi_yolo-world": {
   "aranan_ifade": "hairspray",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 1042
+  "sure_ms": 1424,
+  "cihaz": "cuda"
  },
  "06_olmayan_kedi_grounding-dino": {
   "aranan_ifade": "cat",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 8291
+  "sure_ms": 420,
+  "cihaz": "cuda"
  },
- "06_olmayan_kedi_owlvit": {
+ "06_olmayan_kedi_owlv2-base": {
   "aranan_ifade": "cat",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 5501
+  "sure_ms": 65,
+  "cihaz": "cuda"
+ },
+ "06_olmayan_kedi_owlv2-large": {
+  "aranan_ifade": "cat",
+  "kaynak": "context",
+  "kutu": 0,
+  "emin_degil": 0,
+  "guven": [],
+  "sure_ms": 63,
+  "cihaz": "cuda"
  },
  "06_olmayan_kedi_yolo-world": {
   "aranan_ifade": "cat",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 976
+  "sure_ms": 1182,
+  "cihaz": "cuda"
  },
  "07_nadir_bozuk_para_grounding-dino": {
   "aranan_ifade": "penny",
   "kaynak": null,
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 7138
+  "sure_ms": 278,
+  "cihaz": "cuda"
  },
- "07_nadir_bozuk_para_owlvit": {
+ "07_nadir_bozuk_para_owlv2-base": {
   "aranan_ifade": "penny",
   "kaynak": null,
   "kutu": 4,
+  "emin_degil": 1,
   "guven": [
    0.78,
    0.42,
    0.41,
    0.27
   ],
-  "sure_ms": 5603
+  "sure_ms": 296,
+  "cihaz": "cuda"
+ },
+ "07_nadir_bozuk_para_owlv2-large": {
+  "aranan_ifade": "penny",
+  "kaynak": null,
+  "kutu": 2,
+  "emin_degil": 0,
+  "guven": [
+   0.59,
+   0.46
+  ],
+  "sure_ms": 1062,
+  "cihaz": "cuda"
  },
  "07_nadir_bozuk_para_tr_grounding-dino": {
   "aranan_ifade": "coin",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 6545
+  "sure_ms": 281,
+  "cihaz": "cuda"
  },
- "07_nadir_bozuk_para_tr_owlvit": {
+ "07_nadir_bozuk_para_tr_owlv2-base": {
   "aranan_ifade": "coin",
   "kaynak": "context",
   "kutu": 4,
+  "emin_degil": 0,
   "guven": [
    0.61,
    0.56,
    0.53,
-   0.44
+   0.43
   ],
-  "sure_ms": 9732
+  "sure_ms": 245,
+  "cihaz": "cuda"
+ },
+ "07_nadir_bozuk_para_tr_owlv2-large": {
+  "aranan_ifade": "coin",
+  "kaynak": "context",
+  "kutu": 4,
+  "emin_degil": 0,
+  "guven": [
+   0.55,
+   0.54,
+   0.54,
+   0.48
+  ],
+  "sure_ms": 1080,
+  "cihaz": "cuda"
  },
  "07_nadir_bozuk_para_tr_yolo-world": {
   "aranan_ifade": "coin",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 1084
+  "sure_ms": 1097,
+  "cihaz": "cuda"
  },
  "07_nadir_bozuk_para_yolo-world": {
   "aranan_ifade": "penny",
   "kaynak": null,
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 1185
+  "sure_ms": 1091,
+  "cihaz": "cuda"
  },
  "07_nadir_kelepce_grounding-dino": {
   "aranan_ifade": "handcuff",
   "kaynak": null,
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 8399
+  "sure_ms": 390,
+  "cihaz": "cuda"
  },
- "07_nadir_kelepce_owlvit": {
+ "07_nadir_kelepce_owlv2-base": {
   "aranan_ifade": "handcuff",
   "kaynak": null,
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 5560
+  "sure_ms": 259,
+  "cihaz": "cuda"
+ },
+ "07_nadir_kelepce_owlv2-large": {
+  "aranan_ifade": "handcuff",
+  "kaynak": null,
+  "kutu": 0,
+  "emin_degil": 0,
+  "guven": [],
+  "sure_ms": 1060,
+  "cihaz": "cuda"
  },
  "07_nadir_kelepce_tr_grounding-dino": {
   "aranan_ifade": "handcuffs",
   "kaynak": "context",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.4
   ],
-  "sure_ms": 14294
+  "sure_ms": 335,
+  "cihaz": "cuda"
  },
- "07_nadir_kelepce_tr_owlvit": {
+ "07_nadir_kelepce_tr_owlv2-base": {
   "aranan_ifade": "handcuffs",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 5658
+  "sure_ms": 236,
+  "cihaz": "cuda"
+ },
+ "07_nadir_kelepce_tr_owlv2-large": {
+  "aranan_ifade": "handcuffs",
+  "kaynak": "context",
+  "kutu": 0,
+  "emin_degil": 0,
+  "guven": [],
+  "sure_ms": 1029,
+  "cihaz": "cuda"
  },
  "07_nadir_kelepce_tr_yolo-world": {
   "aranan_ifade": "handcuffs",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 1742
+  "sure_ms": 1169,
+  "cihaz": "cuda"
  },
  "07_nadir_kelepce_yolo-world": {
   "aranan_ifade": "handcuff",
   "kaynak": null,
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 1116
+  "sure_ms": 1224,
+  "cihaz": "cuda"
  },
  "07_nadir_kibrit_kutusu_grounding-dino": {
   "aranan_ifade": "matchbox",
   "kaynak": null,
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.31
   ],
-  "sure_ms": 10120
+  "sure_ms": 407,
+  "cihaz": "cuda"
  },
- "07_nadir_kibrit_kutusu_owlvit": {
+ "07_nadir_kibrit_kutusu_owlv2-base": {
   "aranan_ifade": "matchbox",
   "kaynak": null,
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.52
   ],
-  "sure_ms": 6096
+  "sure_ms": 272,
+  "cihaz": "cuda"
+ },
+ "07_nadir_kibrit_kutusu_owlv2-large": {
+  "aranan_ifade": "matchbox",
+  "kaynak": null,
+  "kutu": 1,
+  "emin_degil": 0,
+  "guven": [
+   0.28
+  ],
+  "sure_ms": 1064,
+  "cihaz": "cuda"
  },
  "07_nadir_kibrit_kutusu_tr_grounding-dino": {
   "aranan_ifade": "matchbook",
   "kaynak": "context",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.36
   ],
-  "sure_ms": 14454
+  "sure_ms": 364,
+  "cihaz": "cuda"
  },
- "07_nadir_kibrit_kutusu_tr_owlvit": {
+ "07_nadir_kibrit_kutusu_tr_owlv2-base": {
   "aranan_ifade": "matchbook",
   "kaynak": "context",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.31
   ],
-  "sure_ms": 5467
+  "sure_ms": 244,
+  "cihaz": "cuda"
+ },
+ "07_nadir_kibrit_kutusu_tr_owlv2-large": {
+  "aranan_ifade": "matchbook",
+  "kaynak": "context",
+  "kutu": 1,
+  "emin_degil": 0,
+  "guven": [
+   0.18
+  ],
+  "sure_ms": 1103,
+  "cihaz": "cuda"
  },
  "07_nadir_kibrit_kutusu_tr_yolo-world": {
   "aranan_ifade": "matchbook",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 2010
+  "sure_ms": 1307,
+  "cihaz": "cuda"
  },
  "07_nadir_kibrit_kutusu_yolo-world": {
   "aranan_ifade": "matchbox",
   "kaynak": null,
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 1516
+  "sure_ms": 1196,
+  "cihaz": "cuda"
  },
  "07_nadir_omlet_grounding-dino": {
   "aranan_ifade": "omelet",
   "kaynak": null,
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 8165
+  "sure_ms": 325,
+  "cihaz": "cuda"
  },
- "07_nadir_omlet_owlvit": {
+ "07_nadir_omlet_owlv2-base": {
   "aranan_ifade": "omelet",
   "kaynak": null,
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.56
   ],
-  "sure_ms": 5689
+  "sure_ms": 245,
+  "cihaz": "cuda"
+ },
+ "07_nadir_omlet_owlv2-large": {
+  "aranan_ifade": "omelet",
+  "kaynak": null,
+  "kutu": 1,
+  "emin_degil": 0,
+  "guven": [
+   0.38
+  ],
+  "sure_ms": 1070,
+  "cihaz": "cuda"
  },
  "07_nadir_omlet_tr_grounding-dino": {
   "aranan_ifade": "omelet",
   "kaynak": "context",
   "kutu": 0,
+  "emin_degil": 0,
   "guven": [],
-  "sure_ms": 8311
+  "sure_ms": 326,
+  "cihaz": "cuda"
  },
- "07_nadir_omlet_tr_owlvit": {
+ "07_nadir_omlet_tr_owlv2-base": {
   "aranan_ifade": "omelet",
   "kaynak": "context",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.56
   ],
-  "sure_ms": 5177
+  "sure_ms": 250,
+  "cihaz": "cuda"
+ },
+ "07_nadir_omlet_tr_owlv2-large": {
+  "aranan_ifade": "omelet",
+  "kaynak": "context",
+  "kutu": 1,
+  "emin_degil": 0,
+  "guven": [
+   0.38
+  ],
+  "sure_ms": 974,
+  "cihaz": "cuda"
  },
  "07_nadir_omlet_tr_yolo-world": {
   "aranan_ifade": "omelet",
   "kaynak": "context",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.15
   ],
-  "sure_ms": 133
+  "sure_ms": 1296,
+  "cihaz": "cuda"
  },
  "07_nadir_omlet_yolo-world": {
   "aranan_ifade": "omelet",
   "kaynak": null,
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.15
   ],
-  "sure_ms": 1031
+  "sure_ms": 1279,
+  "cihaz": "cuda"
  },
  "08_tv_unitesi_duzeltilmis_grounding-dino": {
   "aranan_ifade": "tv stand",
   "kaynak": "user",
   "kutu": 2,
+  "emin_degil": 0,
   "guven": [
    0.53,
    0.39
   ],
-  "sure_ms": 8384
+  "sure_ms": 358,
+  "cihaz": "cuda"
  },
- "08_tv_unitesi_duzeltilmis_owlvit": {
+ "08_tv_unitesi_duzeltilmis_owlv2-base": {
   "aranan_ifade": "tv stand",
   "kaynak": "user",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.41
   ],
-  "sure_ms": 5320
+  "sure_ms": 22,
+  "cihaz": "cuda"
+ },
+ "08_tv_unitesi_duzeltilmis_owlv2-large": {
+  "aranan_ifade": "tv stand",
+  "kaynak": "user",
+  "kutu": 1,
+  "emin_degil": 0,
+  "guven": [
+   0.43
+  ],
+  "sure_ms": 22,
+  "cihaz": "cuda"
  },
  "08_tv_unitesi_duzeltilmis_yolo-world": {
   "aranan_ifade": "tv stand",
   "kaynak": "user",
   "kutu": 2,
+  "emin_degil": 1,
   "guven": [
    0.63,
    0.12
   ],
-  "sure_ms": 1009
+  "sure_ms": 1052,
+  "cihaz": "cuda"
  },
  "08_tv_unitesi_grounding-dino": {
   "aranan_ifade": "tv unit",
   "kaynak": "context",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
-   0.93
+   0.92
   ],
-  "sure_ms": 8399
+  "sure_ms": 342,
+  "cihaz": "cuda"
  },
- "08_tv_unitesi_owlvit": {
+ "08_tv_unitesi_owlv2-base": {
   "aranan_ifade": "tv unit",
   "kaynak": "context",
   "kutu": 1,
+  "emin_degil": 0,
   "guven": [
    0.36
   ],
-  "sure_ms": 5258
+  "sure_ms": 233,
+  "cihaz": "cuda"
+ },
+ "08_tv_unitesi_owlv2-large": {
+  "aranan_ifade": "tv unit",
+  "kaynak": "context",
+  "kutu": 1,
+  "emin_degil": 0,
+  "guven": [
+   0.28
+  ],
+  "sure_ms": 1074,
+  "cihaz": "cuda"
  },
  "08_tv_unitesi_yolo-world": {
   "aranan_ifade": "tv unit",
   "kaynak": "context",
   "kutu": 2,
+  "emin_degil": 0,
   "guven": [
-   0.68,
+   0.69,
    0.6
   ],
-  "sure_ms": 1018
+  "sure_ms": 1145,
+  "cihaz": "cuda"
  },
  "09_pil_grounding-dino": {
   "aranan_ifade": "battery",
   "kaynak": "context",
   "kutu": 2,
+  "emin_degil": 0,
   "guven": [
    0.39,
    0.34
   ],
-  "sure_ms": 8389
+  "sure_ms": 415,
+  "cihaz": "cuda"
  },
- "09_pil_owlvit": {
+ "09_pil_owlv2-base": {
   "aranan_ifade": "battery",
   "kaynak": "context",
   "kutu": 2,
+  "emin_degil": 0,
   "guven": [
    0.22,
    0.22
   ],
-  "sure_ms": 5458
+  "sure_ms": 457,
+  "cihaz": "cuda"
+ },
+ "09_pil_owlv2-large": {
+  "aranan_ifade": "battery",
+  "kaynak": "context",
+  "kutu": 2,
+  "emin_degil": 0,
+  "guven": [
+   0.31,
+   0.17
+  ],
+  "sure_ms": 1192,
+  "cihaz": "cuda"
  },
  "09_pil_yolo-world": {
   "aranan_ifade": "battery",
   "kaynak": "context",
   "kutu": 2,
+  "emin_degil": 0,
   "guven": [
    0.16,
    0.13
   ],
-  "sure_ms": 1129
+  "sure_ms": 1123,
+  "cihaz": "cuda"
  }
 }

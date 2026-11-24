@@ -1,6 +1,6 @@
 # CLAUDE.md: proje durumu
 
-Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-24 (GPU devrede: CUDA'lı PyTorch kuruldu, OWLv2 large ~28 sn → ~1.2 sn, sonuçlar CPU ile aynı). Sıradaki odak: **kullanıcının seçeceği iş (kamera / dilimleme / LVIS nadir kümesini büyütme / sunum), sonra backend ve model** (§7).
+Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-24 (GPU devrede: CUDA'lı PyTorch kuruldu, OWLv2 large ~28 sn → ~1.2 sn, sonuçlar CPU ile aynı). Sunum karşılaştırmalı olarak güncellendi (§8). Sıradaki odak: **kullanıcının seçeceği iş (kamera / dilimleme / LVIS nadir kümesini büyütme), sonra backend ve model** (§7).
 
 ## 1. Amaç
 - Ödev: **Açık Sözlük Nesne Tespiti**. Senaryolar: robotik, envanter, güvenlik.
@@ -44,7 +44,7 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
 
 **Tuzaklar**
 - `next dev` interaktif bir yükseltme sorusunda takılabiliyor; arka planda `npm run dev < /dev/null` ile başlat.
-- Git Bash `curl` Türkçe karakterleri bozuyor ("sakız" → "sakýz"). Türkçe sorguyla denerken `sunum/hazirla.py` içindeki `post()` fonksiyonunu kullan.
+- Git Bash `curl` Türkçe karakterleri bozuyor ("sakız" → "sakýz"). Türkçe sorguyla denerken Python `urllib` ile multipart gönder.
 - Ölçümleri **paralel çalıştırma**: iki model aynı CPU'yu paylaşınca ikisi de 2–3 kat yavaşlıyor.
 - Arka planda `grep` kullanıyorsan `--line-buffered` ekle. Ölçüm betikleri `HF_HUB_OFFLINE=1` ile çalışıyor.
 
@@ -165,16 +165,15 @@ $env:PYTHONIOENCODING="utf-8"
    - **Canlı kamera ile tespit:** ~1.2 sn/kare ile yapılabilir.
    - **Küçük nesne modu (dilimleme):** 2x2 dilim ≈ 5 forward ≈ ~6 sn olur (tahmin, ölçülmedi).
    - **LVIS nadir kümesini büyütme:** `select_rare.py` COUNT=50'den val'deki tüm havuza çıkarılır. Bu 295 görsel, 175 nadir kategori, 303 nadir soru demek. ~245 yeni COCO görseli, ~40 MB indirme (onay gerekir). Mevcut 50'lik küme ve sonuçları korunur.
-   - **Sunumun güncellenmesi.**
+   - ~~Sunumun güncellenmesi~~ **Tamam (2026-11-24)**, bkz. §8.
 1. **Backend / model.** Adaylar:
    - Hız: GPU'yla çözüldü (yeni görsel ~1.2 sn). Kalan darboğaz CPU'daki Marian çevirisi (~0.7 sn); GPU'ya taşınabilir (ölçülmedi).
    - Hiçbir modelin bulamadığı nesneler (pil, açacak, deodorant, tıraş makinesi, parfüm): dilimleme kuralı ölçüldü. Masa 0.84 ve LVIS nadir 0.53 ile küçük ama tutarlı kazanç sağlıyor, pili buluyor (§5). Uygulamaya eklenmesi kullanıcı kararı.
    - Çeviri hataları ("fare", "bank", "tavuk bulyonu").
    - Her değişiklik ölçümle doğrulanmalı: LVIS nadir + masa fotoğrafları + market (RPC) kalibrasyonu; sonuç `config.py` yorumuna gerekçe olarak yazılır.
-2. **Sunum:** `sunum/SENARYO.md` hâlâ üç model karşılaştırmasına göre yazılı.
-   - `hazirla.py` hâlâ `grounding-dino`/`yolo-world` gönderiyor; backend bunları artık 400 ile reddediyor.
-   - Karşılaştırma cümlelerini çıkar; nadir nesne ve "sınırlar" adımlarını tut.
-   - `sunum/hazirla.py` ile görselleri yeniden üret (`hazirla.py 7` yalnızca 7. adımı çalıştırır).
+2. **Sunum:** güncellendi (2026-11-24, kullanıcı kararı). Karşılaştırma tablo + hazır görsellerle gösteriliyor; canlı demo yalnızca OWLv2 large. Kalan:
+   - Sunumdan önce canlı demoyu uygulamada baştan sona bir kez dene.
+   - Eski `sunum/sonuclar/*_owlvit.jpg` (17 dosya) aslında OWLv2 **base** ve CPU döneminden kalma. Yerlerini `_owlv2-base` / `_owlv2-large` aldı. Silmek kullanıcı onayı bekliyor.
 3. **Rapor:** ana tablo seçilen yöntemin sık/nadir sonuçları; ardından masa fotoğrafları, yöntemin sınırları ve "neden OWLv2 large" gerekçesi.
 4. **Bekleyen silme önerisi** (kullanıcı yanıt vermedi; onaysız silme):
    - Silinecek eski deneme çıktıları (167 jpg/png; 2026-11-24'te sayıldı): `outputs/sanity`, `evaluation/inventory/preview`, `ornek_envanter/dogru_kutular`, `outputs/bolge_kutusu`, `outputs/ornekle_arama`, `outputs/parca_kutusu`, `outputs/result.jpg`, `evaluation/inventory/results/debug`.
@@ -183,8 +182,16 @@ $env:PYTHONIOENCODING="utf-8"
 5. **İsteğe bağlı** (istenmedi): küçük nesne modu (SAHI), "Türkçe olarak çevir" düğmesi.
 
 ## 8. Sunum klasörü
-- `sunum/SENARYO.md`: sunumda adım adım ne gösterileceği ve ne söyleneceği. Sayılar `sunum/sonuclar/ozet.json` dosyasından gelir.
-- `sunum/sonuclar/`: kutulu sonuç görselleri; canlı demo yavaş kalırsa bunlar gösterilir.
+- **Karar (2026-11-24):** sunumda eski modeller karşılaştırma için gösterilir, ama yalnızca ölçüm tabloları ve hazır görsellerle. Uygulama tek modelli kalır.
+- `sunum/SENARYO.md`: sunumda adım adım ne gösterileceği ve ne söyleneceği (11 adım). Sayılar `sunum/sonuclar/ozet.json` dosyasından gelir.
+  - "OWLv2 large LVIS nadirde base ile berabere" dürüstlük notu 7. adımda.
+  - Large'ın asıl gerekçesi (masa tablosu) 8. adımda.
+- `sunum/hazirla.py`: **backend'siz** çalışır.
+  - `/detect` ile aynı akışı (process_query → run_detection → Dengeli politika → annotate_image) doğrudan çağırır.
+  - 4 model: `owlv2-large`, `owlv2-base`, `grounding-dino`, `yolo-world`. GPU'da ~1,5 dk sürer.
+  - `hazirla.py 7` yalnızca 7. adımı çalıştırır.
+  - Base/DINO/YOLO sonuçları eski CPU görselleriyle aynı çıktı (≤ 0.01 fark).
+- `sunum/sonuclar/`: kutulu sonuç görselleri, `NN_ad_model.jpg`.
 - `sunum/gorseller/`:
   - `masa_*`: kullanıcının fotoğrafları.
   - `market_*`: RPC market verisi.
