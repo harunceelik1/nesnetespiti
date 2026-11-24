@@ -1,6 +1,6 @@
 # CLAUDE.md: proje durumu
 
-Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-23 (OWLv2 large'a geçiş + arayüz yeniden tasarımı). Sıradaki odak: **backend ve model** (§7).
+Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-24 (GPU düzeltmesi: laptopta RTX 5060 var, PyTorch CPU sürümü kurulu). Sıradaki odak: **GPU'yu devreye almak, sonra backend ve model** (§7).
 
 ## 1. Amaç
 - Ödev: **Açık Sözlük Nesne Tespiti**. Senaryolar: robotik, envanter, güvenlik.
@@ -8,6 +8,10 @@ Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-23 (OWLv2 large'a g
 - Amaç kusursuz bir dedektör değil. Amaç genellemeyi **ölçüp** dürüstçe raporlamak; uygulama ölçüm ve gösterim aracı.
 - Hocanın kararı: başta istenen üç modeli (Grounding DINO, OWLv2, YOLO-World) kullanmak zorunlu değil, **model karşılaştırması da gerekmiyor**. En iyi tek yöntem kullanılacak.
 - Ölçümle seçilen yöntem: **OWLv2 large**. Uygulama yalnızca bu modelle çalışıyor (model seçimi ve karşılaştırma ekranı kaldırıldı).
+- **Sunum** 2026-12 ilk haftası, **bu laptopla** yapılacak. Hocanın beklentisi: "sınırları zorlayan", etkileyici bir sistem.
+- **Kararlar (2026-11-24):**
+  - **Login yok:** yerel çalışan ölçüm aracı, kullanıcı verisi saklanmıyor.
+  - **Model eğitimi / ince ayar yok:** açık sözlük yöntemin amacı eğitimsiz (zero-shot) tespit. Nadir nesnelerle eğitmek onları "görülmemiş" olmaktan çıkarır ve ana soruyu bozar.
 
 ## 2. Kullanıcının kuralları
 - **LLM/AI entegrasyonu yok.** Çeviri için LLM önerildi, kullanıcı reddetti; yerel model seçildi.
@@ -21,7 +25,11 @@ Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-23 (OWLv2 large'a g
 - Kullanıcı uzun beklemeyi sevmiyor: uzun işlerde süre tahmini ver, ara sonuç paylaş, kısaltma yolu öner.
 
 ## 3. Çalıştırma
-Windows, PowerShell + Git Bash. Python `.venv` içinde: 3.14, torch 2.14 CPU, transformers 5.18, ultralytics 8.4. **GPU yok.**
+Windows, PowerShell + Git Bash. Python `.venv` içinde: 3.14, torch 2.14 CPU, transformers 5.18, ultralytics 8.4.
+- **GPU var: NVIDIA GeForce RTX 5060 Laptop, 8 GB** (sürücü 582.05, `nvidia-smi` çalışıyor). Eski notlardaki "GPU yok" bilgisi yanlıştı.
+- Ama `.venv`'deki PyTorch **`2.14.1+cpu`**; `torch.cuda.is_available()` = False. Bu yüzden şimdiye kadarki **tüm süreler CPU süresi**.
+- `owlv2_service.py`, `grounding_dino_service.py`, `yoloworld_service.py` CUDA varsa onu kendiliğinden seçiyor; CUDA'lı PyTorch kurulunca kod değişikliği muhtemelen gerekmez (doğrulanmadı).
+- RTX 50 serisi (Blackwell) için CUDA 12.8+ derlemesi gerekir. Kurulum kullanıcı onayı bekliyor (§7.0).
 
 ```powershell
 # Backend (proje kökünden) → http://127.0.0.1:8000  (/health, /models, /detect, /detect-by-example)
@@ -133,24 +141,30 @@ $env:PYTHONIOENCODING="utf-8"
 - Model düşük bir tabanda bir kez çalışır, kutular `outputs/lvis_olcum/tespitler_*.json` dosyalarına kaydedilir. Eşikler sonradan uygulanır.
 - **Ölçümde "owlvit" = OWLv2 base** (`evaluate_subset.baseline_detector`; eski kayıtlar böyle). Large `owlv2-large` adayıyla ölçülür. `calibrate_threshold.py --model owlvit` ise uygulamadaki large'ı kalibre eder.
 - Masa fotoğrafları repoda değil: `C:\Users\Harun\Desktop\gorseller`. Cevap anahtarı: `evaluation/masa/etiketler.json` (2, 5, 9, 11, 13.jpeg).
-- Görsel başına süre: YOLO ~1 sn · OWLv2 base ~8 sn · large ~28 sn · DINO tiny ~80 sn · LLMDet ~110 sn.
+- Görsel başına süre (**CPU'da**; GPU süreleri henüz ölçülmedi): YOLO ~1 sn · OWLv2 base ~8 sn · large ~28 sn · DINO tiny ~80 sn · LLMDet ~110 sn.
 
 ## 7. Açık işler (sırayla)
-0. **Backend / model (kullanıcının seçtiği sıradaki odak).** Kapsam henüz belirlenmedi; oturum başında kullanıcıya sor. Adaylar:
-   - Hız: CPU'da ilk arama ~28 sn (görsel özellik önbelleğiyle sonrakiler ~1.6 sn).
+0. **GPU'yu devreye al (ilk iş).**
+   - `.venv`'e CUDA'lı PyTorch kur. Önce paket adı, boyut (~2,5–3 GB) ve kaynak (download.pytorch.org) söylenip onay alınmalı; Python 3.14 uyumunu kontrol et.
+   - `torch.cuda.is_available()` ile doğrula; OWLv2 large süresini ölç (ilk arama ve önbellekli arama ayrı).
+   - Masa fotoğraflarıyla sonuçların CPU ile aynı kaldığını doğrula (F1 0.82, 37/45). Fark varsa raporla.
+   - Sonra bu dosyadaki süreleri ve §5'teki "Bedeli" satırını güncelle.
+   - Ölçülen süreye göre kullanıcı karar verecek: **canlı kamera ile tespit**, **küçük nesne modu (dilimleme)**, sunumun güncellenmesi. Önerilen sıra bu; kamera yalnızca GPU süresi yeterliyse.
+1. **Backend / model.** Adaylar:
+   - Hız: CPU'da ilk arama ~28 sn (görsel özellik önbelleğiyle sonrakiler ~1.6 sn). GPU'yla büyük ölçüde çözülmesi bekleniyor (ölçülmedi).
    - Hiçbir modelin bulamadığı nesneler (pil, açacak, deodorant, tıraş makinesi, parfüm): küçük nesne / dilimleme (SAHI) denemesi umut verici (§5).
    - Çeviri hataları ("fare", "bank", "tavuk bulyonu").
    - Her değişiklik ölçümle doğrulanmalı: LVIS nadir + masa fotoğrafları + market (RPC) kalibrasyonu; sonuç `config.py` yorumuna gerekçe olarak yazılır.
-1. **Sunum:** `sunum/SENARYO.md` hâlâ üç model karşılaştırmasına göre yazılı.
+2. **Sunum:** `sunum/SENARYO.md` hâlâ üç model karşılaştırmasına göre yazılı.
    - `hazirla.py` hâlâ `grounding-dino`/`yolo-world` gönderiyor; backend bunları artık 400 ile reddediyor.
    - Karşılaştırma cümlelerini çıkar; nadir nesne ve "sınırlar" adımlarını tut.
    - `sunum/hazirla.py` ile görselleri yeniden üret (`hazirla.py 7` yalnızca 7. adımı çalıştırır).
-2. **Rapor:** ana tablo seçilen yöntemin sık/nadir sonuçları; ardından masa fotoğrafları, yöntemin sınırları ve "neden OWLv2 large" gerekçesi.
-3. **Bekleyen silme önerisi** (kullanıcı yanıt vermedi; onaysız silme):
+3. **Rapor:** ana tablo seçilen yöntemin sık/nadir sonuçları; ardından masa fotoğrafları, yöntemin sınırları ve "neden OWLv2 large" gerekçesi.
+4. **Bekleyen silme önerisi** (kullanıcı yanıt vermedi; onaysız silme):
    - Silinecek eski deneme çıktıları (~186 görsel): `outputs/sanity`, `evaluation/inventory/preview`, `ornek_envanter/dogru_kutular`, `outputs/bolge_kutusu`, `outputs/ornekle_arama`, `outputs/parca_kutusu`, `outputs/result.jpg`, `evaluation/inventory/results/debug`.
    - **Silinmeyecekler:** `sunum/`, `.cache/lvis`, `evaluation/inventory/data`, `images/`, `ornek_envanter/*.jpg`, `veri_toplama/`.
    - Kullanılmayan modeller de silinebilir: opus-big, NLLB, LLMDet.
-4. **İsteğe bağlı** (istenmedi): küçük nesne modu (SAHI), "Türkçe olarak çevir" düğmesi.
+5. **İsteğe bağlı** (istenmedi): küçük nesne modu (SAHI), "Türkçe olarak çevir" düğmesi.
 
 ## 8. Sunum klasörü
 - `sunum/SENARYO.md`: sunumda adım adım ne gösterileceği ve ne söyleneceği. Sayılar `sunum/sonuclar/ozet.json` dosyasından gelir.
