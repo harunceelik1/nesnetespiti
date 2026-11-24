@@ -85,9 +85,9 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
 
 - **Kesikli turuncu "?" kutu:** aynı sorgunun en iyi puanının yarısından düşük kutular (`UNCERTAIN_RELATIVE_RATIO = 0.5`).
   - Kutu silinmez, envanter sayısı değişmez.
-  - Gerekçe: silmek LVIS'te F1'i 0.51'den 0.54'e çıkarıyordu ama market (RPC) görsellerinde 0.84'ten 0.77'ye düşürüyordu.
+  - Gerekçe: silmek LVIS'te F1'i 0.51'den 0.54'e çıkarıyordu ama market (RPC) görsellerinde 0.84'ten 0.77'ye düşürüyordu. Not: bu ölçüm OWLv2 **base** ile yapıldı; large ile tekrarlanmadı.
 - **Örnekle arama** (`/detect-by-example`): yalnızca OWLv2. Kullanıcı bir kutu çizer, benzer nesneler bulunur.
-- **OWLv2 görsel özellik önbelleği** (son 2 görsel): aynı görselde tekrar arama ~5 sn yerine ~0.05 sn. Çıktının birebir aynı olduğu doğrulandı.
+- **OWLv2 görsel özellik önbelleği** (son 2 görsel): aynı görselde tekrar arama ~1.2 sn yerine ~0.05 sn (GPU, large). Çıktının `model(**inputs)` ile bit düzeyinde aynı olduğu 2026-11-24'te ölçüldü (fark 0.0); bunun birim testi yok. Çok nesneli sorgu tek forward'da çalışıyor; bu da aynı gün ölçüldü.
 
 **Frontend** (`frontend/src/`, Next 16.4.3, Tailwind 4, shadcn tarzı)
 - **Görsel dil "vizör / ölçüm cihazı"** (commit ae9faa5, 1381f5c). Tüm renkler `globals.css` içindeki değişkenlerde.
@@ -115,9 +115,14 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
 | YOLO-World s | 0.39 | 0.08 | 4/20 | 0.50 (20/45) | %2–16 |
 
 - **Masa fotoğrafları:** kullanıcının 5 fotoğrafı, 45 elle işaretli nesne, her fotoğrafta 19 soru. Her model kendi en iyi eşiğinde değerlendirildi.
-- **Hiçbir modelin bulamadığı nesneler:** pil, açacak, deodorant, tıraş makinesi, parfüm. Bunlar yöntemin sınırları.
-- **Neden OWLv2 large?**
-  - Nadir nesnede en iyisi.
+  - Large için en iyi eşik 0.17 (= Sıkı), F1 0.82.
+  - Uygulamanın varsayılanı **Dengeli (0.14)**; bu eşikte F1 **0.78** (38/45, P 0.72). Sunumda/raporda hangi rakamın kullanıldığı açıkça yazılmalı.
+- **Hiçbir modelin tam görselde bulamadığı nesneler:** pil, açacak, deodorant, tıraş makinesi, parfüm. Bunlar yöntemin sınırları. Dilimlemeyle pil bulunuyor (aşağıda).
+- **Neden OWLv2 large?** (denetim 2026-11-24: iddialar kaynak dosyalarla karşılaştırıldı)
+  - Nadir nesnede base ile **berabere**, diğerlerinden açık ara iyi.
+    - LVIS nadir F1: large 0.50, base 0.50. Nadir nesneyi bulduğu soru: large %73, base %75 (`yontem_secimi.md`).
+    - Large yalnızca kısa testte önde: 20 nadir görselde 18/20, base 16/20. Ama aynı kısa testte F1'de base önde (0.60'a 0.56, `kisa_karsilastirma.md`).
+    - 51 soruda 1–2 soruluk farklar anlamlı değil.
   - Kullanıcının fotoğraflarında açık ara önde.
   - Az kutu uyduruyor.
   - Örnekle arama özelliği var.
@@ -127,7 +132,10 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
   - Çeviri: `outputs/ceviri/karsilastirma.md`. Marian+bağlam %93, opus-big %90, NLLB %77.
   - Göreli filtre: `outputs/lvis_olcum/goreli_filtre*.md`.
   - Hassasiyet kalibrasyonu: `outputs/hassasiyet/`.
-  - Dilimleme (SAHI) denemesi: pili içeren bir dilim verilince OWLv2 puanı 0.19'dan 0.36'ya çıktı. Uygulanmadı.
+  - Dilimleme (SAHI, 2x2) ölçüldü ama uygulamada **yok**. Ayrıntı: `outputs/masa_olcum/dilimleme.md`, `outputs/lvis_olcum/dilimleme_nadir.md`. "Tam + küçük dilim kutuları" kuralı: dilim eşiği 0.30, alan ≤ %1.
+    - Masa: F1 0.82 → **0.84** (38/45); pil bulunuyor.
+    - LVIS nadir: F1 0.50 → **0.53**.
+    - Kuralsız NMS birleştirme ise kötüleştiriyor: masada F1 0.67, uydurma kutu artıyor.
 
 ## 6. Ölçüm altyapısı
 ```powershell
@@ -160,7 +168,7 @@ $env:PYTHONIOENCODING="utf-8"
    - **Sunumun güncellenmesi.**
 1. **Backend / model.** Adaylar:
    - Hız: GPU'yla çözüldü (yeni görsel ~1.2 sn). Kalan darboğaz CPU'daki Marian çevirisi (~0.7 sn); GPU'ya taşınabilir (ölçülmedi).
-   - Hiçbir modelin bulamadığı nesneler (pil, açacak, deodorant, tıraş makinesi, parfüm): küçük nesne / dilimleme (SAHI) denemesi umut verici (§5).
+   - Hiçbir modelin bulamadığı nesneler (pil, açacak, deodorant, tıraş makinesi, parfüm): dilimleme kuralı ölçüldü. Masa 0.84 ve LVIS nadir 0.53 ile küçük ama tutarlı kazanç sağlıyor, pili buluyor (§5). Uygulamaya eklenmesi kullanıcı kararı.
    - Çeviri hataları ("fare", "bank", "tavuk bulyonu").
    - Her değişiklik ölçümle doğrulanmalı: LVIS nadir + masa fotoğrafları + market (RPC) kalibrasyonu; sonuç `config.py` yorumuna gerekçe olarak yazılır.
 2. **Sunum:** `sunum/SENARYO.md` hâlâ üç model karşılaştırmasına göre yazılı.
@@ -169,7 +177,7 @@ $env:PYTHONIOENCODING="utf-8"
    - `sunum/hazirla.py` ile görselleri yeniden üret (`hazirla.py 7` yalnızca 7. adımı çalıştırır).
 3. **Rapor:** ana tablo seçilen yöntemin sık/nadir sonuçları; ardından masa fotoğrafları, yöntemin sınırları ve "neden OWLv2 large" gerekçesi.
 4. **Bekleyen silme önerisi** (kullanıcı yanıt vermedi; onaysız silme):
-   - Silinecek eski deneme çıktıları (~186 görsel): `outputs/sanity`, `evaluation/inventory/preview`, `ornek_envanter/dogru_kutular`, `outputs/bolge_kutusu`, `outputs/ornekle_arama`, `outputs/parca_kutusu`, `outputs/result.jpg`, `evaluation/inventory/results/debug`.
+   - Silinecek eski deneme çıktıları (167 jpg/png; 2026-11-24'te sayıldı): `outputs/sanity`, `evaluation/inventory/preview`, `ornek_envanter/dogru_kutular`, `outputs/bolge_kutusu`, `outputs/ornekle_arama`, `outputs/parca_kutusu`, `outputs/result.jpg`, `evaluation/inventory/results/debug`.
    - **Silinmeyecekler:** `sunum/`, `.cache/lvis`, `evaluation/inventory/data`, `images/`, `ornek_envanter/*.jpg`, `veri_toplama/`.
    - Kullanılmayan modeller de silinebilir: opus-big, NLLB, LLMDet.
 5. **İsteğe bağlı** (istenmedi): küçük nesne modu (SAHI), "Türkçe olarak çevir" düğmesi.
