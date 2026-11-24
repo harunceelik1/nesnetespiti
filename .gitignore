@@ -11,3 +11,14 @@ frontend/.env.local
 evaluation/inventory/results/debug/
 outputs/sanity/
 weights/
+
+# Kişisel fotoğraflar ve telifli stok görseller: yalnızca yerelde, GitHub'a gitmez (2026-11-24)
+sunum/gorseller/masa_*
+sunum/sonuclar/01_makas_*
+sunum/sonuclar/05_sac_spreyi_*
+sunum/sonuclar/06_olmayan_kedi_*
+sunum/sonuclar/09_pil_*
+veri_toplama/fotograflar/*.jpg
+veri_toplama/fotograflar/*.jpeg
+images/
+outputs/result.jpg

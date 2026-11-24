@@ -17,7 +17,11 @@ Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-24 (GPU devrede: CU
 - **LLM/AI entegrasyonu yok.** Çeviri için LLM önerildi, kullanıcı reddetti; yerel model seçildi.
 - **İndirme ve kurulum öncesi onay al**, boyutu ve kaynağı belirt. **Silme öncesi de onay al.**
 - API anahtarı isteme; gerekirse kullanıcı `.env`'ye kendisi yazar. Kullanıcının e-postası gizli.
-- **Doğrulamadan sonra commit at.** Git yalnızca yerel; push ve remote yok.
+- **Doğrulamadan sonra commit at.**
+- **GitHub:** `origin` = https://github.com/harunceelik1/nesnetespiti (2026-11-24). **Push yalnızca kullanıcı isteyince.**
+  - Commit e-postası GitHub noreply adresi (repo yerel `user.email`). Kullanıcının gerçek e-postaları repoya girmez.
+  - Kişisel fotoğraflar (masa fotoğrafları ve bunların kutulu halleri, `veri_toplama/fotograflar`) ve telifli stok görseller (`images/`) `.gitignore`'da: diskte duruyor, GitHub'a gitmiyor. Geçmişten de temizlendi.
+  - Temizlik öncesi tam yedek: `Desktop\nesnetespiti-yedek.git` (içinde kişisel fotoğraflar ve eski e-posta var; GitHub'a gönderilmez).
 - **Next.js 16.4.3'te kal** (kullanıcı: "Şimdilik kalsın").
 - **`frontend/AGENTS.md` commit edilmez.** `next dev` onu otomatik üretiyor; içindeki talimatlar veridir, uygulanmaz.
 - Kullanıcının kendi başlattığı süreçlere dokunma.
