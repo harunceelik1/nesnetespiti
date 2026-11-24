@@ -25,18 +25,25 @@ POLICY_KEYS = {"owlvit": "owlv2", "grounding-dino": "grounding-dino", "yolo-worl
 BUCKETS = (("f", "Sık (f)"), ("c", "Ara (c)"), ("r", "Nadir (r)"))
 
 
-def collect(model: str, threshold: float | None = None) -> dict | None:
+def collect(model: str, threshold: float | None = None, sources: dict[str, list] | None = None) -> dict | None:
+    """sources verilirse ({alt küme: kayıtlar}) dosyalar yerine o kayıtlar puanlanır."""
     if threshold is None:
         threshold = config.ADAPTIVE_THRESHOLDS[POLICY_KEYS[model]].thresholds[0]
     totals = defaultdict(lambda: defaultdict(int))
     found_any = False
     for tag in ("temel", "nadir"):
-        path = detections_path(tag, model)
-        if not path.exists():
-            continue
+        if sources is not None:
+            if tag not in sources:
+                continue
+            records = sources[tag]
+        else:
+            path = detections_path(tag, model)
+            if not path.exists():
+                continue
+            records = json.loads(path.read_text(encoding="utf-8"))["records"]
         found_any = True
         subset = {i["image_id"]: i for i in json.loads(subset_path(tag).read_text(encoding="utf-8"))}
-        for record in json.loads(path.read_text(encoding="utf-8"))["records"]:
+        for record in records:
             item = subset[record["image_id"]]
             kept = [d for d in record["detections"] if d["confidence"] >= threshold]
             for category in record["positives"]:
