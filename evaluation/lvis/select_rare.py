@@ -38,9 +38,25 @@ def main() -> None:
     parser.add_argument("--download", action="store_true")
     args = parser.parse_args()
     data = json.loads(ANNOTATIONS.read_text(encoding="utf-8"))
-    names = {c["id"]: c["name"] for c in data["categories"]}
     frequency = {c["name"]: c["frequency"] for c in data["categories"]}
     FREQUENCY_FILE.write_text(json.dumps(dict(sorted(frequency.items())), ensure_ascii=False, indent=0), encoding="utf-8")
+    subset, candidates, covered = rare_subset(data, COUNT)
+    SUBSET_FILE.write_text(json.dumps(subset, ensure_ascii=False, indent=1), encoding="utf-8")
+    rare_pairs = sum(len(i["focus"]) for i in subset)
+    print(f"{candidates} aday görsel · {len(subset)} seçildi · {len(covered)} farklı nadir kategori · "
+          f"{rare_pairs} nadir 'var' sorusu")
+    print("Nadir kategoriler:", ", ".join(sorted(covered)))
+    print("Yok-sorusu sıklık dağılımı (ilk 4):", Counter(frequency[n] for i in subset for n in i["negatives"][:4]))
+    if args.download:
+        download(subset)
+        print(f"Görseller: {IMAGE_DIR}")
+
+
+def rare_subset(data: dict, count: int | None) -> tuple[list[dict], int, set[str]]:
+    """Nadir küme seçimi. count=None: koşulu sağlayan tüm havuz (select_main.py).
+    Dönüş: (küme, aday görsel sayısı, kapsanan nadir kategoriler)."""
+    names = {c["id"]: c["name"] for c in data["categories"]}
+    frequency = {c["name"]: c["frequency"] for c in data["categories"]}
     anns = defaultdict(list)
     for ann in data["annotations"]:
         anns[ann["image_id"]].append(ann)
@@ -54,14 +70,16 @@ def main() -> None:
             candidates.append((image, rare))
     rng = random.Random(SEED)
     rng.shuffle(candidates)
+    count = len(candidates) if count is None else count
     # Önce yeni nadir kategori getirenler; sonra kalan yer rastgele sırayla dolar.
     chosen, covered = [], set()
     for image, rare in candidates:
-        if len(chosen) < COUNT and set(rare) - covered:
+        if len(chosen) < count and set(rare) - covered:
             chosen.append((image, rare)); covered |= set(rare)
+    chosen_ids = {c[0]["id"] for c in chosen}
     for image, rare in candidates:
-        if len(chosen) < COUNT and all(image["id"] != c[0]["id"] for c in chosen):
-            chosen.append((image, rare))
+        if len(chosen) < count and image["id"] not in chosen_ids:
+            chosen.append((image, rare)); chosen_ids.add(image["id"]); covered |= set(rare)
 
     subset = []
     for image, rare in chosen:
@@ -78,15 +96,7 @@ def main() -> None:
             "positives": dict(sorted(positives.items())), "negatives": negatives,
             "not_exhaustive": sorted(names[c] for c in image.get("not_exhaustive_category_ids", [])),
         })
-    SUBSET_FILE.write_text(json.dumps(subset, ensure_ascii=False, indent=1), encoding="utf-8")
-    rare_pairs = sum(len(i["focus"]) for i in subset)
-    print(f"{len(candidates)} aday görsel · {len(subset)} seçildi · {len(covered)} farklı nadir kategori · "
-          f"{rare_pairs} nadir 'var' sorusu")
-    print("Nadir kategoriler:", ", ".join(sorted(covered)))
-    print("Yok-sorusu sıklık dağılımı (ilk 4):", Counter(frequency[n] for i in subset for n in i["negatives"][:4]))
-    if args.download:
-        download(subset)
-        print(f"Görseller: {IMAGE_DIR}")
+    return subset, len(candidates), covered
 
 
 if __name__ == "__main__":

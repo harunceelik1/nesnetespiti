@@ -82,23 +82,26 @@ başarısını bu ölçütle raporluyor.
     Tablodaki ~%20 uydurma oranının canlı örneği."
 - (Yedek) `gorseller/nadir_bozuk_para.jpg` · `penny`: yalnızca OWLv2 buluyor (large 0.59, base 0.78), ama paralar
   çok küçük, ekranda zor görünüyor.
-- **Tablo** (`outputs/lvis_olcum/yontem_secimi.md` ve `siklik_karsilastirma.md`; Dengeli eşik; 100 LVIS görseli, 51 nadir soru):
+- **Ana tablo** (`outputs/lvis_olcum/ana_olcum.md`): LVIS v1 val, 345 görsel, 175 farklı nadir nesne, 303 nadir soru.
+  Dengeli eşik. Köşeli parantez görsel bazında %95 güven aralığı.
 
-  | Model | Sık nesne F1 | Nadir nesne F1 | Düşüş | Nadir nesneyi bulduğu soru | Olmayan nesneye kutu |
+  | Model | Sık nesne F1 | Nadir nesne F1 [%95] | Düşüş | Nadir nesneyi bulduğu soru | Olmayan nesneye kutu |
   |---|---|---|---|---|---|
-  | **OWLv2 large (uygulama)** | 0.57 | **0.50** | %11 | %73 | %4 |
-  | OWLv2 base | 0.55 | 0.50 | %10 | %75 | %5 |
-  | Grounding DINO tiny | 0.48 | 0.21 | %57 | %33 | %21 |
-  | YOLO-World s | 0.39 | 0.08 | %80 | %10 | %2–7 |
+  | **OWLv2 large (uygulama)** | 0.58 | **0.56** [0.50–0.61] | %3 | 220/303 (%73) | %4 |
+  | OWLv2 base | 0.52 | 0.55 [0.49–0.61] | — | 204/303 (%67) | %4 |
+  | Grounding DINO tiny | 0.43 | 0.33 [0.25–0.43] | %23 | 110/303 (%36) | %17 |
+  | YOLO-World s | 0.34 | 0.15 [0.11–0.20] | %55 | 47/303 (%16) | %3 |
 
-- **Söyle:** "Asıl soru buydu: eğitimde neredeyse hiç görülmemiş nesnede ne oluyor? OWLv2 sık nesnedeki başarısının
-  ~%90'ını koruyor. YOLO-World nadir nesnelerin yalnızca %10'unu bir kez bulabiliyor. Grounding DINO arada kalıyor,
-  ama olmayan nesneye kutu uydurma eğilimi her sınıfta ~%20.
-  Sebep eğitim verisi: OWLv2 web ölçeğinde görsel–metin çiftleriyle (kendi ürettiği sözde etiketlerle) eğitildi;
-  DINO ve YOLO-World daha dar, insan etiketli verilerle (Objects365, GoldG vb.) eğitildi."
-- **Dürüstlük notu (söyle):** "LVIS nadir nesnelerinde OWLv2 large ile base berabere. Large'ı seçmemizin sebebi kendi
-  fotoğraflarımız (8. adımdaki tablo): orada fark büyük. Nadir soru sayısı 51; 1–2 soruluk farklar anlamlı değil,
-  ama aileler arasındaki fark (0.50'ye 0.21 ve 0.08) net."
+- **Söyle:** "Asıl soru buydu: eğitimde neredeyse hiç görülmemiş nesnede ne oluyor? OWLv2 large nadir nesnede de sık
+  nesnedeki başarısını neredeyse aynen koruyor (0.58 → 0.56). Grounding DINO'nun başarısı dörtte bir, YOLO-World'ünki
+  yarı yarıya düşüyor. YOLO-World nadir nesnelerin yalnızca %16'sını bir kez bulabiliyor. DINO olmayan nesneye
+  %17 oranında kutu uyduruyor. Sebep eğitim verisi: OWLv2 web ölçeğinde görsel–metin çiftleriyle (kendi ürettiği
+  sözde etiketlerle) eğitildi; DINO ve YOLO-World daha dar, insan etiketli verilerle (Objects365, GoldG vb.) eğitildi."
+- **Dürüstlük notu (söyle):** "Nadir nesnede F1'de OWLv2 large ile base berabere; güven aralıkları neredeyse aynı.
+  Large nadir nesneyi daha sık buluyor (%73'e %67) ve sık nesnede daha iyi (0.58'e 0.52). Ama asıl farkı kendi
+  fotoğraflarımızda gösteriyor (8. adım). Aileler arasındaki fark ise aralıklar çakışmayacak kadar net."
+- **Neden 345 görsel:** LVIS val'de tam etiketli nadir nesne içeren görsellerin tamamı bu. Önceki 51 soruluk ölçümde
+  large'ın nadir F1'i 0.50 çıkmıştı; büyük kümede 0.56. Küçük örneklemde rakamlar bu kadar oynayabiliyor.
 
 ## 8. Gerçek kullanım: kendi masa fotoğraflarımız
 - 5 fotoğraf, 45 elle işaretli nesne, her fotoğrafta 19 soru; 5'i görselde olmayan nesne
@@ -133,13 +136,13 @@ başarısını bu ölçütle raporluyor.
   - YOLO-World parfümü ve tıraş makinesini işaretliyor (yanlış).
 - **Söyle:** "Modeller görseli 640–960 piksele küçültüyor; telefon fotoğrafında pil birkaç düzine piksele iniyor.
   Ölçtük: görseli 2x2 dilime bölüp küçük nesneleri dilimlerden de alınca masa fotoğraflarında F1 0.82'den 0.84'e,
-  LVIS nadir nesnelerde 0.50'den 0.53'e çıkıyor ve pil her fotoğrafta bulunuyor
+  eski 50 görsellik LVIS nadir kümesinde 0.50'den 0.53'e çıkıyor ve pil her fotoğrafta bulunuyor
   (`outputs/masa_olcum/dilimleme.md`, `outputs/lvis_olcum/dilimleme_nadir.md`). Uygulamada henüz yok."
 - Tam görselde hiçbir modelin bulamadığı nesneler: açacak, deodorant, tıraş makinesi, parfüm (ve dilimlemesiz pil).
 
 ## 11. Ölçüm tabloları
-- `outputs/lvis_olcum/yontem_secimi.md`: aday modeller, sık / ara / nadir LVIS (tek yöntem seçimi)
-- `outputs/lvis_olcum/siklik_karsilastirma.md`: sık / ara / nadir ayrıntılı tablo (Grounding DINO, YOLO-World, OWLv2 base)
+- `outputs/OZET.md`: bütün ölçümlerin tek sayfalık özeti (buradan başla)
+- `outputs/lvis_olcum/ana_olcum.md`: **ana tablo**, 345 LVIS görseli, sık / ara / nadir, dört model
 - `outputs/masa_olcum/masa_olcum.md`: kendi masa fotoğraflarımız
 - `outputs/ceviri/karsilastirma.md`: çeviri yöntemleri (Marian + bağlam %93)
 - `outputs/lvis_olcum/dilimleme_nadir.md`, `outputs/masa_olcum/dilimleme.md`: küçük nesne denemesi

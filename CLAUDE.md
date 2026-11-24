@@ -1,6 +1,6 @@
 # CLAUDE.md: proje durumu
 
-Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-24 (GPU devrede: CUDA'lı PyTorch kuruldu, OWLv2 large ~28 sn → ~1.2 sn, sonuçlar CPU ile aynı). Sunum karşılaştırmalı olarak güncellendi (§8). Sıradaki odak: **kullanıcının seçeceği iş (kamera / dilimleme / LVIS nadir kümesini büyütme), sonra backend ve model** (§7).
+Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-24 (GPU devrede: CUDA'lı PyTorch kuruldu, OWLv2 large ~28 sn → ~1.2 sn, sonuçlar CPU ile aynı). Sunum karşılaştırmalı olarak güncellendi (§8). LVIS ana kümesi 345 görsele büyütüldü (§5, `outputs/OZET.md`). Sıradaki odak: **sunum slaytları, sonra kullanıcının seçeceği iş (kamera / dilimleme)** (§7).
 
 ## 1. Amaç
 - Ödev: **Açık Sözlük Nesne Tespiti**. Senaryolar: robotik, envanter, güvenlik.
@@ -103,26 +103,36 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
 - Testler node:test + jsdom ile yazılı.
 
 ## 5. Ölçüm sonuçları
-**LVIS v1 val.** Sınıflar: f > 100 eğitim görseli, c 11–100, **r ≤ 10 (nadir = "görülmemiş nesne" ölçütü)**. IoU ≥ 0.5.
-- `temel` küme: 50 görsel. `nadir` küme: 50 görsel, 51 nadir soru.
+**Tek giriş noktası: `outputs/OZET.md`** (bütün ölçümlerin özeti, kaynaklarıyla).
 
-| Model | LVIS sık F1 | LVIS nadir F1 | Aynı 20 nadir görsel | Masa fotoğrafları F1 | Olmayan nesneye kutu |
+**Veri setleri** (kullanıcı kararı 2026-11-24: her birinin tek görevi var):
+- **LVIS v1 val:** ana ölçüt.
+- **RPC market:** envanter.
+- **Masa fotoğrafları:** yalnızca gerçek kullanım örneği; ana ölçüt değil.
+
+**LVIS v1 val, ana küme** (`subset_ana.json`, 2026-11-24):
+- 345 görsel = temel 50 + val'deki tam etiketli nadir havuzun tamamı (295). 175 farklı nadir nesne, 303 nadir soru.
+- Sınıflar: f > 100 eğitim görseli, c 11–100, **r ≤ 10 (nadir = "görülmemiş nesne" ölçütü)**. IoU ≥ 0.5, Dengeli eşik.
+- Kaynak: `outputs/lvis_olcum/ana_olcum.md`. Köşeli parantez: bootstrap %95 aralığı.
+
+| Model | LVIS sık F1 | LVIS nadir F1 [%95] | Nadir bulunan soru | Olmayan nesneye kutu (LVIS) | Masa F1 |
 |---|---|---|---|---|---|
-| **OWLv2 large** | 0.57 | 0.50 | **18/20** | **0.82** (37/45) | %4–10 |
-| OWLv2 base | 0.55 | 0.50 | 16/20 | 0.71 (31/45) | %2–8 |
-| LLMDet base | — | — | 10/20 | 0.55 (21/45) | %8–22 |
-| Grounding DINO tiny | 0.48 | 0.21 | 10/20 | 0.51 (20/45) | %16–21 |
-| YOLO-World s | 0.39 | 0.08 | 4/20 | 0.50 (20/45) | %2–16 |
+| **OWLv2 large** | 0.58 | **0.56** [0.50–0.61] | %73 | %4 | **0.82** (37/45) |
+| OWLv2 base | 0.52 | 0.55 [0.49–0.61] | %67 | %4 | 0.71 (31/45) |
+| LLMDet base | — | — | — | — | 0.55 (21/45) |
+| Grounding DINO tiny | 0.43 | 0.33 [0.25–0.43] | %36 | %17 | 0.51 (20/45) |
+| YOLO-World s | 0.34 | 0.15 [0.11–0.20] | %16 | %3 | 0.50 (20/45) |
+
+- Eski 50'lik kümeler (`temel`, `nadir`) ve raporları tarihçe olarak duruyor. Orada large nadir F1 0.50, DINO 0.21, YOLO 0.08 çıkmıştı: küçük örneklem.
 
 - **Masa fotoğrafları:** kullanıcının 5 fotoğrafı, 45 elle işaretli nesne, her fotoğrafta 19 soru. Her model kendi en iyi eşiğinde değerlendirildi.
   - Large için en iyi eşik 0.17 (= Sıkı), F1 0.82.
   - Uygulamanın varsayılanı **Dengeli (0.14)**; bu eşikte F1 **0.78** (38/45, P 0.72). Sunumda/raporda hangi rakamın kullanıldığı açıkça yazılmalı.
 - **Hiçbir modelin tam görselde bulamadığı nesneler:** pil, açacak, deodorant, tıraş makinesi, parfüm. Bunlar yöntemin sınırları. Dilimlemeyle pil bulunuyor (aşağıda).
 - **Neden OWLv2 large?** (denetim 2026-11-24: iddialar kaynak dosyalarla karşılaştırıldı)
-  - Nadir nesnede base ile **berabere**, diğerlerinden açık ara iyi.
-    - LVIS nadir F1: large 0.50, base 0.50. Nadir nesneyi bulduğu soru: large %73, base %75 (`yontem_secimi.md`).
-    - Large yalnızca kısa testte önde: 20 nadir görselde 18/20, base 16/20. Ama aynı kısa testte F1'de base önde (0.60'a 0.56, `kisa_karsilastirma.md`).
-    - 51 soruda 1–2 soruluk farklar anlamlı değil.
+  - Nadir nesnede F1'de base ile **berabere** (0.56 / 0.55, aralıklar aynı), DINO ve YOLO'dan aralıklar çakışmayacak kadar iyi.
+    - Ana kümede large nadir nesneyi daha sık buluyor (%73'e %67), sık nesnede daha iyi (0.58'e 0.52).
+    - Eski küçük kümelerde bu farklar tersine dönebiliyordu (51 soru).
   - Kullanıcının fotoğraflarında açık ara önde.
   - Az kutu uyduruyor.
   - Örnekle arama özelliği var.
@@ -140,8 +150,10 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
 ## 6. Ölçüm altyapısı
 ```powershell
 $env:PYTHONIOENCODING="utf-8"
-.\.venv\Scripts\python.exe -m evaluation.lvis.evaluate_subset --model owlv2-large --subset nadir  # kutuları kaydeder
-.\.venv\Scripts\python.exe -m evaluation.lvis.frequency_report    # siklik_karsilastirma.md
+.\.venv\Scripts\python.exe -m evaluation.lvis.select_main --download   # subset_ana.json (345 görsel) + eksik görseller
+.\.venv\Scripts\python.exe -m evaluation.lvis.evaluate_subset --model owlv2-large --subset ana  # kutuları kaydeder (owlvit=base, grounding-dino, yolo-world)
+.\.venv\Scripts\python.exe -m evaluation.lvis.ana_rapor           # ana_olcum.md (ANA TABLO)
+.\.venv\Scripts\python.exe -m evaluation.lvis.frequency_report    # siklik_karsilastirma.md (eski 50'lik kümeler)
 .\.venv\Scripts\python.exe -m evaluation.lvis.candidate_report    # yontem_secimi.md
 .\.venv\Scripts\python.exe -m evaluation.lvis.short_compare       # kisa_karsilastirma.md
 .\.venv\Scripts\python.exe -m evaluation.masa.evaluate_masa --model owlv2-large --report
@@ -149,6 +161,11 @@ $env:PYTHONIOENCODING="utf-8"
 - Modeller: `owlvit`, `grounding-dino`, `yolo-world`. Adaylar (`evaluate_subset.CANDIDATES`): `owlv2-large`, `llmdet`.
 - Model düşük bir tabanda bir kez çalışır, kutular `outputs/lvis_olcum/tespitler_*.json` dosyalarına kaydedilir. Eşikler sonradan uygulanır.
 - **Ölçümde "owlvit" = OWLv2 base** (`evaluate_subset.baseline_detector`; eski kayıtlar böyle). Large `owlv2-large` adayıyla ölçülür. `calibrate_threshold.py --model owlvit` ise uygulamadaki large'ı kalibre eder.
+- Ana kümede süre (GPU): large 7 dk, base 2 dk, DINO 52 dk, YOLO-World ~1 saat (uyku hariç).
+  - DINO ve YOLO sorguları tek tek çalıştırıyor.
+  - YOLO ayrıca her sorguda CLIP'i CPU'da çalıştırıyor ve `yoloworld_service.py:78` tahminleyiciyi her seferinde sıfırlıyor (`predictor = None`). GPU kullanımı ~%1.
+  - Yalnızca hız sorunu, sonuçlar doğru. Yeniden ölçüm gerekirse önce bu düzeltilmeli.
+- Uzun ölçümlerde laptop uykuya geçince ölçüm duruyor: keep-awake iste, kapak açık kalsın.
 - Masa fotoğrafları repoda değil: `C:\Users\Harun\Desktop\gorseller`. Cevap anahtarı: `evaluation/masa/etiketler.json` (2, 5, 9, 11, 13.jpeg).
 - Görsel başına süre, **GPU'da (2026-11-24 ölçüldü, OWLv2 large)**:
   - tek nesne, yeni görsel: 1.21 sn;
@@ -164,7 +181,7 @@ $env:PYTHONIOENCODING="utf-8"
 0. ~~GPU'yu devreye al~~ **Tamam (2026-11-24)**, bkz. §3 ve §6. Kullanıcının karar vereceği seçenekler:
    - **Canlı kamera ile tespit:** ~1.2 sn/kare ile yapılabilir.
    - **Küçük nesne modu (dilimleme):** 2x2 dilim ≈ 5 forward ≈ ~6 sn olur (tahmin, ölçülmedi).
-   - **LVIS nadir kümesini büyütme:** `select_rare.py` COUNT=50'den val'deki tüm havuza çıkarılır. Bu 295 görsel, 175 nadir kategori, 303 nadir soru demek. ~245 yeni COCO görseli, ~40 MB indirme (onay gerekir). Mevcut 50'lik küme ve sonuçları korunur.
+   - ~~LVIS nadir kümesini büyütme~~ **Tamam (2026-11-24):** ana küme 345 görsel, 4 model ölçüldü (§5).
    - ~~Sunumun güncellenmesi~~ **Tamam (2026-11-24)**, bkz. §8.
 1. **Backend / model.** Adaylar:
    - Hız: GPU'yla çözüldü (yeni görsel ~1.2 sn). Kalan darboğaz CPU'daki Marian çevirisi (~0.7 sn); GPU'ya taşınabilir (ölçülmedi).

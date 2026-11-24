@@ -102,7 +102,11 @@ def questions(item: dict) -> tuple[list[str], list[str]]:
 
 
 def subset_path(tag: str) -> Path:
-    return SUBSET if tag == "temel" else Path(__file__).with_name(f"subset_{tag}_50.json")
+    """temel → subset_50.json · nadir → subset_nadir_50.json · ana → subset_ana.json (select_main.py)."""
+    if tag == "temel":
+        return SUBSET
+    named = Path(__file__).with_name(f"subset_{tag}.json")
+    return named if named.exists() else Path(__file__).with_name(f"subset_{tag}_50.json")
 
 
 def detections_path(tag: str, model: str) -> Path:
@@ -263,7 +267,7 @@ def main() -> None:
     parser.add_argument("--model", choices=(*MODELS, *CANDIDATES))
     parser.add_argument("--limit", type=int, default=None, help="yalnızca ilk N görsel (deneme)")
     parser.add_argument("--report", action="store_true")
-    parser.add_argument("--subset", default="temel", help="temel (subset_50.json) veya nadir (subset_nadir_50.json)")
+    parser.add_argument("--subset", default="temel", help="temel (subset_50.json), nadir (subset_nadir_50.json) veya ana (subset_ana.json)")
     args = parser.parse_args()
     if args.model:
         run_model(args.model, args.limit, args.subset)
