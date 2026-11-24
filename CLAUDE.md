@@ -1,6 +1,6 @@
 # CLAUDE.md: proje durumu
 
-Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-24 (GPU düzeltmesi: laptopta RTX 5060 var, PyTorch CPU sürümü kurulu). Sıradaki odak: **GPU'yu devreye almak, sonra backend ve model** (§7).
+Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-24 (GPU devrede: CUDA'lı PyTorch kuruldu, OWLv2 large ~28 sn → ~1.2 sn, sonuçlar CPU ile aynı). Sıradaki odak: **kullanıcının seçeceği iş (kamera / dilimleme / LVIS nadir kümesini büyütme / sunum), sonra backend ve model** (§7).
 
 ## 1. Amaç
 - Ödev: **Açık Sözlük Nesne Tespiti**. Senaryolar: robotik, envanter, güvenlik.
@@ -25,11 +25,12 @@ Kullanıcıyla **Türkçe** konuş. Son güncelleme: 2026-11-24 (GPU düzeltmesi
 - Kullanıcı uzun beklemeyi sevmiyor: uzun işlerde süre tahmini ver, ara sonuç paylaş, kısaltma yolu öner.
 
 ## 3. Çalıştırma
-Windows, PowerShell + Git Bash. Python `.venv` içinde: 3.14, torch 2.14 CPU, transformers 5.18, ultralytics 8.4.
-- **GPU var: NVIDIA GeForce RTX 5060 Laptop, 8 GB** (sürücü 582.05, `nvidia-smi` çalışıyor). Eski notlardaki "GPU yok" bilgisi yanlıştı.
-- Ama `.venv`'deki PyTorch **`2.14.1+cpu`**; `torch.cuda.is_available()` = False. Bu yüzden şimdiye kadarki **tüm süreler CPU süresi**.
-- `owlv2_service.py`, `grounding_dino_service.py`, `yoloworld_service.py` CUDA varsa onu kendiliğinden seçiyor; CUDA'lı PyTorch kurulunca kod değişikliği muhtemelen gerekmez (doğrulanmadı).
-- RTX 50 serisi (Blackwell) için CUDA 12.8+ derlemesi gerekir. Kurulum kullanıcı onayı bekliyor (§7.0).
+Windows, PowerShell + Git Bash. Python `.venv` içinde: 3.14, **torch 2.14.1+cu130 / torchvision 0.29.1+cu130**, transformers 5.18, ultralytics 8.4.
+- **GPU: NVIDIA GeForce RTX 5060 Laptop, 8 GB** (Blackwell, sm_120; sürücü 582.05, CUDA 13.0). `torch.cuda.is_available()` = True (2026-11-24).
+- Ders: daha önce CPU sürümü kuruluydu ve "GPU yok" diye yanlış teşhis edilmişti. Süreler beklenmedik derecede yavaşsa önce `nvidia-smi` ve `torch.cuda.is_available()` kontrol et.
+- Servisler CUDA varsa onu kendiliğinden seçiyor; GPU'ya geçişte kod değişikliği gerekmedi (147 test geçti, doğrulandı).
+- Kurulum: `pip install --no-deps torch==2.14.1 torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cu130`. cu128 dizininde Python 3.14 için en yeni sürüm 2.11. Geri dönüş: aynı komut `/whl/cpu` ile.
+- Çeviri modeli (Marian) hâlâ CPU'da: Türkçe sorguda istek başına ~0.7 sn ekliyor.
 
 ```powershell
 # Backend (proje kökünden) → http://127.0.0.1:8000  (/health, /models, /detect, /detect-by-example)
@@ -120,7 +121,7 @@ cd frontend; npm run test; npm run test:workspace; npm run typecheck; npm run li
   - Kullanıcının fotoğraflarında açık ara önde.
   - Az kutu uyduruyor.
   - Örnekle arama özelliği var.
-  - Bedeli: CPU'da görsel başına ~28 sn (base ~8 sn).
+  - Bedeli: GPU'da (RTX 5060) yeni görselde ~1.2 sn, aynı görselde tekrar arama ~0.05 sn, ~2 GB VRAM. CPU'da görsel başına ~28 sn idi (base ~8 sn).
 - **LLMDet:** yalnızca kısa testte ölçüldü; fark büyük olduğu için tam ölçüm gerekmiyor. ChatGPT'nin "LLMDet daha iyi" tablosu, LLMDet'in tüm sınıflardaki AP'sini OWLv2'nin nadir sınıflardaki AP'siyle karşılaştırıyordu.
 - **Diğer ölçümler:**
   - Çeviri: `outputs/ceviri/karsilastirma.md`. Marian+bağlam %93, opus-big %90, NLLB %77.
@@ -141,17 +142,24 @@ $env:PYTHONIOENCODING="utf-8"
 - Model düşük bir tabanda bir kez çalışır, kutular `outputs/lvis_olcum/tespitler_*.json` dosyalarına kaydedilir. Eşikler sonradan uygulanır.
 - **Ölçümde "owlvit" = OWLv2 base** (`evaluate_subset.baseline_detector`; eski kayıtlar böyle). Large `owlv2-large` adayıyla ölçülür. `calibrate_threshold.py --model owlvit` ise uygulamadaki large'ı kalibre eder.
 - Masa fotoğrafları repoda değil: `C:\Users\Harun\Desktop\gorseller`. Cevap anahtarı: `evaluation/masa/etiketler.json` (2, 5, 9, 11, 13.jpeg).
-- Görsel başına süre (**CPU'da**; GPU süreleri henüz ölçülmedi): YOLO ~1 sn · OWLv2 base ~8 sn · large ~28 sn · DINO tiny ~80 sn · LLMDet ~110 sn.
+- Görsel başına süre, **GPU'da (2026-11-24 ölçüldü, OWLv2 large)**:
+  - tek nesne, yeni görsel: 1.21 sn;
+  - aynı görselde tekrar arama: 0.05 sn;
+  - örnekle arama: 1.25 sn;
+  - model yükleme: 3 sn;
+  - masa ölçümü (19 sorgu): ~2.2 sn/görsel;
+  - LVIS nadir (50 görsel): toplam 55 sn.
+- Eski CPU süreleri: YOLO ~1 sn · OWLv2 base ~8 sn · large ~28 sn · DINO tiny ~80 sn · LLMDet ~110 sn. Diğer modellerin GPU süresi ölçülmedi.
+- GPU ve CPU çıktıları aynı: masa F1 0.82 (37/45) ve LVIS nadir kayıtları birebir. Puan farkı ≤ 0.0002, kutu farkı ≤ 0.1 px. Git'teki kayıtlar CPU kayıtları olarak bırakıldı.
 
 ## 7. Açık işler (sırayla)
-0. **GPU'yu devreye al (ilk iş).**
-   - `.venv`'e CUDA'lı PyTorch kur. Önce paket adı, boyut (~2,5–3 GB) ve kaynak (download.pytorch.org) söylenip onay alınmalı; Python 3.14 uyumunu kontrol et.
-   - `torch.cuda.is_available()` ile doğrula; OWLv2 large süresini ölç (ilk arama ve önbellekli arama ayrı).
-   - Masa fotoğraflarıyla sonuçların CPU ile aynı kaldığını doğrula (F1 0.82, 37/45). Fark varsa raporla.
-   - Sonra bu dosyadaki süreleri ve §5'teki "Bedeli" satırını güncelle.
-   - Ölçülen süreye göre kullanıcı karar verecek: **canlı kamera ile tespit**, **küçük nesne modu (dilimleme)**, sunumun güncellenmesi. Önerilen sıra bu; kamera yalnızca GPU süresi yeterliyse.
+0. ~~GPU'yu devreye al~~ **Tamam (2026-11-24)**, bkz. §3 ve §6. Kullanıcının karar vereceği seçenekler:
+   - **Canlı kamera ile tespit:** ~1.2 sn/kare ile yapılabilir.
+   - **Küçük nesne modu (dilimleme):** 2x2 dilim ≈ 5 forward ≈ ~6 sn olur (tahmin, ölçülmedi).
+   - **LVIS nadir kümesini büyütme:** `select_rare.py` COUNT=50'den val'deki tüm havuza çıkarılır. Bu 295 görsel, 175 nadir kategori, 303 nadir soru demek. ~245 yeni COCO görseli, ~40 MB indirme (onay gerekir). Mevcut 50'lik küme ve sonuçları korunur.
+   - **Sunumun güncellenmesi.**
 1. **Backend / model.** Adaylar:
-   - Hız: CPU'da ilk arama ~28 sn (görsel özellik önbelleğiyle sonrakiler ~1.6 sn). GPU'yla büyük ölçüde çözülmesi bekleniyor (ölçülmedi).
+   - Hız: GPU'yla çözüldü (yeni görsel ~1.2 sn). Kalan darboğaz CPU'daki Marian çevirisi (~0.7 sn); GPU'ya taşınabilir (ölçülmedi).
    - Hiçbir modelin bulamadığı nesneler (pil, açacak, deodorant, tıraş makinesi, parfüm): küçük nesne / dilimleme (SAHI) denemesi umut verici (§5).
    - Çeviri hataları ("fare", "bank", "tavuk bulyonu").
    - Her değişiklik ölçümle doğrulanmalı: LVIS nadir + masa fotoğrafları + market (RPC) kalibrasyonu; sonuç `config.py` yorumuna gerekçe olarak yazılır.
